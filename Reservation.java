@@ -7,6 +7,7 @@ public class Reservation {
   //associations
   private Guest guest;
   private List<Room> rooms;
+  private Hotel tacticalTrigavo;
   
   //operation contracts
   void modifyTime(Date start, Date end) {}
@@ -19,5 +20,8 @@ public class Reservation {
   }
   Double calculateTotal(){
     //return rate * nights
+  }
+  void cancel(){
+    //verify date and delete reservation from hotel->reservations and guest->reservations
   }
 }
