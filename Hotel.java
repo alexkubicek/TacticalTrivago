@@ -1,7 +1,7 @@
 public class Hotel {
   //associations
   List<Room> rooms;
-  List<Reservation> upcomingReservations;
+  List<Reservation> reservations;
   List<Payment> pastPayments;
   List<Person> accounts;
   
@@ -14,5 +14,8 @@ public class Hotel {
   }
   Reservation getReservation(String name, Date d){
     //find and return reservation with matching info
+  }
+  void printRecords() {
+    //print past reservations and payments sorted by date
   }
 }
