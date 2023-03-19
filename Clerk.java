@@ -1,2 +1,3 @@
-public class Clerk extends Person {
+public class Clerk extends User {
+	
 }
