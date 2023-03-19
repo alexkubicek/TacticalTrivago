@@ -1,6 +1,7 @@
 public abstract class User {
 	
   String nameFirst, nameLast;
+  AccountInformation account;
   
   String getFullName() {
 	  return nameFirst + " " + nameLast;
@@ -21,4 +22,5 @@ public abstract class User {
   void setNameLast(String n) {
 	  this.nameLast = n;
   }
+  
 }
