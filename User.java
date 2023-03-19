@@ -22,5 +22,8 @@ public abstract class User {
   void setNameLast(String n) {
 	  this.nameLast = n;
   }
+  AccountInformation geAccountInformation(){
+    return account;
+  }
   
 }

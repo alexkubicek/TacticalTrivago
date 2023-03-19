@@ -1,6 +1,11 @@
-public abstract class AccountInformation{
+public class AccountInformation{
 	private String username, password;
-	
+
+	public AccountInformation(String username, String password){
+		this.username = username;
+		this.password = password;
+	}
+
 	String getUername() {
 		return username;
 	}
