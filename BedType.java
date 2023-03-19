@@ -1,6 +1,6 @@
 public enum BedType {
-  TWIN{},
-  FULL{},
-  QUEEN{},
-  KING{};
+  TWIN,
+  FULL,
+  QUEEN,
+  KING;
 }
