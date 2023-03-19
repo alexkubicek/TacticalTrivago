@@ -23,4 +23,5 @@ public abstract class User {
 	  this.nameLast = n;
   }
   
+  
 }

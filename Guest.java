@@ -1,4 +1,4 @@
-public class Guest extends Person {
+public class Guest extends User {
   Boolean isCorporate;
   
   //associations
