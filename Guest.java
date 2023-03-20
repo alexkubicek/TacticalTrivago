@@ -1,4 +1,6 @@
-public class Guest extends Person {
+import java.util.List;
+
+public class Guest extends User {
   Boolean isCorporate;
   
   //associations
