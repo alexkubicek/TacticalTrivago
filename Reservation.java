@@ -1,3 +1,6 @@
+import java.util.Date;
+import java.util.List;
+
 public class Reservation {
   private Date startDate;
   private Date endDate;
@@ -15,7 +18,7 @@ public class Reservation {
 		startDate = s;
 		endDate = e;
 		rooms = r;
-		tacticalTrivago = h;
+		tacticalTrigavo = h;
 		
 		nights = (int)((endDate.getTime() - startDate.getTime()) / (1000*60*60*24));
 		rate = 0.0;
@@ -63,10 +66,10 @@ public class Reservation {
 		this.rooms = rooms;
 	}
 	public Hotel getTacticalTrivago() {
-		return tacticalTrivago;
+		return tacticalTrigavo;
 	}
 	public void setTacticalTrivago(Hotel tacticalTrivago) {
-		this.tacticalTrivago = tacticalTrivago;
+		this.tacticalTrigavo = tacticalTrivago;
 	}
 	
 	//operation contracts
@@ -97,9 +100,12 @@ public class Reservation {
 	public void cancel(){
 		Date today = new Date();
 		if(today.after(startDate)) {
-			tacticalTrivago.reservations.remove(this);
+			tacticalTrigavo.reservations.remove(this);
 		} else {
 			System.err.println("Cannot cancel past reservation");
 		}
 	}
+	public boolean containsDate(Date date) {
+		return (date.compareTo(startDate) >= 0 && date.compareTo(endDate) < 0);
+	  }
 }
