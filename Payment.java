@@ -1,15 +1,14 @@
 public class Payment {
-    Date d;
+    Date date;
     Double amount;
 
     //associations
-    //Person p;
     CreditCard method;
 
     //Constructors
     public Payment(){}
     public Payment(Date date, Double monDue, CreditCard newCreditCard){
-        this.d = date;
+        this.date = date;
         this.amount = monDue;
         this.method = newCreditCard;
     }
@@ -21,7 +20,7 @@ public class Payment {
     public void displayInformation(){
         System.out.print("Payment Required: " + amount +
                 "\nDue Date: ");
-        printDate(this.d);
+        printDate(this.date);
     }
 
     //for when the guest pays
@@ -29,15 +28,16 @@ public class Payment {
         this.amount = this.amount - guestPay;
     }
 
-    public void setD(Date d) {
-        this.d = d;
+    public void setDate(Date d) {
+        this.date = d;
     }
 
     public void setAmount(Double amount) {
         this.amount = amount;
     }
 
-    public void setMethod(CreditCard method) {
+    public void setPaymentMethod(CreditCard method) {
         this.method = method;
     }
+    CreditCard getPaymentMethod(){ return this.method; }
 }
