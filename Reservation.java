@@ -2,6 +2,11 @@ import java.util.Date;
 import java.util.List;
 
 public class Reservation {
+
+	private static int idCounter = 0;	// ID number that is unique to one reservation only
+	private final int reservationID;  // Counter will update the ID
+
+	boolean extendedStay = false; // Extended stay indicater ( If Integer nights > 5, then true)
   private Date startDate;
   private Date endDate;
   private Integer nights; //derived from start and end dates
@@ -15,6 +20,7 @@ public class Reservation {
   //constructors
 	public Reservation() {}
 	public Reservation(Date s, Date e, Guest g, List<Room> r, Hotel h) {
+		this.id = ++idCounter;
 		startDate = s;
 		endDate = e;
 		rooms = r;
@@ -29,6 +35,7 @@ public class Reservation {
 	
 	
 	//getters and setters
+	public int getId() { return this.id; }
 	public Date getStartDate() {
 		return startDate;
 	}

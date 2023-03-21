@@ -3,6 +3,7 @@ import java.util.Random;
 public class Admin extends User {
     private int AdminId;
 
+
     public Admin(int AdminId){
         super();
         this.AdminId = AdminId;
