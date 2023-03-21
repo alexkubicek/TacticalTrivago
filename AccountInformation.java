@@ -6,7 +6,7 @@ public class AccountInformation{
 		this.password = password;
 	}
 
-	String getUername() {
+	String getUsername() {
 		return username;
 	}
 	
