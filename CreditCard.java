@@ -3,22 +3,23 @@ public class CreditCard {
     Date expiration;
 
     //associations
-    Person p;
+    User user;
 
-    public CreditCard(){}
-    public CreditCard(Date date, Integer cardID, Integer threeFancyDigits){
+    public CreditCard(Date date, Integer cardID, Integer threeFancyDigits) {
         this.cardNum = cardID;
         this.expiration = date;
         this.cvv = threeFancyDigits;
     }
 
-    public static void printDate(Date c){
+    public static void printDate(Date c) {
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         System.out.println(f.format(c.getTime()));
     }
-    public void displayInfo(){
-        System.out.print("Card Number: " + this.cardNum + "\ncvv: "
-                + this.cvv + "Expiration Date: ");
+
+    public void displayCardInfo() {
+        System.out.println("Card Owner: " + user.getFullName());
+        System.out.print("Card Number: " + this.cardNum + "\nCVV: "
+                + this.cvv + "\nExpiration Date: ");
         printDate(this.expiration);
     }
 
@@ -34,7 +35,7 @@ public class CreditCard {
         this.expiration = expiration;
     }
 
-    public void setP(Person p) {
-        this.p = p;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
