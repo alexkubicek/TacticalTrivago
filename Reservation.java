@@ -5,6 +5,8 @@ public class Reservation {
 
 	private static int idCounter = 0;	// ID number that is unique to one reservation only
 	private final int reservationID;  // Counter will update the ID
+
+	boolean extendedStay = false; // Extended stay indicater ( If Integer nights > 5, then true)
   private Date startDate;
   private Date endDate;
   private Integer nights; //derived from start and end dates

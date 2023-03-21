@@ -3,7 +3,6 @@ import java.util.Random;
 public class Admin extends User {
     private int AdminId;
 
-    private ReservationHandler adminReserv;
 
     public Admin(int AdminId){
         super();

@@ -36,6 +36,18 @@ Public class ReservationHandler{
         r.checkOut();
     }
 
+    public void applyExtendedStayDiscount(Reservation reservation) {
+        int stayLength = reservation.getNights();
+        double baseRate = reservation.getRate();
+        double discountRate = 1.0;
 
+        // Apply a 10% discount for stays of 5 nights or more, and a 20% discount for stays of 7 nights or more
+        if (stayLength >= 5 && stayLength < 7) {
+            discountRate = 0.9;
+        } else if (stayLength >= 7) {
+            discountRate = 0.8;
+        }
+        reservation.setRate(baseRate * discountRate);
+    }
 
 }
