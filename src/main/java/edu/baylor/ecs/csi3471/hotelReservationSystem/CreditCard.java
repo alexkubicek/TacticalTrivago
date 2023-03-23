@@ -1,3 +1,8 @@
+package edu.baylor.ecs.csi3471.hotelReservationSystem;
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 public class CreditCard {
     Integer cardNum, cvv;
     Date expiration;

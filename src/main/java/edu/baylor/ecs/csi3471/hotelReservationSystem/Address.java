@@ -1,3 +1,7 @@
+package edu.baylor.ecs.csi3471.hotelReservationSystem;
+
+import java.util.Map;
+
 public class Address{
   private Integer buildingNumber, zipCode;
   private String street, city;

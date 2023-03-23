@@ -1,3 +1,5 @@
+package edu.baylor.ecs.csi3471.hotelReservationSystem;
+
 public enum QualityLevel {
   EXECUTIVE,
 	BUSINESS,

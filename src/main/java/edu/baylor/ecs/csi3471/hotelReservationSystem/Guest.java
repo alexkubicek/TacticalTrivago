@@ -1,7 +1,12 @@
+package edu.baylor.ecs.csi3471.hotelReservationSystem;
+
 import java.util.List;
 
 public class Guest extends User {
-  Boolean isCorporate;
+  public Guest(String nameFirst, String nameLast, AccountInformation info) {
+		super(nameFirst, nameLast, info);
+	}
+Boolean isCorporate;
   
   //associations
   List<Reservation> upcomingReservations;
