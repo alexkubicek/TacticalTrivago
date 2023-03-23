@@ -1,3 +1,8 @@
+package edu.baylor.ecs.csi3471.hotelReservationSystem;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Payment {
     Date date;
     Double amount;
@@ -31,10 +36,15 @@ public class Payment {
     public void setDate(Date d) {
         this.date = d;
     }
+    
+    public Date getDate() {
+        return this.date;
+    }
 
     public void setAmount(Double amount) {
         this.amount = amount;
     }
+    
 
     public void setPaymentMethod(CreditCard method) {
         this.method = method;

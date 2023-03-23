@@ -1,3 +1,5 @@
+package edu.baylor.ecs.csi3471.hotelReservationSystem;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;

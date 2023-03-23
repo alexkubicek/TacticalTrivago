@@ -1,3 +1,5 @@
+package edu.baylor.ecs.csi3471.hotelReservationSystem;
+
 import java.util.Date;
 import java.util.List;
 
