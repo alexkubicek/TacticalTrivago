@@ -1,3 +1,5 @@
+package edu.baylor.ecs.csi3471.hotelReservationSystem;
+
 public abstract class User {
   String nameFirst, nameLast;
   AccountInformation account;
