@@ -4,8 +4,8 @@ import java.util.List;
 
 public class Guest extends User {
     public Guest(String nameFirst, String nameLast, AccountInformation info) {
-		super(nameFirst, nameLast, info);
-	}
+		    super(nameFirst, nameLast, info);
+	  }
     private Boolean isCorporate;
   
     //associations

@@ -112,6 +112,7 @@ public class Reservation {
 		return (date.compareTo(startDate) >= 0 && date.compareTo(endDate) < 0);
 	  }
 
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
