@@ -5,8 +5,8 @@ public class Clerk extends User {
 	public Clerk(String nameFirst, String nameLast, AccountInformation account){
 		super(nameFirst, nameLast, account);
 	}
-	String getPublicInfo(){
+
+	public String getPublicInfo(){
 		return super.getFullName();
-		
 	}
 }

@@ -4,11 +4,16 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 public class CreditCard {
-    Integer cardNum, cvv;
-    Date expiration;
+    private Integer cardNum, cvv;
+    private Date expiration;
 
     //associations
-    User user;
+    private User user;
+
+    public User getUser() {return user;}
+    public Integer getCardNum(){return cardNum;}
+    public Integer getCvv(){return cvv;}
+    public Date getExpiration(){return expiration;}
 
     public CreditCard(Date date, Integer cardID, Integer threeFancyDigits) {
         this.cardNum = cardID;
