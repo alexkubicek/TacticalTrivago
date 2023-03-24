@@ -14,37 +14,13 @@ public class Hotel {
   private List<Payment> pastPayments;
   private List<User> accounts;
 
-  public List<Room> getRooms() {
-    return rooms;
-  }
-
-  public void setRooms(List<Room> rooms) {
-    this.rooms = rooms;
-  }
-
-  public List<Reservation> getReservations() {
-    return reservations;
-  }
-
-  public void setReservations(List<Reservation> reservations) {
-    this.reservations = reservations;
-  }
-
-  public List<Payment> getPastPayments() {
-    return pastPayments;
-  }
-
-  public void setPastPayments(List<Payment> pastPayments) {
-    this.pastPayments = pastPayments;
-  }
-
-  public List<User> getAccounts() {
-    return accounts;
-  }
-
-  public void setAccounts(List<User> accounts) {
-    this.accounts = accounts;
-  }
+  public List<Room> getRooms() {return rooms;}
+  public void setRooms(List<Room> rooms) {this.rooms = rooms;}
+  public List<Reservation> getReservations() {return reservations;}
+  public void setReservations(List<Reservation> reservations) {this.reservations = reservations;}
+  public List<Payment> getPastPayments() {return pastPayments;}public void setPastPayments(List<Payment> pastPayments) {this.pastPayments = pastPayments;}
+  public List<User> getAccounts() {return accounts;}
+  public void setAccounts(List<User> accounts) {this.accounts = accounts;}
 
   // operation contracts
   void displayRooms(Date start, Date end) {
@@ -91,18 +67,17 @@ public class Hotel {
 
   }
 
-  Reservation getReservation(String name, Date d) {
+  public Reservation getReservation(String name, Date d) {
     // find and return reservation with matching info
     for (Reservation reservation : reservations) {
       if (reservation.getGuest().getFullName().equals(name) && reservation.containsDate(d)) {
         return reservation;
       }
     }
-
     return null;
   }
 
-  void printRecords() {
+  public void printRecords() {
     // print past reservations and payments sorted by date
     List<Reservation> sortedReservations = new ArrayList<>(reservations);
     List<Payment> sortedPayments = new ArrayList<>(pastPayments);
@@ -126,7 +101,6 @@ public class Hotel {
     for (Payment payment : sortedPayments) {
       System.out.println(payment.toString());
     }
-    
   }
 
   private Room getRoom(int roomNumber) {
@@ -137,5 +111,19 @@ public class Hotel {
       }
     }
     return found;
+  }
+
+  public void applyExtendedStayDiscount(Reservation reservation) {
+    Integer stayLength = reservation.getNights();
+    Double baseRate = reservation.getRate();
+    Double discountRate = 1.0;
+
+    // Apply a 10% discount for stays of 5 nights or more, and a 20% discount for stays of 7 nights or more
+    if (stayLength >= 5 && stayLength < 7) {
+      discountRate = 0.9;
+    } else if (stayLength >= 7) {
+      discountRate = 0.8;
+    }
+    reservation.setRate(baseRate * discountRate);
   }
 }

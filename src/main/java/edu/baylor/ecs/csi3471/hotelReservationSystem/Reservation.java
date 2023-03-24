@@ -25,9 +25,7 @@ public class Reservation {
 		
 		nights = (int)((endDate.getTime() - startDate.getTime()) / (1000*60*60*24));
 		rate = 0.0;
-		rooms.forEach(t->{
-			rate += t.quality.getRate();
-		});
+		rooms.forEach(t->{rate += t.quality.getRate();});
 	}
 	
 	
@@ -95,7 +93,11 @@ public class Reservation {
 	
 	public Double calculateTotal(){
 		if(rate == null) {
-			
+			rate = 0.0;
+			rooms.forEach(r->{rate += r.quality.getRate();});
+		}
+		if(nights == null){
+			nights = (int)((endDate.getTime() - startDate.getTime()) / (1000*60*60*24));
 		}
 		return rate * nights;
 	}
