@@ -28,8 +28,7 @@ public class Admin extends User {
             password.append(chars.charAt(index));
         }
         AccountInformation acc = new AccountInformation(Username, password.toString());
-        Clerk C = new Clerk(nameFirst, nameLast, acc);
-        return C;
+        return new Clerk(nameFirst, nameLast, acc);
     }
     public void resetPassword(User user, String newPassword) {
         user.getAccountInformation().setPassword(newPassword);

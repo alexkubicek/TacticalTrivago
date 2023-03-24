@@ -1,23 +1,25 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class Room {
-  Integer roomNumber, bedCount;
-  Boolean smoking;
+  private Integer roomNumber, bedCount;
+  private Boolean smoking;
   
   //associations
-  List<Date> unavailable; //to track booked reservations
+  private List<Date> unavailable; //to track booked reservations
   QualityLevel quality;
-  BedType bedSizes;
+  private BedType bedSizes;
   CleanStatus clean_status;
 
-  int getroomNumber(){
+  public Integer getroomNumber(){
     return roomNumber;
   }
 
-  String getBedSize(){
+  public String getBedSize(){
     return bedSizes.toString();
   }
 
@@ -36,8 +38,11 @@ public class Room {
 
   public void bookRoom(Date start, Date end) {
     // Mark the room as unavailable for the given dates
-    unavailable.add(start);
-    unavailable.add(end);
+    Calendar c = new GregorianCalendar();
+    c.setTime(start);
+    while(!c.after(end)){
+      unavailable.add(c.getTime());
+      c.add(Calendar.DATE, 1);
+    }
   }
-  
 }

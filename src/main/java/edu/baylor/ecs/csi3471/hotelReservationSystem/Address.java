@@ -3,11 +3,11 @@ package edu.baylor.ecs.csi3471.hotelReservationSystem;
 import java.util.Map;
 
 public class Address{
-  private Integer buildingNumber, zipCode;
-  private String street, city;
-  private Map<String,String> state; //abbreviation mapped to full name
+  	private Integer buildingNumber, zipCode;
+  	private String street, city;
+  	private Map<String,String> state; //abbreviation mapped to full name
   
-  public Integer getBuildingNumber() {
+  	public Integer getBuildingNumber() {
 		return buildingNumber;
 	}
 	public void setBuildingNumber(Integer buildingNumber) {

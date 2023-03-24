@@ -9,10 +9,42 @@ import javax.naming.spi.ResolveResult;
 
 public class Hotel {
   // associations
-  List<Room> rooms;
-  List<Reservation> reservations;
-  List<Payment> pastPayments;
-  List<User> accounts;
+  private List<Room> rooms;
+  private List<Reservation> reservations;
+  private List<Payment> pastPayments;
+  private List<User> accounts;
+
+  public List<Room> getRooms() {
+    return rooms;
+  }
+
+  public void setRooms(List<Room> rooms) {
+    this.rooms = rooms;
+  }
+
+  public List<Reservation> getReservations() {
+    return reservations;
+  }
+
+  public void setReservations(List<Reservation> reservations) {
+    this.reservations = reservations;
+  }
+
+  public List<Payment> getPastPayments() {
+    return pastPayments;
+  }
+
+  public void setPastPayments(List<Payment> pastPayments) {
+    this.pastPayments = pastPayments;
+  }
+
+  public List<User> getAccounts() {
+    return accounts;
+  }
+
+  public void setAccounts(List<User> accounts) {
+    this.accounts = accounts;
+  }
 
   // operation contracts
   void displayRooms(Date start, Date end) {
