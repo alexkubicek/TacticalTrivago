@@ -5,8 +5,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import javax.naming.spi.ResolveResult;
-
 public class Hotel {
   // associations
   private List<Room> rooms;
@@ -22,8 +20,13 @@ public class Hotel {
   public List<User> getAccounts() {return accounts;}
   public void setAccounts(List<User> accounts) {this.accounts = accounts;}
 
+  public void displayAllRooms() {
+    for (Room r : rooms) {
+      System.out.println(r.toString());
+    }
+  }
   // operation contracts
-  void displayRooms(Date start, Date end) {
+  void displayAvailableRooms(Date start, Date end) {
     // display all rooms available for given dates
     List<Room> availableRooms = new ArrayList<>();
     // Find all available rooms for the given dates
@@ -38,7 +41,7 @@ public class Hotel {
     } else {
       System.out.println("Available rooms for " + start + " to " + end + ":");
       for (Room room : availableRooms) {
-        System.out.println("Room number: " + room.getroomNumber() + " - " + room.getBedSize());
+        System.out.println("Room number: " + room.getRoomNumber() + " - " + room.getBedSize());
       }
     }
 
@@ -106,7 +109,7 @@ public class Hotel {
   private Room getRoom(int roomNumber) {
     Room found = null;
     for (Room r : rooms) {
-      if (r.getroomNumber() == roomNumber) {
+      if (r.getRoomNumber() == roomNumber) {
         found = r;
       }
     }
