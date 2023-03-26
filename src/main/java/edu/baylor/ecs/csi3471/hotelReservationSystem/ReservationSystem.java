@@ -1,10 +1,12 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem;
 
 import java.io.*;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HotelCreationTest {
+public class ReservationSystem {
     private static Hotel hotel = new Hotel();
 
     static void loadRoomsFromCSV(String file) throws FileNotFoundException {
@@ -52,6 +54,33 @@ public class HotelCreationTest {
 
         System.out.println("Displaying all rooms in the hotel...");
         hotel.displayAllRooms();
+        
+        // MakeReservation UseCase
+        System.out.println("Displaying all rooms in the hotel...");
+        h.displayAllRooms();
+        
+        
+        Guest g = new Guest("Cool", "Guest", new AccountInformation("username", "password"));
+        System.out.println("Assume Cool Guest wants to reserve the room from April 5th, 2023 to April 13th, 2023");
+        
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.set(2023, 3, 5, 0, 0, 0);
+        Date start = calendar.getTime();
+        calendar.set(2023, 3, 13, 0, 0, 0);
+        Date end = calendar.getTime();
+        
+        System.out.println("Displaying available rooms in that time:");
+        h.displayAvailableRooms(start, end);
+        
+        System.out.println("Guest selects room 1");
+        ArrayList<Integer> selectedRooms = new ArrayList<Integer>();
+        selectedRooms.add(1);
+        
+        
+        h.reserveRoom(selectedRooms, start, end, g, h);
+        
+        System.out.println("Outputting guest's upcoming reservations:");
+        System.out.println(g.getUpcomingReservations());
 
 
         RoomReservationUI reservationInterface = new RoomReservationUI();
