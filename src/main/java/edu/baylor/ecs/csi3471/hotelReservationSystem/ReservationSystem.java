@@ -82,7 +82,6 @@ public class ReservationSystem {
         System.out.println("Outputting guest's upcoming reservations:");
         System.out.println(g.getUpcomingReservations());
 
-
         RoomReservationUI reservationInterface = new RoomReservationUI();
         reservationInterface.display(hotel);
     }
