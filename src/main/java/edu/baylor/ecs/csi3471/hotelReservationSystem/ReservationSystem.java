@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReservationSystem {
-    public static List<Room> loadCSV(String file) throws FileNotFoundException{
+    private static Hotel hotel = new Hotel();
+
+    static void loadRoomsFromCSV(String file) throws FileNotFoundException {
         List<Room> rooms = new ArrayList<>();
         BufferedReader reader = null;
         try {
@@ -21,7 +23,7 @@ public class ReservationSystem {
                 Room r = new Room(split);
                 rooms.add(r);
             }
-            return rooms;
+            hotel.setRooms(rooms);
         } catch (IOException e) {
             String hint = "";
             try {
@@ -40,19 +42,18 @@ public class ReservationSystem {
             }
         }
     }
-    
-    public static void main(String[] args) {
-        Hotel h = new Hotel();
-        List<Room> rooms = null;
 
-        try {
-            rooms = loadCSV("src/main/resources/testRooms1.csv");
+    public static void main(String[] args) {
+        // fill Hotel with rooms
+        try{
+            loadRoomsFromCSV("src/main/resources/testRooms1.csv");
         } catch (FileNotFoundException e) {
             System.err.println(e.getLocalizedMessage());
             System.exit(1);
         }
 
-        h.setRooms(rooms);
+        System.out.println("Displaying all rooms in the hotel...");
+        hotel.displayAllRooms();
         
         // MakeReservation UseCase
         System.out.println("Displaying all rooms in the hotel...");
@@ -80,7 +81,8 @@ public class ReservationSystem {
         
         System.out.println("Outputting guest's upcoming reservations:");
         System.out.println(g.getUpcomingReservations());
-        
-        
+
+        RoomReservationUI reservationInterface = new RoomReservationUI();
+        reservationInterface.display(hotel);
     }
 }
