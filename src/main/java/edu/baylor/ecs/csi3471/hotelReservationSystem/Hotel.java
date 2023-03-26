@@ -62,7 +62,11 @@ public class Hotel {
     // create reservation
     if (!selectedRooms.isEmpty()) {
       Reservation reservation = new Reservation(start, end, g, selectedRooms, h);
+      if(reservations == null) {
+    	  reservations = new ArrayList<Reservation>();
+      }
       reservations.add(reservation);
+      g.addUpcomingReservations(reservation);
       System.out.println("Reservation created successfully.");
     } else {
       System.out.println("Failed to create reservation. The selected rooms are not available for the selected dates.");

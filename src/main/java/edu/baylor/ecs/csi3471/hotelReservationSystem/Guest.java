@@ -1,5 +1,6 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Guest extends User {
@@ -16,6 +17,13 @@ public class Guest extends User {
     public void setCorporate(Boolean corporate) {isCorporate = corporate;}
 
     public void setUpcomingReservations(List<Reservation> upcomingReservations) {this.upcomingReservations = upcomingReservations;}
+    
+    public void addUpcomingReservations(Reservation reservation) {
+    	if(this.upcomingReservations == null) {
+    		this.upcomingReservations = new ArrayList<Reservation>();
+    	}
+    	this.upcomingReservations.add(reservation);
+    }
 
     public void setAddresses(List<Address> addresses) {this.addresses = addresses;}
 

@@ -22,6 +22,7 @@ public class Reservation {
 		endDate = e;
 		rooms = r;
 		tacticalTrigavo = h;
+		guest = g;
 		
 		nights = (int)((endDate.getTime() - startDate.getTime()) / (1000*60*60*24));
 		rate = 0.0;
@@ -123,6 +124,11 @@ public class Reservation {
 		return Objects.equals(startDate, that.startDate) && Objects.equals(endDate, that.endDate) && Objects.equals(guest, that.guest) && Objects.equals(rooms, that.rooms);
 	}
 
+	@Override
+	public String toString() {
+		return "Reservation [startDate=" + startDate + ", endDate=" + endDate + ", nights=" + nights + ", rate=" + rate
+				+ ", guest=" + guest.getFullName() + ", rooms=" + rooms + "]";
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(startDate, endDate, guest, rooms);

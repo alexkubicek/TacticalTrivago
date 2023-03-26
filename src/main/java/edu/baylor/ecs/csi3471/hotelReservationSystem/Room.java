@@ -58,11 +58,14 @@ public class Room {
   }
   public boolean isAvailable(Date start, Date end) {
     // Check if the room is available for the given dates
-    for (Date date : unavailable) {
-      if (date.compareTo(start) >= 0 && date.compareTo(end) <= 0) {
-        return false;
-      }
-    }
+	  if(unavailable != null) {
+		  for (Date date : unavailable) {
+		      if (date.compareTo(start) >= 0 && date.compareTo(end) <= 0) {
+		        return false;
+		      }
+		  }
+	  }
+    
     return true;
   }
 
