@@ -1,10 +1,12 @@
+package edu.baylor.ecs.csi3471.hotelReservationSystem;
+
 import java.util.Random;
 
 public class Admin extends User {
     private int AdminId;
 
-    public Admin(int AdminId){
-        super();
+    public Admin(int AdminId, String nameFirst, String nameLast, AccountInformation account){
+        super(nameFirst, nameLast, account);
         this.AdminId = AdminId;
     }
 
@@ -26,10 +28,9 @@ public class Admin extends User {
             password.append(chars.charAt(index));
         }
         AccountInformation acc = new AccountInformation(Username, password.toString());
-        Clerk C = new Clerk(nameFirst, nameLast, acc);
-        return C;
+        return new Clerk(nameFirst, nameLast, acc);
     }
     public void resetPassword(User user, String newPassword) {
-        user.geAccountInformation().setPassword(newPassword);
+        user.getAccountInformation().setPassword(newPassword);
     }
 }

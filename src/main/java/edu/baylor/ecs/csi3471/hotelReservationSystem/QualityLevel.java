@@ -1,19 +1,8 @@
-public enum QualityLevel {
-  EXECUTIVE,
-	BUSINESS,
-	COMFORT,
-	ECONOMY;
+package edu.baylor.ecs.csi3471.hotelReservationSystem;
 
-	Double getRate() {
-		if(EXECUTIVE != null) {
-			return 10.0; //change when decided
-		} else if(BUSINESS != null) {
-			return 7.0;
-		} else if(COMFORT != null) {
-			return 5.0;
-		}else if(ECONOMY != null) {
-			return 3.0;
-		}
-		return null;
-	}
+public enum QualityLevel {
+	EXECUTIVE(100.0), BUSINESS(80.0), COMFORT(70.0), ECONOMY(60.0);
+	private final Double maxDailyRate;
+	QualityLevel(Double r){ maxDailyRate=r;}
+	Double getRate() {return maxDailyRate;}
 }

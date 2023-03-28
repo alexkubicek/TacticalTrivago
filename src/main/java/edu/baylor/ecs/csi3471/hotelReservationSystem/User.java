@@ -1,36 +1,39 @@
-public abstract class User {
-  String nameFirst, nameLast;
-  AccountInformation account;
+package edu.baylor.ecs.csi3471.hotelReservationSystem;
 
+public abstract class User {
+  private String nameFirst, nameLast;
+  private AccountInformation account;
+
+  public User(){}
   public User(String nameFirst, String nameLast, AccountInformation info){
       this.nameFirst = nameFirst;
       this.nameLast = nameLast;
       this.account = info;
   }
   
-  String getFullName() {
+  public String getFullName() {
 	  return nameFirst + " " + nameLast;
   }
   
-  String getNameFirst() {
+  public String getNameFirst() {
 	  return nameFirst;
   }
   
-  String getNameLast() {
+  public String getNameLast() {
 	  return nameLast;
   }
   
-  void setNameFirst(String n) {
+  public void setNameFirst(String n) {
 	  this.nameFirst = n;
   }
   
-  void setNameLast(String n) {
+  public void setNameLast(String n) {
 	  this.nameLast = n;
   }
-  AccountInformation getAccountInformation(){
+  public AccountInformation getAccountInformation(){
     return account;
   }
-  void setAccountInformation(AccountInformation info){
+  public void setAccountInformation(AccountInformation info){
       this.account = info;
   }
 }

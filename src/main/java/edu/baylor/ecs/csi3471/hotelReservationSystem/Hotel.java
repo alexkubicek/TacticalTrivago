@@ -1,19 +1,32 @@
+package edu.baylor.ecs.csi3471.hotelReservationSystem;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import javax.naming.spi.ResolveResult;
-
 public class Hotel {
   // associations
-  List<Room> rooms;
-  List<Reservation> reservations;
-  List<Payment> pastPayments;
-  List<User> accounts;
+  private List<Room> rooms;
+  private List<Reservation> reservations;
+  private List<Payment> pastPayments;
+  private List<User> accounts;
 
+  public List<Room> getRooms() {return rooms;}
+  public void setRooms(List<Room> rooms) {this.rooms = rooms;}
+  public List<Reservation> getReservations() {return reservations;}
+  public void setReservations(List<Reservation> reservations) {this.reservations = reservations;}
+  public List<Payment> getPastPayments() {return pastPayments;}public void setPastPayments(List<Payment> pastPayments) {this.pastPayments = pastPayments;}
+  public List<User> getAccounts() {return accounts;}
+  public void setAccounts(List<User> accounts) {this.accounts = accounts;}
+
+  public void displayAllRooms() {
+    for (Room r : rooms) {
+      System.out.println(r.toString());
+    }
+  }
   // operation contracts
-  void displayRooms(Date start, Date end) {
+  void displayAvailableRooms(Date start, Date end) {
     // display all rooms available for given dates
     List<Room> availableRooms = new ArrayList<>();
     // Find all available rooms for the given dates
@@ -28,7 +41,7 @@ public class Hotel {
     } else {
       System.out.println("Available rooms for " + start + " to " + end + ":");
       for (Room room : availableRooms) {
-        System.out.println("Room number: " + room.getroomNumber() + " - " + room.getBedSize());
+        System.out.println("Room number: " + room.getRoomNumber() + " - " + room.getBedSize());
       }
     }
 
@@ -49,7 +62,11 @@ public class Hotel {
     // create reservation
     if (!selectedRooms.isEmpty()) {
       Reservation reservation = new Reservation(start, end, g, selectedRooms, h);
+      if(reservations == null) {
+    	  reservations = new ArrayList<Reservation>();
+      }
       reservations.add(reservation);
+      g.addUpcomingReservations(reservation);
       System.out.println("Reservation created successfully.");
     } else {
       System.out.println("Failed to create reservation. The selected rooms are not available for the selected dates.");
@@ -57,18 +74,17 @@ public class Hotel {
 
   }
 
-  Reservation getReservation(String name, Date d) {
+  public Reservation getReservation(String name, Date d) {
     // find and return reservation with matching info
     for (Reservation reservation : reservations) {
       if (reservation.getGuest().getFullName().equals(name) && reservation.containsDate(d)) {
         return reservation;
       }
     }
-
     return null;
   }
 
-  void printRecords() {
+  public void printRecords() {
     // print past reservations and payments sorted by date
     List<Reservation> sortedReservations = new ArrayList<>(reservations);
     List<Payment> sortedPayments = new ArrayList<>(pastPayments);
@@ -92,16 +108,29 @@ public class Hotel {
     for (Payment payment : sortedPayments) {
       System.out.println(payment.toString());
     }
-    
   }
 
   private Room getRoom(int roomNumber) {
     Room found = null;
     for (Room r : rooms) {
-      if (r.getroomNumber() == roomNumber) {
+      if (r.getRoomNumber() == roomNumber) {
         found = r;
       }
     }
     return found;
+  }
+
+  public void applyExtendedStayDiscount(Reservation reservation) {
+    Integer stayLength = reservation.getNights();
+    Double baseRate = reservation.getRate();
+    Double discountRate = 1.0;
+
+    // Apply a 10% discount for stays of 5 nights or more, and a 20% discount for stays of 7 nights or more
+    if (stayLength >= 5 && stayLength < 7) {
+      discountRate = 0.9;
+    } else if (stayLength >= 7) {
+      discountRate = 0.8;
+    }
+    reservation.setRate(baseRate * discountRate);
   }
 }
