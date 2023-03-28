@@ -1,5 +1,7 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem;
 
+import java.util.Objects;
+
 public abstract class User {
   private String nameFirst, nameLast;
   private AccountInformation account;
@@ -35,5 +37,18 @@ public abstract class User {
   }
   public void setAccountInformation(AccountInformation info){
       this.account = info;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof User)) return false;
+    User user = (User) o;
+    return Objects.equals(nameFirst, user.nameFirst) && Objects.equals(nameLast, user.nameLast) && Objects.equals(account, user.account);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(nameFirst, nameLast, account);
   }
 }
