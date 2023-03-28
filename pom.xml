@@ -37,6 +37,11 @@
       <version>5.9.2</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+    	<groupId>8-XML</groupId>
+    	<artifactId>8-XML</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
   </dependencies>
 
   <build>
