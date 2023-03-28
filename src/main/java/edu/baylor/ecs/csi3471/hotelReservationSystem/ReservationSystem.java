@@ -6,9 +6,13 @@ import java.util.*;
 public class ReservationSystem {
     private static Hotel hotel = new Hotel();
 
-    static void loadRoomsFromCSV(String file) throws FileNotFoundException {
+    public static void loadRoomsFromCSV(String file) throws FileNotFoundException {
         List<Room> rooms = new ArrayList<>();
         BufferedReader reader = null;
+        if(!file.endsWith(".csv")){
+            System.err.println("file must be csv");
+            throw new RuntimeException();
+        }
         try {
             reader = new BufferedReader(new FileReader(file));
             // ignore header line

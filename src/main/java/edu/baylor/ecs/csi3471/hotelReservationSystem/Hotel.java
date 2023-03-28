@@ -16,7 +16,8 @@ public class Hotel {
   public void setRooms(List<Room> rooms) {this.rooms = rooms;}
   public List<Reservation> getReservations() {return reservations;}
   public void setReservations(List<Reservation> reservations) {this.reservations = reservations;}
-  public List<Payment> getPastPayments() {return pastPayments;}public void setPastPayments(List<Payment> pastPayments) {this.pastPayments = pastPayments;}
+  public List<Payment> getPastPayments() {return pastPayments;}
+  public void setPastPayments(List<Payment> pastPayments) {this.pastPayments = pastPayments;}
   public List<User> getAccounts() {return accounts;}
   public void setAccounts(List<User> accounts) {this.accounts = accounts;}
 
