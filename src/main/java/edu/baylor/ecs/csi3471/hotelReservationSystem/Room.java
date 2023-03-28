@@ -1,5 +1,6 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -14,6 +15,16 @@ public class Room {
   QualityLevel quality;
   private BedType bedSizes;
   CleanStatus clean_status;
+  
+  public Room(Integer roomNumber, Integer bedCount, Boolean smoking, QualityLevel quality, BedType bedSizes) {
+	    this.roomNumber = roomNumber;
+	    this.bedCount = bedCount;
+	    this.smoking = smoking;
+	    this.quality = quality;
+	    this.bedSizes = bedSizes;
+	    this.unavailable = new ArrayList<>();
+	    this.clean_status = CleanStatus.CLEAN; // default clean status
+	}
 
   public Room(String[] line){
     // header labels assumed: roomNumber,numberOfBeds,smoking,qualityLevel,bedType
