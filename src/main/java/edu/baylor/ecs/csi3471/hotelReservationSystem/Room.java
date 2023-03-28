@@ -65,7 +65,6 @@ public class Room {
 		      }
 		  }
 	  }
-    
     return true;
   }
 
@@ -78,5 +77,4 @@ public class Room {
       c.add(Calendar.DATE, 1);
     }
   }
-
 }
