@@ -1,7 +1,5 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem;
 
-import org.junit.platform.suite.api.IncludeClassNamePatterns;
-import org.junit.platform.suite.api.SelectPackages;
 import org.junit.runner.RunWith;
 import org.junit.runner.JUnitCore;
 import org.junit.runners.JUnit4;
@@ -16,6 +14,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
+import org.junit.platform.suite.api.IncludeClassNamePatterns;
 import org.junit.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

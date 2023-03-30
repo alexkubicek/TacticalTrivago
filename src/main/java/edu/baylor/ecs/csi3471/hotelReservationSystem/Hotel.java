@@ -20,6 +20,14 @@ public class Hotel {
   public void setPastPayments(List<Payment> pastPayments) {this.pastPayments = pastPayments;}
   public List<User> getAccounts() {return accounts;}
   public void setAccounts(List<User> accounts) {this.accounts = accounts;}
+  
+  public void addAccounts(List<? extends User> accounts) {
+	  if(this.accounts == null) {
+		  this.accounts = new ArrayList<User>();
+	  }
+	  for(User u : accounts) {
+	  this.accounts.add(u);}
+  }
 
   public void displayAllRooms() {
     for (Room r : rooms) {
