@@ -45,7 +45,6 @@ public class Hotel {
         System.out.println("Room number: " + room.getRoomNumber() + " - " + room.getBedSize());
       }
     }
-
   }
 
   void reserveRoom(List<Integer> roomNumbers, Date start, Date end, Guest g, Hotel h) {

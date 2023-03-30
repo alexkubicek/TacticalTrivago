@@ -36,8 +36,12 @@ public class RoomReservationUI extends AbstractTableModel {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 600);
 
+        //JButton inits
         JButton reserveButton = new JButton("Reserve selected room");
         reserveButton.setVisible(true);
+        // Add User
+        JButton addUserButton = new JButton("Add Clerk/Admin");
+        addUserButton.setVisible(true);
         reserveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -76,10 +80,26 @@ public class RoomReservationUI extends AbstractTableModel {
             }
         });
 
+        addUserButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                });
+            }
+        });
+
         JTable table = new JTable(this);
         JTableHeader header = table.getTableHeader();
         header.setTable(table);
         header.setVisible(true);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(reserveButton);
+        buttonPanel.add(addUserButton);
 
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -88,7 +108,7 @@ public class RoomReservationUI extends AbstractTableModel {
 
         JScrollPane scrollPane = new JScrollPane(panel);
         frame.add(scrollPane);
-        frame.add(reserveButton, BorderLayout.SOUTH);
+        frame.add(buttonPanel, BorderLayout.SOUTH);
 
         frame.setVisible(true);
     }
