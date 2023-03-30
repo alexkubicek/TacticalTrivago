@@ -44,3 +44,20 @@ public class CreditCard {
         this.user = user;
     }
 }
+
+/*
+@Test
+ public void validCardNum(CreditCard){
+    do something with size if too large or too small then invalid
+}
+@Test
+ public void Cvv(CreditCard){
+    do something with size and input specifics to make sure its a real Cvv
+ }
+
+ @Test
+ public void UserName(CreditCard){
+    do something with size and input specifics to make sure it follows
+    username rules if there is a set max length or if the username already exists
+ }
+*/
