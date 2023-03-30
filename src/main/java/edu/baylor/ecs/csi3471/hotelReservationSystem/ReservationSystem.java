@@ -43,9 +43,56 @@ public class ReservationSystem {
             }
         }
     }
+    
+    public static void loadGuestsFromCSV(String file) throws FileNotFoundException {
+        List<Guest> guests = new ArrayList<>();
+        BufferedReader reader = null;
+        if(!file.endsWith(".csv")){
+            System.err.println("file must be csv");
+            throw new RuntimeException();
+        }
+        try {
+            reader = new BufferedReader(new FileReader(file));
+            // ignore header line
+            String line;
+            reader.readLine();
+            // read each row
+            while ((line = reader.readLine()) != null) {
+                String[] split = line.split(",");
+                Guest g = new Guest(split);
+                guests.add(g);
+            }
+            
+            hotel.addAccounts(guests);
+            
+        } catch (IOException e) {
+            String hint;
+            try {
+                hint = "Current dir is: " + new File(".").getCanonicalPath();
+            } catch (Exception local) {
+                hint = local.getLocalizedMessage();
+            }
+            throw new FileNotFoundException(e.getLocalizedMessage() + "\n" + hint);
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
+        }
+    }
 
     public static void main(String[] args) {
         // fill Hotel with rooms
+        try{
+            loadGuestsFromCSV("src/main/resources/testUsers1.csv");
+        } catch (FileNotFoundException e) {
+            System.err.println(e.getLocalizedMessage());
+            System.exit(1);
+        }
+        
         try{
             loadRoomsFromCSV("src/main/resources/testRooms1.csv");
         } catch (FileNotFoundException e) {
