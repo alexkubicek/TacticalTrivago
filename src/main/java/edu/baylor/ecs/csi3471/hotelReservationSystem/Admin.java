@@ -17,7 +17,7 @@ public class Admin extends User {
         this.AdminId = id;
     }
 
-    public Clerk CreateClerk(String Username, String nameFirst, String nameLast){
+    public Clerk createClerk(String Username, String nameFirst, String nameLast){
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";  // Characters to use for password
         StringBuilder password = new StringBuilder();  // StringBuilder to store generated password
         Random rnd = new Random();
@@ -28,8 +28,7 @@ public class Admin extends User {
             password.append(chars.charAt(index));
         }
         AccountInformation acc = new AccountInformation(Username, password.toString());
-        Clerk C = new Clerk(nameFirst, nameLast, acc);
-        return C;
+        return new Clerk(nameFirst, nameLast, acc);
     }
     public void resetPassword(User user, String newPassword) {
         user.getAccountInformation().setPassword(newPassword);

@@ -1,38 +1,54 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem;
 
-public abstract class User {
-  String nameFirst, nameLast;
-  AccountInformation account;
+import java.util.Objects;
 
+public abstract class User {
+  private String nameFirst, nameLast;
+  private AccountInformation account;
+
+  public User(){}
   public User(String nameFirst, String nameLast, AccountInformation info){
       this.nameFirst = nameFirst;
       this.nameLast = nameLast;
       this.account = info;
   }
   
-  String getFullName() {
+  public String getFullName() {
 	  return nameFirst + " " + nameLast;
   }
   
-  String getNameFirst() {
+  public String getNameFirst() {
 	  return nameFirst;
   }
   
-  String getNameLast() {
+  public String getNameLast() {
 	  return nameLast;
   }
   
-  void setNameFirst(String n) {
+  public void setNameFirst(String n) {
 	  this.nameFirst = n;
   }
   
-  void setNameLast(String n) {
+  public void setNameLast(String n) {
 	  this.nameLast = n;
   }
-  AccountInformation getAccountInformation(){
+  public AccountInformation getAccountInformation(){
     return account;
   }
-  void setAccountInformation(AccountInformation info){
+  public void setAccountInformation(AccountInformation info){
       this.account = info;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof User)) return false;
+    User user = (User) o;
+    return Objects.equals(nameFirst, user.nameFirst) && Objects.equals(nameLast, user.nameLast) && Objects.equals(account, user.account);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(nameFirst, nameLast, account);
   }
 }
