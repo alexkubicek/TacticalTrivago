@@ -142,4 +142,8 @@ public class Hotel {
     }
     reservation.setRate(baseRate * discountRate);
   }
+  
+  public void addRoom(Room room) {
+      rooms.add(room);
+  }
 }
