@@ -3,6 +3,9 @@ package edu.baylor.ecs.csi3471.hotelReservationSystem;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.JTableHeader;
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,19 +59,30 @@ public class RoomReservationUI extends AbstractTableModel {
                         JLabel label1 = new JLabel("Select desired check-in date:");
                         label1.setAlignmentX(Component.LEFT_ALIGNMENT);
                         panel.add(label1);
-                        // fix this!!!
+                        // Calender class
+                        JDateChooser dateChooser = new JDateChooser();
+                        dateChooser.setDateFormatString("MM/dd/yyyy");
+                        panel.add(dateChooser);
+                        /* Fix this!!
                         String[] availableStartDates = { "today", "tomorrow" };
                         JComboBox<String> startDateOptions = new JComboBox<String>(availableStartDates);
                         panel.add(startDateOptions);
-
+                         */
                         JLabel label2 = new JLabel("Select desired check-out date:");
                         label2.setAlignmentX(Component.LEFT_ALIGNMENT);
                         panel.add(label2);
-                        // fix this!!!
+
+                        JDateChooser checkDateChooser = new JDateChooser();
+                        checkDateChooser.setDateFormatString("MM/dd/yyyy");
+                        panel.add(checkDateChooser);
+
+                        /* fix this!!!
                         String[] availableEndDates = { "tomorrow", "the next day", "the day after that" };
                         JComboBox<String> availableEndOptions = new JComboBox<String>(availableEndDates);
                         availableEndOptions.setVisible(true);
                         panel.add(availableEndOptions);
+
+                         */
 
                         JButton confirmButton = new JButton("Submit reservation");
                         panel.add(confirmButton);
@@ -86,6 +100,15 @@ public class RoomReservationUI extends AbstractTableModel {
                 javax.swing.SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
+                        JDialog dialog = new JDialog();
+                        dialog.setSize(400, 200);
+                        dialog.setVisible(true);
+                        JPanel panel = new JPanel();
+
+                        JLabel label1 = new JLabel("Choose User Type:");
+                        label1.setAlignmentX(Component.LEFT_ALIGNMENT);
+                        panel.add(label1);
+
 
                     }
                 });
