@@ -52,3 +52,22 @@ public class Payment {
     }
     CreditCard getPaymentMethod(){ return this.method; }
 }
+
+/*
+@Test       CAN BE USED FOR SAME FORMAT FOR DATE SET AS WELL
+ public void dateUpdate(Payment){
+    do something with date to make sure it can happen within the future
+    (basically that no unreasonable dates are entered)
+}
+@Test
+ public void paymentUpdate(CreditCard){
+    do something to make sure that the guest cant have money withdrawn if it
+    results in a negative value
+ }
+
+ @Test
+ public void UserName(CreditCard){
+    do something with size and input specifics to make sure it follows
+    username rules if there is a set max length or if the username already exists
+ }
+*/
