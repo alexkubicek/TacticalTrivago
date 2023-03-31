@@ -3,6 +3,7 @@ package edu.baylor.ecs.csi3471.hotelReservationSystem;
 import java.awt.FlowLayout;
 import java.io.IOException;
 import javax.swing.*;
+import java.awt.GridLayout;
 
 public class HotelApp extends javax.swing.JFrame{
 	private JTabbedPane tabs;
@@ -19,8 +20,28 @@ public class HotelApp extends javax.swing.JFrame{
         JTable customTable = new JTable(customTableModel);
         JScrollPane scrollPane = new JScrollPane(customTable);
         pan2.add(scrollPane);
-        tabs.addTab("add rooms", null, pan1);
+        JPanel pan3 = new JPanel();
+        JPanel userFormPanel = new JPanel(new GridLayout(0, 2)); // 2 columns
+        userFormPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Add padding
+
+
+        userFormPanel.add(new JLabel("First Name: "));
+        userFormPanel.add(new JTextField(20));
+        userFormPanel.add(new JLabel("Last Name: "));
+        userFormPanel.add(new JTextField(20));
+        userFormPanel.add(new JLabel("ID: "));
+        userFormPanel.add(new JTextField(20));
+        userFormPanel.add(new JLabel("Password: "));
+        userFormPanel.add(new JTextField(20));
+        userFormPanel.add(new JLabel("Type: "));
+        JComboBox<String> genderComboBox = new JComboBox<>(new String[]{"Admin", "Clerk", "Other"});
+        userFormPanel.add(genderComboBox);
+
+        pan3.add(userFormPanel);
+
+        tabs.addTab("Add rooms", null, pan1);
         tabs.addTab("Reserve rooms", null, pan2);
+        tabs.addTab("Add User", null, pan3);
         add(tabs);
         this.pack();
     }
