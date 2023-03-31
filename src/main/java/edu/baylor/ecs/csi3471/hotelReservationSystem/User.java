@@ -32,12 +32,16 @@ public abstract class User {
   public void setNameLast(String n) {
 	  this.nameLast = n;
   }
-  public AccountInformation getAccountInformation(){
-    return account;
-  }
+  public AccountInformation getAccountInformation(){return account;}
+  //TODO Adding a temporary getter for CSV, for permissions we might want
+  // to get rid of this but we need to figure out how to access accounts for csv
+  public String getAccountPassword(){return account.getPassword();}
+  public String getAccountUsername(){return account.getUsername();}
+
   public void setAccountInformation(AccountInformation info){
       this.account = info;
   }
+
 
   @Override
   public boolean equals(Object o) {
