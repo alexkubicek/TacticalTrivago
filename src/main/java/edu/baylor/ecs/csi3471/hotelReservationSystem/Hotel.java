@@ -10,7 +10,14 @@ public class Hotel {
   private List<Room> rooms;
   private List<Reservation> reservations;
   private List<Payment> pastPayments;
+
+  //TODO Decide if we are going to make everything extend user or have clerk, guest, and admin be separate
+  //depending on choice DELETE the list of guests below
+  private List<Guest> guests;
   private List<User> accounts;
+
+  public List<Guest> getGuests() {return guests;}
+  public void setGuests(List<Guest> guests) {this.guests = guests;}
 
   public List<Room> getRooms() {return rooms;}
   public void setRooms(List<Room> rooms) {this.rooms = rooms;}

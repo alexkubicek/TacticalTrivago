@@ -1,5 +1,7 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem;
 
+import com.toedter.calendar.JDateChooser;
+
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.JTableHeader;
@@ -38,6 +40,41 @@ public class RoomReservationUI extends AbstractTableModel {
 
         JButton reserveButton = new JButton("Reserve selected room");
         reserveButton.setVisible(true);
+
+        // Add User
+        JButton addUserButton = new JButton("Add Clerk/Admin");
+        addUserButton.setVisible(true);
+
+        //TextField for First and Last Name
+        JTextField firstNameField = new JTextField(20);
+        JLabel firstNameLabel = new JLabel("First Name:");
+        firstNameLabel.setLabelFor(firstNameField);
+
+        JTextField lastNameField = new JTextField(20);
+        JLabel lastNameLabel = new JLabel("Last Name:");
+        lastNameLabel.setLabelFor(lastNameField);
+        //--------------------------------------------------//
+
+        //TextField for admin attributes (ID, Password)
+        JTextField adminIdField = new JTextField(20);
+        JLabel adminIdLabel = new JLabel("ID:");
+        adminIdLabel.setLabelFor(adminIdField);
+
+        JTextField adminPasswordField = new JTextField(20);
+        JLabel adminPasswordLabel = new JLabel("Password:");
+        adminPasswordLabel.setLabelFor(adminPasswordField);
+        // --------------------------------------------//
+
+        //TextField for Generic Account Information
+        JTextField accIdField = new JTextField(20);
+        JLabel accIdLabel = new JLabel("Admin ID:");
+        accIdLabel.setLabelFor(accIdField);
+
+        JTextField accPasswordField = new JTextField(20);
+        JLabel accPasswordLabel = new JLabel("Admin Password:");
+        accPasswordLabel.setLabelFor(accPasswordField);
+
+
         reserveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -53,18 +90,29 @@ public class RoomReservationUI extends AbstractTableModel {
                         label1.setAlignmentX(Component.LEFT_ALIGNMENT);
                         panel.add(label1);
                         // fix this!!!
+                        JDateChooser dateChooser = new JDateChooser();
+                        dateChooser.setDateFormatString("MM/dd/yyyy");
+                        panel.add(dateChooser);
+                        /* Fix this!!
                         String[] availableStartDates = { "today", "tomorrow" };
                         JComboBox<String> startDateOptions = new JComboBox<String>(availableStartDates);
                         panel.add(startDateOptions);
-
+                         */
                         JLabel label2 = new JLabel("Select desired check-out date:");
                         label2.setAlignmentX(Component.LEFT_ALIGNMENT);
                         panel.add(label2);
-                        // fix this!!!
+
+                        JDateChooser checkDateChooser = new JDateChooser();
+                        checkDateChooser.setDateFormatString("MM/dd/yyyy");
+                        panel.add(checkDateChooser);
+
+                        /* fix this!!!
                         String[] availableEndDates = { "tomorrow", "the next day", "the day after that" };
                         JComboBox<String> availableEndOptions = new JComboBox<String>(availableEndDates);
                         availableEndOptions.setVisible(true);
                         panel.add(availableEndOptions);
+
+                         */
 
                         JButton confirmButton = new JButton("Submit reservation");
                         panel.add(confirmButton);
@@ -75,11 +123,73 @@ public class RoomReservationUI extends AbstractTableModel {
                 });
             }
         });
+        addUserButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        JDialog dialog = new JDialog();
+                        dialog.setSize(400, 300);
+                        dialog.setVisible(true);
+                        JPanel panel = new JPanel();
+
+                        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+                        /*
+                         *   The UI will prompt for user type and then proceed to corresponding
+                         *   request for data input. Planning to perform this on a new dialog
+                         *
+                         */
+                        String[] userTypes = {"Admin", "Clerk"};
+                        JComboBox<String> userTypeComboBox = new JComboBox<>(userTypes);
+                        JLabel userTypeLabel = new JLabel("Choose User Type:");
+                        userTypeLabel.setLabelFor(userTypeComboBox);
+                        panel.add(userTypeLabel);
+                        panel.add(userTypeComboBox);
+
+                        userTypeComboBox.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                String userType = (String) userTypeComboBox.getSelectedItem();
+                                if (userType.equals("Admin")) {
+                                    panel.add(firstNameLabel);
+                                    panel.add(firstNameField);
+                                    panel.add(lastNameLabel);
+                                    panel.add(lastNameField);
+                                    panel.add(adminIdLabel);
+                                    panel.add(adminIdField);
+                                    panel.add(adminPasswordLabel);
+                                    panel.add(adminPasswordField);
+
+                                } else if (userType.equals("Clerk")) {
+                                    panel.remove(firstNameLabel);
+                                    panel.remove(firstNameField);
+                                    panel.remove(lastNameLabel);
+                                    panel.remove(lastNameField);
+                                    panel.add(accIdLabel);
+                                    panel.add(accIdField);
+                                    panel.add(accPasswordLabel);
+                                    panel.add(accPasswordField);
+                                }
+                                dialog.pack();
+                            }
+                        });
+
+
+                        dialog.getContentPane().add(panel);
+                    }
+                });
+            }
+        });
 
         JTable table = new JTable(this);
         JTableHeader header = table.getTableHeader();
         header.setTable(table);
         header.setVisible(true);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(reserveButton);
+        buttonPanel.add(addUserButton);
 
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -88,7 +198,7 @@ public class RoomReservationUI extends AbstractTableModel {
 
         JScrollPane scrollPane = new JScrollPane(panel);
         frame.add(scrollPane);
-        frame.add(reserveButton, BorderLayout.SOUTH);
+        frame.add(buttonPanel, BorderLayout.SOUTH);
 
         frame.setVisible(true);
     }
