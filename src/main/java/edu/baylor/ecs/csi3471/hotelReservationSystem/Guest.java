@@ -43,4 +43,6 @@ public class Guest extends User {
     public List<Address> getAddresses() {return addresses;}
 
     public List<CreditCard> getPaymentMethods() {return paymentMethods;}
+
+
 }

@@ -11,6 +11,7 @@ public class AccountInformation{
 		this.password = password;
 	}
 
+	//TODO Made these public for CSV output, please look into if you disagree
 	String getUsername() {
 		return username;
 	}
