@@ -18,6 +18,7 @@ public class RoomReservationUI extends AbstractTableModel {
 
     public void loadRooms(List<Room> roomList){
         int i = 0;
+        //rooms[0] = columnNames;
         for (Room r : roomList){
             rooms[i] = new Object[NUM_COLUMNS];
             rooms[i][0] = r.getRoomNumber();
@@ -29,9 +30,7 @@ public class RoomReservationUI extends AbstractTableModel {
             i++;
         }
     }
-    public RoomReservationUI(){ 
-    	super(); 
-    }
+    public RoomReservationUI(){super();}
 
     public void display(){
     	Hotel hotel = HotelApp.hotel;

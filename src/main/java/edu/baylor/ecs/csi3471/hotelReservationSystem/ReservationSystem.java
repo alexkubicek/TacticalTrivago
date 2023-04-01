@@ -86,6 +86,7 @@ public class ReservationSystem {
 
     public static void main(String[] args) {
         // fill Hotel with rooms
+        /*
         try{
             loadGuestsFromCSV("src/main/resources/testUsers1.csv");
         } catch (FileNotFoundException e) {
@@ -101,6 +102,7 @@ public class ReservationSystem {
         }
         
         // MakeReservation UseCase
+        /*
         System.out.println("Displaying all rooms in the hotel...");
         hotel.displayAllRooms();
         
@@ -125,9 +127,11 @@ public class ReservationSystem {
         hotel.reserveRoom(selectedRooms, start, end, g, hotel);
         
         System.out.println("Outputting guest's upcoming reservations:");
-        System.out.println(g.getUpcomingReservations());
+        System.out.println(g.getUpcomingReservations());*/
+        HotelApp hotelApp = new HotelApp();
+        hotelApp.setVisible(true);
+        //RoomReservationUI reservationInterface = new RoomReservationUI();
+        //reservationInterface.display();
 
-        RoomReservationUI reservationInterface = new RoomReservationUI();
-        reservationInterface.display();
     }
 }

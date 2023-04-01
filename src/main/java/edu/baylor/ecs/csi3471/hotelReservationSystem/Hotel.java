@@ -13,6 +13,7 @@ public class Hotel {
 
   //TODO Decide if we are going to make everything extend user or have clerk, guest, and admin be separate
   //depending on choice DELETE the list of guests below
+  //Alex thinks keep it as Users because we can check which it is with the .class function
   private List<Guest> guests;
   private List<User> accounts;
 
@@ -32,8 +33,7 @@ public class Hotel {
 	  if(this.accounts == null) {
 		  this.accounts = new ArrayList<User>();
 	  }
-	  for(User u : accounts) {
-	  this.accounts.add(u);}
+      this.accounts.addAll(accounts);
   }
 
   public void displayAllRooms() {
