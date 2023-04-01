@@ -29,9 +29,12 @@ public class RoomReservationUI extends AbstractTableModel {
             i++;
         }
     }
-    public RoomReservationUI(){ super(); }
+    public RoomReservationUI(){ 
+    	super(); 
+    }
 
-    public void display(Hotel hotel){
+    public void display(){
+    	Hotel hotel = HotelApp.hotel;
         loadRooms(hotel.getRooms());
 
         JFrame frame = new JFrame("Displaying All Rooms in Hotel");
