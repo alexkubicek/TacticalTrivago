@@ -44,5 +44,5 @@ public class Guest extends User {
 
     public List<CreditCard> getPaymentMethods() {return paymentMethods;}
 
-
+    public Guest(){}
 }

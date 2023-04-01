@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.swing.*;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.JTableHeader;
 
 import hotelReadWriteUtils.java.CSVHotelUtils;
 
@@ -27,6 +29,7 @@ public class HotelApp extends javax.swing.JFrame{
     public HotelApp() {
         setTitle("Hotel Management System: ");
         setLayout(new FlowLayout());
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         tabs = new JTabbedPane();
         JPanel pan1 = new JPanel();
         RoomManagementUI r = new RoomManagementUI();
@@ -35,8 +38,26 @@ public class HotelApp extends javax.swing.JFrame{
         RoomReservationUI customTableModel = new RoomReservationUI();
         JTable customTable = new JTable(customTableModel);
         JScrollPane scrollPane = new JScrollPane(customTable);
-        pan2.add(scrollPane);
-        customTableModel.display();
+        //customTable.setVisible(true);
+        //scrollPane.setVisible(true);
+        //pan2.add(scrollPane);
+
+        JButton reserveButton = new JButton("Reserve room");
+        reserveButton.setVisible(true);
+        pan2.add(reserveButton);
+        reserveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                javax.swing.SwingUtilities.invokeLater(new Runnable(){
+                    @Override
+                    public void run() {
+                        customTableModel.display();
+                    }
+                });
+            }
+        });
+
+        //customTableModel.display();
         JPanel pan3 = new JPanel();
         JPanel userFormPanel = new JPanel(new GridLayout(0, 2)); // 2 columns
         userFormPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Add padding
@@ -92,12 +113,12 @@ public class HotelApp extends javax.swing.JFrame{
         add(tabs);
         this.pack();
     }
-
+    /*
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new HotelApp().setVisible(true);
             }
         });
-    }
+    }*/
 }

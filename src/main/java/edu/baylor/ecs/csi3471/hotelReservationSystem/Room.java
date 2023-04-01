@@ -88,4 +88,5 @@ public class Room {
       c.add(Calendar.DATE, 1);
     }
   }
+  public Room(){}
 }
