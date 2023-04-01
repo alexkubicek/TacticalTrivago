@@ -3,13 +3,27 @@ package edu.baylor.ecs.csi3471.hotelReservationSystem;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.swing.*;
+
+import hotelReadWriteUtils.java.CSVHotelUtils;
+
 import java.awt.GridLayout;
 
 public class HotelApp extends javax.swing.JFrame{
 	private JTabbedPane tabs;
-
+	static CSVHotelUtils csv;
+	static Hotel hotel;
+	static {
+		try {
+			csv = new CSVHotelUtils();
+			hotel = csv.load();
+		}catch(FileNotFoundException e) {
+			System.err.println("CSV file not found: " + e.getMessage());
+		}
+	}
+	
     public HotelApp() {
         setTitle("Hotel Management System: ");
         setLayout(new FlowLayout());
@@ -22,6 +36,7 @@ public class HotelApp extends javax.swing.JFrame{
         JTable customTable = new JTable(customTableModel);
         JScrollPane scrollPane = new JScrollPane(customTable);
         pan2.add(scrollPane);
+        customTableModel.display();
         JPanel pan3 = new JPanel();
         JPanel userFormPanel = new JPanel(new GridLayout(0, 2)); // 2 columns
         userFormPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Add padding
