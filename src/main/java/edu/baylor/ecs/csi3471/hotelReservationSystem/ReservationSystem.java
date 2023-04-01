@@ -128,6 +128,6 @@ public class ReservationSystem {
         System.out.println(g.getUpcomingReservations());
 
         RoomReservationUI reservationInterface = new RoomReservationUI();
-        reservationInterface.display(hotel);
+        reservationInterface.display();
     }
 }
