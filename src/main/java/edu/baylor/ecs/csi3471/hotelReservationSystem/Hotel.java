@@ -35,6 +35,11 @@ public class Hotel {
 	  }
       this.accounts.addAll(accounts);
   }
+  public void addAccount(User account){
+    if(account != null){
+      this.accounts.add(account);
+    }
+  }
 
   public void displayAllRooms() {
     for (Room r : rooms) {

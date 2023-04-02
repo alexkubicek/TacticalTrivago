@@ -118,7 +118,6 @@ public class RoomReservationUI extends AbstractTableModel {
 
                         JButton confirmButton = new JButton("Submit reservation");
                         panel.add(confirmButton);
-                        // add action listener to call reserveRoom()
 
                         dialog.add(panel);
                     }
@@ -176,8 +175,6 @@ public class RoomReservationUI extends AbstractTableModel {
                                 dialog.pack();
                             }
                         });
-
-
                         dialog.getContentPane().add(panel);
                     }
                 });

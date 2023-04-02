@@ -63,6 +63,98 @@ public class RoomManagementUI extends JPanel {
             }
         });
 
+        // Add User
+        JButton addUserButton = new JButton("Add Clerk/Admin");
+        addUserButton.setVisible(true);
+
+        //TextField for First and Last Name
+        JTextField firstNameField = new JTextField(20);
+        JLabel firstNameLabel = new JLabel("First Name:");
+        firstNameLabel.setLabelFor(firstNameField);
+
+        JTextField lastNameField = new JTextField(20);
+        JLabel lastNameLabel = new JLabel("Last Name:");
+        lastNameLabel.setLabelFor(lastNameField);
+        //--------------------------------------------------//
+
+        //TextField for admin attributes (ID, Password)
+        JTextField adminIdField = new JTextField(20);
+        JLabel adminIdLabel = new JLabel("ID:");
+        adminIdLabel.setLabelFor(adminIdField);
+
+        JTextField adminPasswordField = new JTextField(20);
+        JLabel adminPasswordLabel = new JLabel("Password:");
+        adminPasswordLabel.setLabelFor(adminPasswordField);
+        // --------------------------------------------//
+
+        //TextField for Generic Account Information
+        JTextField accIdField = new JTextField(20);
+        JLabel accIdLabel = new JLabel("Admin ID:");
+        accIdLabel.setLabelFor(accIdField);
+
+        JTextField accPasswordField = new JTextField(20);
+        JLabel accPasswordLabel = new JLabel("Admin Password:");
+        accPasswordLabel.setLabelFor(accPasswordField);
+
+        addUserButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        JDialog dialog = new JDialog();
+                        dialog.setSize(400, 300);
+                        dialog.setVisible(true);
+                        JPanel panel = new JPanel();
+
+                        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+                        /*
+                         *   The UI will prompt for user type and then proceed to corresponding
+                         *   request for data input. Planning to perform this on a new dialog
+                         *
+                         */
+                        String[] userTypes = {"Admin", "Clerk"};
+                        JComboBox<String> userTypeComboBox = new JComboBox<>(userTypes);
+                        JLabel userTypeLabel = new JLabel("Choose User Type:");
+                        userTypeLabel.setLabelFor(userTypeComboBox);
+                        panel.add(userTypeLabel);
+                        panel.add(userTypeComboBox);
+
+                        userTypeComboBox.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                String userType = (String) userTypeComboBox.getSelectedItem();
+                                if (userType.equals("Admin")) {
+                                    panel.add(firstNameLabel);
+                                    panel.add(firstNameField);
+                                    panel.add(lastNameLabel);
+                                    panel.add(lastNameField);
+                                    panel.add(adminIdLabel);
+                                    panel.add(adminIdField);
+                                    panel.add(adminPasswordLabel);
+                                    panel.add(adminPasswordField);
+
+                                } else if (userType.equals("Clerk")) {
+                                    panel.remove(firstNameLabel);
+                                    panel.remove(firstNameField);
+                                    panel.remove(lastNameLabel);
+                                    panel.remove(lastNameField);
+                                    panel.add(accIdLabel);
+                                    panel.add(accIdField);
+                                    panel.add(accPasswordLabel);
+                                    panel.add(accPasswordField);
+                                }
+                                dialog.pack();
+                            }
+                        });
+
+
+                        dialog.getContentPane().add(panel);
+                    }
+                });
+            }
+        });
+
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         buttonPanel.add(addButton);
         add(buttonPanel, BorderLayout.SOUTH);
