@@ -98,7 +98,8 @@ public class AddUserUI extends AbstractTableModel {
                 String type = (String) ComboBox.getSelectedItem();
                 AccountInformation account = new AccountInformation(id, password);
                 if (type.equals("Admin")) {
-                    Admin admin = new Admin(firstName, lastName, account);
+                    Admin admin;
+                    admin = new Admin(firstName, lastName, account);
                     hotel.addAccount(admin);
                     System.out.println("Adding new admin: " + firstName + " " + lastName);
                 } else if (type.equals("Clerk")) {
