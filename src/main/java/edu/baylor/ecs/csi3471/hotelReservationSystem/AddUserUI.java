@@ -53,7 +53,7 @@ public class AddUserUI extends AbstractTableModel {
         cardPanel = new JPanel(cardLayout);
 
         JPanel adminPanel = new JPanel(new GridLayout(0, 2));
-        adminPanel.add(new JLabel("Admin Form:"));
+        adminPanel.add(new JLabel("Admin:"));
         adminPanel.add(new JLabel(""));
         adminPanel.add(new JLabel("First Name:"));
         adminPanel.add(new JTextField(20));
@@ -66,7 +66,7 @@ public class AddUserUI extends AbstractTableModel {
         cardPanel.add(adminPanel, "Admin");
 
         JPanel clerkPanel = new JPanel(new GridLayout(0, 2));
-        clerkPanel.add(new JLabel("Clerk Form:"));
+        clerkPanel.add(new JLabel("Clerk:"));
         clerkPanel.add(new JLabel(""));
         clerkPanel.add(new JLabel("First Name:"));
         clerkPanel.add(new JTextField(20));
@@ -77,6 +77,19 @@ public class AddUserUI extends AbstractTableModel {
         clerkPanel.add(new JLabel("Password:"));
         clerkPanel.add(new JTextField(20));
         cardPanel.add(clerkPanel, "Clerk");
+
+        JPanel guestPanel = new JPanel(new GridLayout(0, 2));
+        guestPanel.add(new JLabel("Guest:"));
+        guestPanel.add(new JLabel(""));
+        guestPanel.add(new JLabel("First Name:"));
+        guestPanel.add(new JTextField(20));
+        guestPanel.add(new JLabel("Last Name:"));
+        guestPanel.add(new JTextField(20));
+        guestPanel.add(new JLabel("ID:"));
+        guestPanel.add(new JTextField(20));
+        guestPanel.add(new JLabel("Password:"));
+        guestPanel.add(new JTextField(20));
+        cardPanel.add(guestPanel, "Guest");
 
         form.add(cardPanel);
 
@@ -91,10 +104,26 @@ public class AddUserUI extends AbstractTableModel {
         regButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String firstName = ((JTextField) form.getComponent(1)).getText();
-                String lastName = ((JTextField) form.getComponent(3)).getText();
-                String id = ((JTextField) form.getComponent(5)).getText();
-                String password = ((JTextField) form.getComponent(7)).getText();
+                String firstName = "";
+                String lastName = "";
+                String id = "";
+                String password = "";
+
+                for (Component component : form.getComponents()) {
+                    if (component instanceof JTextField) {
+                        JTextField textField = (JTextField) component;
+                        if (textField.getName().equals("firstName")) {
+                            firstName = textField.getText();
+                        } else if (textField.getName().equals("lastName")) {
+                            lastName = textField.getText();
+                        } else if (textField.getName().equals("id")) {
+                            id = textField.getText();
+                        } else if (textField.getName().equals("password")) {
+                            password = textField.getText();
+                        }
+                    }
+                }
+
                 String type = (String) ComboBox.getSelectedItem();
                 AccountInformation account = new AccountInformation(id, password);
                 if (type.equals("Admin")) {
@@ -106,6 +135,10 @@ public class AddUserUI extends AbstractTableModel {
                     Clerk clerk = new Clerk(firstName, lastName, account);
                     hotel.addAccount(clerk);
                     System.out.println("Adding new clerk: " + firstName + " " + lastName);
+                } else if (type.equals("Guest")){
+                    Guest guest = new Guest(firstName, lastName, account);
+                    hotel.addAccount(guest);
+                    System.out.println("Welcome to Tactical Trivago " + firstName + " " + lastName + "!");
                 }
 
             }
