@@ -161,4 +161,8 @@ public class Hotel {
   public void addRoom(Room room) {
       rooms.add(room);
   }
+
+  public void addAccount(User account) {
+    this.accounts.add(account);
+  }
 }
