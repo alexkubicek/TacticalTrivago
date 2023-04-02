@@ -48,7 +48,16 @@ public class Hotel {
 
   }
 
-  void reserveRoom(List<Integer> roomNumbers, Date start, Date end, Guest g, Hotel h) {
+  void reserveRoom(Room r, Date start, Date end, Guest g, Hotel h) {
+    // create reservation
+    Reservation reservation = new Reservation(start, end, g, r, h);
+    if(reservations == null) {
+      reservations = new ArrayList<Reservation>();
+    }
+    reservations.add(reservation);
+    g.addUpcomingReservations(reservation);
+  }
+  void reserveRooms(List<Integer> roomNumbers, Date start, Date end, Guest g, Hotel h) {
 
     List<Room> selectedRooms = new ArrayList<>();
 
@@ -111,7 +120,7 @@ public class Hotel {
     }
   }
 
-  private Room getRoom(int roomNumber) {
+  Room getRoom(int roomNumber) {
     Room found = null;
     for (Room r : rooms) {
       if (r.getRoomNumber() == roomNumber) {
@@ -120,7 +129,6 @@ public class Hotel {
     }
     return found;
   }
-
   public void applyExtendedStayDiscount(Reservation reservation) {
     Integer stayLength = reservation.getNights();
     Double baseRate = reservation.getRate();

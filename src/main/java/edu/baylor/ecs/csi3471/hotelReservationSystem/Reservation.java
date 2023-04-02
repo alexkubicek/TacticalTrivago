@@ -1,5 +1,6 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -24,6 +25,17 @@ public class Reservation {
 		tacticalTrigavo = h;
 		guest = g;
 		
+		nights = (int)((endDate.getTime() - startDate.getTime()) / (1000*60*60*24));
+		rate = 0.0;
+		rooms.forEach(t->{rate += t.quality.getRate();});
+	}
+	public Reservation(Date s, Date e, Guest g, Room r, Hotel h) {
+		startDate = s;
+		endDate = e;
+		rooms = new ArrayList<>();
+		rooms.add(r);
+		tacticalTrigavo = h;
+		guest = g;
 		nights = (int)((endDate.getTime() - startDate.getTime()) / (1000*60*60*24));
 		rate = 0.0;
 		rooms.forEach(t->{rate += t.quality.getRate();});
