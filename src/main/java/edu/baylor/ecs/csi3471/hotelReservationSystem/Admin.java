@@ -5,9 +5,12 @@ import java.util.Random;
 public class Admin extends User {
     private int AdminId = 0;
 
+    public Admin(int AdminID, String nameFirst, String nameLast, AccountInformation account){
+        super(nameFirst, nameLast, account);
+        this.AdminId = AdminID;
+    }
     public Admin(String nameFirst, String nameLast, AccountInformation account){
         super(nameFirst, nameLast, account);
-        this.AdminId = ++AdminId;
     }
 
     public int getAdminId() {
