@@ -4,11 +4,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import javax.swing.*;
-import javax.swing.table.DefaultTableColumnModel;
-import javax.swing.table.JTableHeader;
-
 
 import hotelReadWriteUtils.java.CSVHotelUtils;
 
@@ -36,9 +32,11 @@ public class HotelApp extends javax.swing.JFrame{
         RoomManagementUI r = new RoomManagementUI();
         pan1.add(r);
         JPanel pan2 = new JPanel();
+
+        Guest g = new Guest("firstname", "lastname", new AccountInformation());
         RoomReservationUI customTableModel = new RoomReservationUI();
-        JTable customTable = new JTable(customTableModel);
-        JScrollPane scrollPane = new JScrollPane(customTable);
+        //JTable customTable = new JTable(customTableModel);
+        //JScrollPane scrollPane = new JScrollPane(customTable);
         //customTable.setVisible(true);
         //scrollPane.setVisible(true);
         //pan2.add(scrollPane);
@@ -52,7 +50,7 @@ public class HotelApp extends javax.swing.JFrame{
                 javax.swing.SwingUtilities.invokeLater(new Runnable(){
                     @Override
                     public void run() {
-                        customTableModel.display();
+                        customTableModel.display(g);
                     }
                 });
             }

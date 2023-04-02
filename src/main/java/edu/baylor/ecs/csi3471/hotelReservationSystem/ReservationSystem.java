@@ -133,6 +133,6 @@ public class ReservationSystem {
         //RoomReservationUI reservationInterface = new RoomReservationUI()
         //reservationInterface.display(hotel, g);
 
-        System.out.println(g.getUpcomingReservations());
+        //System.out.println(g.getUpcomingReservations());
     }
 }

@@ -7,13 +7,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import net.coderazzi.filters.gui.*;
-import com.toedter.calendar.JDateChooser;
 
 public class RoomReservationUI extends JPanel {
     private Hotel hotel;
@@ -84,21 +81,18 @@ public class RoomReservationUI extends JPanel {
         JPanel panel = new JPanel();
         panel.add(new JLabel("Confirm room reservation information:"));
         panel.add(new JLabel(room.toStringForUI()));
-        SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd, YYYY");
+        SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd, yyyy");
         panel.add(new JLabel("<html>Check-in date: " + formatter.format(startDate) +
                 "<br> Check-out date: " + formatter.format(endDate) + "</html>"));
 
         JButton confirmButton = new JButton("Submit reservation");
         panel.add(confirmButton);
-        confirmButton.addActionListener(new ActionListener() {
-                        @Override
-            public void actionPerformed(ActionEvent e) {
-                hotel.reserveRoom(room, startDate, endDate, guest, hotel);
-                // add closing of dialog after successful reservation creation
-                List<Reservation> list = hotel.getReservations();
-                for(Reservation r : list){
-                    System.out.println(r.toString());
-                }
+        confirmButton.addActionListener(e -> {
+            hotel.reserveRoom(room, startDate, endDate, guest, hotel);
+            // add closing of dialog after successful reservation creation
+            List<Reservation> list = hotel.getReservations();
+            for(Reservation r : list){
+                System.out.println(r.toString());
             }
         });
         dialog.add(panel);
@@ -120,30 +114,23 @@ public class RoomReservationUI extends JPanel {
         panel.add(label2);
         panel.add(endDateChooser);
 
-        startDateChooser.getDateEditor().addPropertyChangeListener(
-                new PropertyChangeListener() {
-                    @Override
-                    public void propertyChange(PropertyChangeEvent e) {
-                        if ("date".equals(e.getPropertyName())) {
-                            startDate = (Date) e.getNewValue();
-                            updateTable();
-                        }
-                    }
-                });
+        startDateChooser.getDateEditor().addPropertyChangeListener(e -> {
+            if ("date".equals(e.getPropertyName())) {
+                startDate = (Date) e.getNewValue();
+                updateTable();
+            }
+        });
 
-        endDateChooser.getDateEditor().addPropertyChangeListener(
-                new PropertyChangeListener() {
-                    @Override
-                    public void propertyChange(PropertyChangeEvent e) {
-                        if ("date".equals(e.getPropertyName())) {
-                            endDate = (Date) e.getNewValue();
-                            updateTable();
-                        }
-                    }
-                });
+        endDateChooser.getDateEditor().addPropertyChangeListener(e -> {
+            if ("date".equals(e.getPropertyName())) {
+                endDate = (Date) e.getNewValue();
+                updateTable();
+            }
+        });
         return panel;
     }
-    public void display(){
+    public void display(Guest g){
+        this.guest = g;
         this.hotel = HotelApp.hotel;
         //this.guest = g;
         loadRooms(hotel.getRooms());
@@ -199,82 +186,63 @@ public class RoomReservationUI extends JPanel {
         JLabel accPasswordLabel = new JLabel("Admin Password:");
         accPasswordLabel.setLabelFor(accPasswordField);
 
-        addUserButton.addActionListener(new ActionListener() {
+        addUserButton.addActionListener(e -> SwingUtilities.invokeLater(new Runnable() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                JDialog dialog = new JDialog();
+                dialog.setSize(400, 300);
+                dialog.setVisible(true);
+                JPanel panel = new JPanel();
+
+                panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+                /*
+                 *   The UI will prompt for user type and then proceed to corresponding
+                 *   request for data input. Planning to perform this on a new dialog
+                 *
+                 */
+                String[] userTypes = {"Admin", "Clerk"};
+                JComboBox<String> userTypeComboBox = new JComboBox<>(userTypes);
+                JLabel userTypeLabel = new JLabel("Choose User Type:");
+                userTypeLabel.setLabelFor(userTypeComboBox);
+                panel.add(userTypeLabel);
+                panel.add(userTypeComboBox);
+
+                userTypeComboBox.addActionListener(new ActionListener() {
                     @Override
-                    public void run() {
-                        JDialog dialog = new JDialog();
-                        dialog.setSize(400, 300);
-                        dialog.setVisible(true);
-                        JPanel panel = new JPanel();
+                    public void actionPerformed(ActionEvent e) {
+                        String userType = (String) userTypeComboBox.getSelectedItem();
+                        if (userType.equals("Admin")) {
+                            panel.add(firstNameLabel);
+                            panel.add(firstNameField);
+                            panel.add(lastNameLabel);
+                            panel.add(lastNameField);
+                            panel.add(adminIdLabel);
+                            panel.add(adminIdField);
+                            panel.add(adminPasswordLabel);
+                            panel.add(adminPasswordField);
 
-                        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-                        /*
-                         *   The UI will prompt for user type and then proceed to corresponding
-                         *   request for data input. Planning to perform this on a new dialog
-                         *
-                         */
-                        String[] userTypes = {"Admin", "Clerk"};
-                        JComboBox<String> userTypeComboBox = new JComboBox<>(userTypes);
-                        JLabel userTypeLabel = new JLabel("Choose User Type:");
-                        userTypeLabel.setLabelFor(userTypeComboBox);
-                        panel.add(userTypeLabel);
-                        panel.add(userTypeComboBox);
-
-                        userTypeComboBox.addActionListener(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                String userType = (String) userTypeComboBox.getSelectedItem();
-                                if (userType.equals("Admin")) {
-                                    panel.add(firstNameLabel);
-                                    panel.add(firstNameField);
-                                    panel.add(lastNameLabel);
-                                    panel.add(lastNameField);
-                                    panel.add(adminIdLabel);
-                                    panel.add(adminIdField);
-                                    panel.add(adminPasswordLabel);
-                                    panel.add(adminPasswordField);
-
-                                } else if (userType.equals("Clerk")) {
-                                    panel.remove(firstNameLabel);
-                                    panel.remove(firstNameField);
-                                    panel.remove(lastNameLabel);
-                                    panel.remove(lastNameField);
-                                    panel.add(accIdLabel);
-                                    panel.add(accIdField);
-                                    panel.add(accPasswordLabel);
-                                    panel.add(accPasswordField);
-                                }
-                                dialog.pack();
-                            }
-                        });
-
-
-                        dialog.getContentPane().add(panel);
+                        } else if (userType.equals("Clerk")) {
+                            panel.remove(firstNameLabel);
+                            panel.remove(firstNameField);
+                            panel.remove(lastNameLabel);
+                            panel.remove(lastNameField);
+                            panel.add(accIdLabel);
+                            panel.add(accIdField);
+                            panel.add(accPasswordLabel);
+                            panel.add(accPasswordField);
+                        }
+                        dialog.pack();
                     }
                 });
-            }
-        });
 
-        JTable table = new JTable(this);
-        JTableHeader header = table.getTableHeader();
-        header.setTable(table);
-        header.setVisible(true);
+
+                dialog.getContentPane().add(panel);
+            }
+        }));
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(reserveButton);
         buttonPanel.add(addUserButton);
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        panel.add(header, BorderLayout.NORTH);
-        panel.add(table, BorderLayout.CENTER);
-
-        JScrollPane scrollPane = new JScrollPane(panel);
-        frame.add(scrollPane);
-        frame.add(buttonPanel, BorderLayout.SOUTH);
 
         roomPane.add(reserveButton, BorderLayout.SOUTH);
         roomPane.add(createDateSelection());
