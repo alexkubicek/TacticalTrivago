@@ -3,7 +3,7 @@ package edu.baylor.ecs.csi3471.hotelReservationSystem;
 import java.util.Random;
 
 public class Admin extends User {
-    private int AdminId = 0;
+    private int AdminId;
 
     public Admin(int AdminID, String nameFirst, String nameLast, AccountInformation account){
         super(nameFirst, nameLast, account);
@@ -11,6 +11,7 @@ public class Admin extends User {
     }
     public Admin(String nameFirst, String nameLast, AccountInformation account){
         super(nameFirst, nameLast, account);
+        this.AdminId = 1234;
     }
 
     public int getAdminId() {
