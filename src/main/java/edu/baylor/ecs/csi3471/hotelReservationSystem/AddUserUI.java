@@ -31,6 +31,8 @@ public class AddUserUI extends AbstractTableModel {
     public JPanel AddUser(){
         Hotel hotel = HotelApp.hotel;
         JPanel form = new JPanel(new GridLayout(0, 1));
+        BoxLayout boxLayout = new BoxLayout(form, BoxLayout.Y_AXIS);
+        form.setLayout(boxLayout);
         form.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         JPanel comboBoxPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
