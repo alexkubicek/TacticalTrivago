@@ -54,6 +54,18 @@ public class Room {
             ", bedSizes=" + bedSizes +
             '}';
   }
+    public String toStringForUI() {
+        String s = "Room number " + roomNumber + "<br/>" +
+                bedCount + " " + bedSizes + " size bed(s)<br/>" +
+                quality + " level with a rate of $" +
+                String.format("%.2f", quality.getRate()) + " per night<br/>";
+        if(smoking){
+            s = s + "Smoking IS allowed";
+        } else{
+            s = s + "Smoking is NOT allowed";
+        }
+        return "<html>" + s + "</html>";
+    }
 
   public Integer getRoomNumber(){
     return roomNumber;
