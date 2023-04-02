@@ -77,32 +77,6 @@ public class Hotel {
     reservations.add(reservation);
     g.addUpcomingReservations(reservation);
   }
-  void reserveRoom(List<Integer> roomNumbers, Date start, Date end, Guest g, Hotel h) {
-
-    List<Room> selectedRooms = new ArrayList<>();
-
-    // Find the rooms to be reserved
-    for (int NumberRoom : roomNumbers) {
-      Room selectedRoom = getRoom(NumberRoom);
-      if (selectedRoom != null && selectedRoom.isAvailable(start, end)) {
-        selectedRooms.add(selectedRoom);
-      }
-    }
-
-    // create reservation
-    if (!selectedRooms.isEmpty()) {
-      Reservation reservation = new Reservation(start, end, g, selectedRooms, h);
-      if(reservations == null) {
-    	  reservations = new ArrayList<Reservation>();
-      }
-      reservations.add(reservation);
-      g.addUpcomingReservations(reservation);
-      System.out.println("Reservation created successfully.");
-    } else {
-      System.out.println("Failed to create reservation. The selected rooms are not available for the selected dates.");
-    }
-
-  }
 
   public Reservation getReservation(String name, Date d) {
     // find and return reservation with matching info
