@@ -52,7 +52,8 @@ public class ReservationSystem {
             System.err.println(e.getLocalizedMessage());
             System.exit(1);
         }
-        
+
+        /*
         // MakeReservation UseCase
         System.out.println("Displaying all rooms in the hotel...");
         hotel.displayAllRooms();
@@ -79,8 +80,10 @@ public class ReservationSystem {
         
         System.out.println("Outputting guest's upcoming reservations:");
         System.out.println(g.getUpcomingReservations());
+*/
 
         RoomReservationUI reservationInterface = new RoomReservationUI();
-        reservationInterface.display(hotel);
+        Guest g = new Guest("firstname", "lastname", new AccountInformation());
+        reservationInterface.display(hotel, g);
     }
 }
