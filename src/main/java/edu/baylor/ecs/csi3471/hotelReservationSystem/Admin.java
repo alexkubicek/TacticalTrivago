@@ -9,6 +9,9 @@ public class Admin extends User {
         super(nameFirst, nameLast, account);
         this.AdminId = AdminId;
     }
+    public Admin(String nameFirst, String nameLast, AccountInformation account){
+        super(nameFirst, nameLast, account);
+    }
 
     public int getAdminId() {
         return AdminId;

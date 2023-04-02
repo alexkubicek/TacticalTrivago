@@ -53,8 +53,8 @@ public class RoomManagementUI extends JPanel {
             	Hotel hotel = HotelApp.hotel;
                 Integer roomNumber = Integer.valueOf(roomNumberField.getText());
                 Integer bedCount = Integer.valueOf((String)bedCountField.getSelectedItem());
-                BedType bedSize = BedType.valueOf((String)bedSizeField.getSelectedItem());
-                QualityLevel quality = QualityLevel.valueOf((String) qualityField.getSelectedItem());
+                BedType bedSize = BedType.valueOf(((String)bedSizeField.getSelectedItem()).toUpperCase());
+                QualityLevel quality = QualityLevel.valueOf(((String)qualityField.getSelectedItem()).toUpperCase());
                 boolean smoking = smokingField.isSelected();
                 Room newRoom = new Room(roomNumber, bedCount, smoking , quality, bedSize);
                 hotel.addRoom(newRoom);
@@ -74,6 +74,5 @@ public class RoomManagementUI extends JPanel {
         bedSizeField.setSelectedIndex(0);
         qualityField.setSelectedIndex(0);
         smokingField.setSelected(false);
-        rateField.setText("");
     }
 }
