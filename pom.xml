@@ -22,7 +22,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.12</version>
+      <version>4.13.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -52,6 +52,16 @@
           <artifactId>junit-platform-suite-api</artifactId>
           <version>1.8.2</version>
           <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.coderazzi</groupId>
+      <artifactId>tablefilter-swing</artifactId>
+      <version>5.5.4</version>
+    </dependency>
+      <dependency>
+          <groupId>com.toedter</groupId>
+          <artifactId>jcalendar</artifactId>
+          <version>1.4</version>
       </dependency>
   </dependencies>
 
