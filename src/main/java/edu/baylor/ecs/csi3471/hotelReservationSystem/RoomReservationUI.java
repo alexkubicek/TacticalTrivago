@@ -5,6 +5,8 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumnModel;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -187,6 +189,14 @@ public class RoomReservationUI extends AbstractTableModel {
         JTable table = new JTable(this);
         JTableHeader header = table.getTableHeader();
         header.setTable(table);
+        TableColumnModel columnModel = table.getColumnModel();
+        columnModel.getColumn(0).setHeaderValue("Room number");
+        columnModel.getColumn(1).setHeaderValue("Bed Count");
+        columnModel.getColumn(2).setHeaderValue("Bed Size");
+        columnModel.getColumn(3).setHeaderValue("Quality Level");
+        columnModel.getColumn(4).setHeaderValue("Smoking Allowed");
+        columnModel.getColumn(5).setHeaderValue("Room Rate");
+
         header.setVisible(true);
 
         JPanel buttonPanel = new JPanel();
