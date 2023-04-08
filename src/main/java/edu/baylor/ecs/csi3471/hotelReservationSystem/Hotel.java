@@ -19,7 +19,7 @@ public class Hotel {
   //depending on choice DELETE the list of guests below
   //Alex thinks keep it as Users because we can check which it is with the .class function
   private static List<Guest> guests;
-  private static List<User> accounts;
+  public static List<User> accounts;
 
   public List<Guest> getGuests() {return guests;}
   public void setGuests(List<Guest> guests) {this.guests = guests;}
