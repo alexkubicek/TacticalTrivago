@@ -11,8 +11,8 @@ public class Hotel {
   // associations
   @XmlElementWrapper(name = "Rooms")
   @XmlElement(name = "Room")
-  private static List<Room> rooms;
-  private static List<Reservation> reservations;
+  public static List<Room> rooms;
+  public static List<Reservation> reservations;
   private static List<Payment> pastPayments;
 
   //TODO Decide if we are going to make everything extend user or have clerk, guest, and admin be separate
