@@ -32,6 +32,12 @@ public abstract class User {
   public void setNameLast(String n) {
 	  this.nameLast = n;
   }
+  public void setAccountUsername(String n){
+    account.setUsername(n);
+  }
+  public void setAccountPassword(String n){
+    account.setPassword(n);
+  }
   public AccountInformation getAccountInformation(){return account;}
   //TODO Adding a temporary getter for CSV, for permissions we might want
   // to get rid of this but we need to figure out how to access accounts for csv
