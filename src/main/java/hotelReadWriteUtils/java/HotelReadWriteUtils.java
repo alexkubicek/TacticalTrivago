@@ -16,7 +16,7 @@ public abstract class HotelReadWriteUtils {
 		doSave(hotel);
 	}
 	
-	abstract protected void doSave(Hotel hotel);
+	abstract void doSave(Hotel hotel);
 	
 	protected Hotel hook(Hotel hotel) {
 		return hotel;
