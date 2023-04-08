@@ -18,29 +18,34 @@ public class Reservation {
   
   	//constructors
 	public Reservation() {}
-	public Reservation(Date s, Date e, Guest g, List<Room> r, Hotel h) {
+	public Reservation(Date s, Date e, Guest g, List<Room> r) {
 		startDate = s;
 		endDate = e;
 		rooms = r;
-		tacticalTrigavo = h;
 		guest = g;
 		
 		nights = (int)((endDate.getTime() - startDate.getTime()) / (1000*60*60*24));
 		rate = 0.0;
 		rooms.forEach(t->{rate += t.quality.getRate();});
 	}
-	public Reservation(Date s, Date e, Guest g, Room r, Hotel h) {
+	public Reservation(Date s, Date e, Guest g, Room r) {
 		startDate = s;
 		endDate = e;
 		rooms = new ArrayList<>();
 		rooms.add(r);
-		tacticalTrigavo = h;
 		guest = g;
 		nights = (int)((endDate.getTime() - startDate.getTime()) / (1000*60*60*24));
 		rate = 0.0;
 		rooms.forEach(t->{rate += t.quality.getRate();});
 	}
-	
+	public static Reservation createReservation(Date start, Date end, Guest g, ArrayList<Integer> roomNums) {
+		List<Room> rooms = new ArrayList<>();
+		Hotel.rooms.stream().filter((room)->roomNums.contains(room.getRoomNumber())).forEach(r->{
+			rooms.add(r);
+		});
+		Reservation res = new Reservation(start, end, g, rooms);
+		return res;
+	}
 	
 	//getters and setters
 	public Date getStartDate() {
@@ -118,7 +123,7 @@ public class Reservation {
 	public void cancel(){
 		Date today = new Date();
 		if(today.after(startDate)) {
-			tacticalTrigavo.getReservations().remove(this);
+			Hotel.reservations.remove(this);
 		} else {
 			System.err.println("Cannot cancel past reservation");
 		}
