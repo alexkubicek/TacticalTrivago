@@ -6,6 +6,12 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
+
+@XmlRootElement(name = "Room")
+
+@XmlType(propOrder = { "roomNumber", "numberOfBeds", "smoking", "qualityLevel, bedType" })
 public class Room {
   private Integer roomNumber, bedCount;
   private Boolean smoking;

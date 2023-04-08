@@ -5,8 +5,15 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(namespace = "Hotel")
 public class Hotel {
   // associations
+  @XmlElementWrapper(name = "Rooms")
+  @XmlElement(name = "Room")
   private List<Room> rooms;
   private List<Reservation> reservations;
   private List<Payment> pastPayments;
@@ -19,7 +26,6 @@ public class Hotel {
 
   public List<Guest> getGuests() {return guests;}
   public void setGuests(List<Guest> guests) {this.guests = guests;}
-
   public List<Room> getRooms() {return rooms;}
   public void setRooms(List<Room> rooms) {this.rooms = rooms;}
   public List<Reservation> getReservations() {return reservations;}
