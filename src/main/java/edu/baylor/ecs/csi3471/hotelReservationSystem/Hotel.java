@@ -63,7 +63,7 @@ public class Hotel {
 
   }
 
-  void reserveRoom(Room r, Date start, Date end, Guest g, Hotel h) {
+  public void reserveRoom(Room r, Date start, Date end, Guest g, Hotel h) {
     // create reservation
     Reservation reservation = new Reservation(start, end, g, r, h);
     if(reservations == null) {
@@ -135,7 +135,7 @@ public class Hotel {
     }
   }
 
-  Room getRoom(int roomNumber) {
+  public Room getRoom(int roomNumber) {
     Room found = null;
     for (Room r : rooms) {
       if (r.getRoomNumber() == roomNumber) {

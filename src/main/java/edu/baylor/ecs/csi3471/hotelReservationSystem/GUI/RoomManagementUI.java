@@ -1,5 +1,5 @@
-package edu.baylor.ecs.csi3471.hotelReservationSystem;
-
+package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -50,7 +50,7 @@ public class RoomManagementUI extends JPanel {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	Hotel hotel = HotelApp.hotel;
+            	Hotel hotel = HotelApp.getHotel();
                 Integer roomNumber = Integer.valueOf(roomNumberField.getText());
                 Integer bedCount = Integer.valueOf((String)bedCountField.getSelectedItem());
                 BedType bedSize = BedType.valueOf(((String)bedSizeField.getSelectedItem()).toUpperCase());

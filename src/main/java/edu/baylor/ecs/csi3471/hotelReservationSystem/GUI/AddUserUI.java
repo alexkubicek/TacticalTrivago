@@ -1,9 +1,12 @@
-package edu.baylor.ecs.csi3471.hotelReservationSystem;
+package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.table.AbstractTableModel;
+
+import edu.baylor.ecs.csi3471.hotelReservationSystem.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,7 +32,7 @@ public class AddUserUI extends AbstractTableModel {
     public AddUserUI(){}
 
     public JPanel AddUser(){
-        Hotel hotel = HotelApp.hotel;
+        Hotel hotel = HotelApp.getHotel();
         JPanel form = new JPanel(new GridLayout(0, 1));
         BoxLayout boxLayout = new BoxLayout(form, BoxLayout.Y_AXIS);
         form.setLayout(boxLayout);
