@@ -6,6 +6,9 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import javax.swing.*;
 
+import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.AddUserUI;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.RoomManagementUI;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.RoomReservationUI;
 import hotelReadWriteUtils.java.CSVHotelUtils;
 
 import java.awt.GridLayout;
@@ -13,7 +16,12 @@ import java.awt.GridLayout;
 public class HotelApp extends javax.swing.JFrame{
 	private JTabbedPane tabs;
 	static CSVHotelUtils csv;
-	static Hotel hotel;
+	private static Hotel hotel;
+	
+	public static Hotel getHotel() {
+		return hotel;
+	}
+	
 	static {
 		try {
 			csv = new CSVHotelUtils();

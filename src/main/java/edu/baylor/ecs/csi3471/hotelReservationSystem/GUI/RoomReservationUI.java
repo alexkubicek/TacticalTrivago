@@ -1,8 +1,9 @@
-package edu.baylor.ecs.csi3471.hotelReservationSystem;
-
+package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.*;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
+
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -131,7 +132,7 @@ public class RoomReservationUI extends JPanel {
     }
     public void display(Guest g){
         this.guest = g;
-        this.hotel = HotelApp.hotel;
+        this.hotel = HotelApp.getHotel();
         //this.guest = g;
         loadRooms(hotel.getRooms());
 
