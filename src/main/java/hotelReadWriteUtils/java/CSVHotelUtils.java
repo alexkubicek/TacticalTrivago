@@ -41,7 +41,7 @@ public class CSVHotelUtils extends HotelReadWriteUtils{
                 r = new Room(split);
                 rooms.add(r);
             }
-            hotel.setRooms(rooms);
+            Hotel.rooms = (rooms);
 
             // This is also opening a new file and using the same
             // variables to see if it can read from the guest file
@@ -59,7 +59,7 @@ public class CSVHotelUtils extends HotelReadWriteUtils{
             }
             //adds the guests (users) to the hotel
             hotel.addAccounts(guests);
-            hotel.setGuests(guests);        //THIS LINE IS FOR COPYING INTO BOTH THE GUEST AND USERS
+            //hotel.setGuests(guests);        //THIS LINE IS FOR COPYING INTO BOTH THE GUEST AND USERS
 
         } catch (IOException e) {
             String hint;
@@ -95,7 +95,7 @@ public class CSVHotelUtils extends HotelReadWriteUtils{
 
             //TODO check if it can output booleans, CSV SHOULD BE ABLE TO OUTPUT THE room.getSmoking() FUNCTION
             String str = ""; //just in case set it to nothing
-            for (Room room: hotel.getRooms()) {
+            for (Room room: Hotel.rooms) {
                 writer.write(room.getRoomNumber() + "," + room.getBedCount() + ","
                         + room.getSmoking() + ",");
 
@@ -114,10 +114,9 @@ public class CSVHotelUtils extends HotelReadWriteUtils{
             file = new FileWriter("testOutputRooms.csv");
             writer = new BufferedWriter(file);
             writer.write("nameFirst,nameLast,username,password,isCorporate");
-            for (Guest guest: hotel.getGuests()){
+            for (User guest: hotel.accounts){
                 writer.write(guest.getNameFirst() + "," + guest.getNameLast() + "," +
-                        guest.getAccountUsername() + "," + guest.getAccountPassword() +
-                        "," + guest.corporate()); //should be true/false or 0/1
+                        guest.getAccountUsername() + "," + guest.getAccountPassword()); //should be true/false or 0/1
             }
 
             writer.flush();
