@@ -4,7 +4,8 @@ import java.util.Map;
 
 public class Address{
   	private Integer buildingNumber, zipCode;
-  	private String street, city, state; //abbreviation mapped to full name
+  	private String street, city; //abbreviation mapped to full name
+	State state;
   
   	public Integer getBuildingNumber() {
 		return buildingNumber;
@@ -30,19 +31,19 @@ public class Address{
 	public void setCity(String city) {
 		this.city = city;
 	}
-	public String getState() {
+	public State getState() {
 		return state;
 	}
-	public void setState(String state) {
+	public void setState(State state) {
 		this.state = state;
 	}
-	public Address(Integer buildingNumber, Integer zipCode, String street, String city, String state) {
+	public Address(Integer buildingNumber, Integer zipCode, String street, String city, State tx) {
 		super();
 		this.buildingNumber = buildingNumber;
 		this.zipCode = zipCode;
 		this.street = street;
 		this.city = city;
-		this.state = state;
+		this.state = tx;
 	}
 	
 	public Address() {}
