@@ -10,7 +10,9 @@ import javax.swing.Box;
 import javax.swing.JPanel;
 
 public abstract class UserOptions extends JFrame implements ActionListener {
-	public UserOptions() {
+	private JPanel buttonPanel;
+	
+	public void launch() {
 		setTitle("Welcome ");
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		
@@ -20,8 +22,11 @@ public abstract class UserOptions extends JFrame implements ActionListener {
 		JLabel optionsLabel = new JLabel("             What would you like to do?");
 		getContentPane().add(optionsLabel);
 		
-		JPanel buttonPanel = new JPanel();
-		getContentPane().add(buttonPanel);}
+		buttonPanel = new JPanel();
+		getContentPane().add(buttonPanel);
+	}
 	
-		
+	protected UserOptions(JPanel jp) {
+		buttonPanel = jp;
+	}
 }
