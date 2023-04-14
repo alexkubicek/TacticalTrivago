@@ -15,14 +15,10 @@ public class CustomizedButtonActions {
 		public ConfirmButton() {
 			super(text);
 		}
-		
-		public void Clicked() {
-			//TODO launch correct GUI
-		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			// TODO launch
 			
 		}
 		
@@ -98,6 +94,118 @@ public class CustomizedButtonActions {
 		}
 	}
 	
+	public class OptionViewResButton extends JButton implements ActionListener{
+		private static final String text = "View and edit existing reservations";
+
+		public OptionViewResButton() {
+			super(text);
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+	
+	public class OptionNewResButton extends JButton implements ActionListener{
+		private static final String text = "Create new reservation";
+
+		public OptionNewResButton() {
+			super(text);
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+	
+	public class OptionViewProfileButton extends JButton implements ActionListener{
+		private static final String text = "View and edit profile";
+
+		public OptionViewProfileButton() {
+			super(text);
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+	
+	public class OptionViewRoomsButton extends JButton implements ActionListener{
+		private static final String text = "View and edit existing rooms";
+
+		public OptionViewRoomsButton() {
+			super(text);
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+	
+	public class OptionCreateRoomButton extends JButton implements ActionListener{
+		private static final String text = "Create new room";
+
+		public OptionCreateRoomButton() {
+			super(text);
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+	
+	public class OptionViewClerksButton extends JButton implements ActionListener{
+		private static final String text = "View and edit existing Clerk accounts";
+
+		public OptionViewClerksButton() {
+			super(text);
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+	
+	public class OptionCreateClerkButton extends JButton implements ActionListener{
+		private static final String text = "Create new Clerk account";
+
+		public OptionCreateClerkButton() {
+			super(text);
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+	
+	public class OptionRecordsButton extends JButton implements ActionListener{
+		private static final String text = "View and edit profile";
+
+		public OptionRecordsButton() {
+			super(text);
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+	
 	public CustomizedButtonActions(String type) {
 		switch(type.toLowerCase()) {
 			case "confirm":
@@ -117,6 +225,30 @@ public class CustomizedButtonActions {
 				break;
 			case "reset":
 				myButton = new ResetPasswordButton();
+				break;
+			case "viewres":
+				myButton = new OptionViewResButton();
+				break;
+			case "newres":
+				myButton = new OptionNewResButton();
+				break;
+			case "profile":
+				myButton = new OptionViewProfileButton();
+				break;
+			case "viewroom":
+				myButton = new OptionViewRoomsButton();
+				break;
+			case "newroom":
+				myButton = new OptionCreateRoomButton();
+				break;
+			case "viewclerk":
+				myButton = new OptionViewClerksButton();
+				break;
+			case "createclerk":
+				myButton = new OptionCreateClerkButton();
+				break;
+			case "records":
+				myButton = new OptionRecordsButton();
 				break;
 		}
 			
