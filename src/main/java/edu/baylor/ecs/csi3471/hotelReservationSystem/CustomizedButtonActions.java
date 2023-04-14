@@ -8,6 +8,8 @@ import javax.swing.JButton;
 public class CustomizedButtonActions {
 	JButton myButton;
 	
+	public JButton getButton() { return myButton;}
+	
 	public class ConfirmButton extends JButton implements ActionListener {
 		
 		private static final String text = "Confirm";
