@@ -10,8 +10,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import edu.baylor.ecs.csi3471.HRGUI.Guest;
-
 public class GuestOptionsGUI extends UserOptions {
 	private static JPanel jp;
 	private static final JButton viewResButton = (new CustomizedButtonActions("viewres")).getButton();
