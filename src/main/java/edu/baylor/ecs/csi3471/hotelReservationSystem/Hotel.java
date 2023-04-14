@@ -17,13 +17,12 @@ public class Hotel {
   public static List<Reservation> reservations;
   private static List<Payment> pastPayments;
 
-  //TODO Decide if we are going to make everything extend user or have clerk, guest, and admin be separate
-  //depending on choice DELETE the list of guests below
-  //Alex thinks keep it as Users because we can check which it is with the .class function
+
+  public void setUsers(List<Guest> guests) {this.accounts = accounts;}
+
+  
   public static List<User> accounts;
 
-  public List<User> getUsers() {return accounts;}
-  public void setUsers(List<Guest> guests) {this.accounts = accounts;}
   public List<Room> getRooms() {return rooms;}
   public void setRooms(List<Room> rooms) {this.rooms = rooms;}
   public List<Reservation> getReservations() {return reservations;}
