@@ -2,6 +2,8 @@ package edu.baylor.ecs.csi3471.hotelReservationSystem;
 
 import java.util.*;
 
+import javax.swing.JTextArea;
+
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -14,6 +16,9 @@ public class Hotel {
   public static List<Room> rooms;
   public static List<Reservation> reservations;
   private static List<Payment> pastPayments;
+
+
+  public void setUsers(List<Guest> guests) {this.accounts = accounts;}
 
   
   public static List<User> accounts;
@@ -61,41 +66,40 @@ public class Hotel {
 
   }
 
-  public static void reserveRoom(Room r, Date start, Date end, Guest g) {
-    // create reservation
-    Reservation reservation = new Reservation(start, end, g, r);
-    if(reservations == null) {
-      reservations = new ArrayList<Reservation>();
-    }
-    reservations.add(reservation);
-    g.addUpcomingReservations(reservation);
-  }
+
   public static void reserveRooms(List<Integer> roomNumbers, Date start, Date end, Guest g) {
-
-    List<Room> selectedRooms = new ArrayList<>();
-
-    // Find the rooms to be reserved
-    for (int NumberRoom : roomNumbers) {
-      Room selectedRoom = getRoom(NumberRoom);
-      if (selectedRoom != null && selectedRoom.isAvailable(start, end)) {
-        selectedRooms.add(selectedRoom);
-      }
-    }
-
-    // create reservation
-    if (!selectedRooms.isEmpty()) {
-      Reservation reservation = new Reservation(start, end, g, selectedRooms);
-      if(reservations == null) {
-        reservations = new ArrayList<Reservation>();
-      }
-      reservations.add(reservation);
-      g.addUpcomingReservations(reservation);
-      System.out.println("Reservation created successfully.");
-    } else {
-      System.out.println("Failed to create reservation. The selected rooms are not available for the selected dates.");
-    }
-
+	  List<Room> selectedRooms = new ArrayList<>();
+	  
+	  for(int NumberRoom : roomNumbers) {
+		  Room selectedRoom = getRoom(NumberRoom);
+		  if(selectedRoom != null && selectedRoom.isAvailable(start, end)) {
+			  selectedRooms.add(selectedRoom);
+		  }
+	  }
+	  
+	  if(!selectedRooms.isEmpty()) {
+		  Reservation reservation;
+		  if(selectedRooms.size() == 1) {
+			  reservation = new Reservation(start, end, g, selectedRooms.get(0));
+		  } 
+		  else {
+		      // reserve multiple rooms
+		      reservation = new Reservation(start, end, g, selectedRooms);
+		  }
+		  
+		  if (reservations == null) {
+		      reservations = new ArrayList<Reservation>();
+		  }
+		  reservations.add(reservation);
+		  g.addUpcomingReservations(reservation);
+		  System.out.println("Reservation created successfully.");
+		  
+	  }
+	  else {
+		    System.out.println("Failed to create reservation. The selected rooms are not available for the selected dates.");
+	  }
   }
+
 
   public static Reservation getReservation(String name, Date d) {
     // find and return reservation with matching info
@@ -107,31 +111,55 @@ public class Hotel {
     return null;
   }
 
-  public static void printRecords() {
-    // print past reservations and payments sorted by date
-    List<Reservation> sortedReservations = new ArrayList<>(reservations);
-    List<Payment> sortedPayments = new ArrayList<>(pastPayments);
+//  public static void printRecords() {
+//    // print past reservations and payments sorted by date
+//    List<Reservation> sortedReservations = new ArrayList<>(reservations);
+//    List<Payment> sortedPayments = new ArrayList<>(pastPayments);
+//
+//    // Sort reservations and payments by date
+//    Comparator<Reservation> reservationComparator = Comparator.comparing(Reservation::getStartDate);
+//
+//    Comparator<Payment> paymentComparator = Comparator.comparing(Payment::getDate);
+//
+//    sortedReservations.sort(reservationComparator);
+//    sortedPayments.sort(paymentComparator);
+//
+//    // Print the sorted reservations
+//    System.out.println("Reservations:");
+//    for (Reservation reservation : sortedReservations) {
+//      System.out.println(reservation.toString());
+//    }
+//
+//    // Print the sorted payments
+//    System.out.println("\nPayments:");
+//    for (Payment payment : sortedPayments) {
+//      System.out.println(payment.toString());
+//    }
+//  }
+  
+  public static void printRecords(JTextArea textArea) {
+	    // print past reservations and payments sorted by date
+	    List<Reservation> sortedReservations = new ArrayList<>(reservations);
+	    List<Payment> sortedPayments = new ArrayList<>(pastPayments);
 
-    // Sort reservations and payments by date
-    Comparator<Reservation> reservationComparator = Comparator.comparing(Reservation::getStartDate);
+	    // Sort reservations and payments by date
+	    Comparator<Reservation> reservationComparator = Comparator.comparing(Reservation::getStartDate);
+	    Comparator<Payment> paymentComparator = Comparator.comparing(Payment::getDate);
+	    sortedReservations.sort(reservationComparator);
+	    sortedPayments.sort(paymentComparator);
 
-    Comparator<Payment> paymentComparator = Comparator.comparing(Payment::getDate);
+	    // Display the sorted reservations
+	    textArea.append("Reservations:\n");
+	    for (Reservation reservation : sortedReservations) {
+	        textArea.append(reservation.toString() + "\n");
+	    }
 
-    sortedReservations.sort(reservationComparator);
-    sortedPayments.sort(paymentComparator);
-
-    // Print the sorted reservations
-    System.out.println("Reservations:");
-    for (Reservation reservation : sortedReservations) {
-      System.out.println(reservation.toString());
-    }
-
-    // Print the sorted payments
-    System.out.println("\nPayments:");
-    for (Payment payment : sortedPayments) {
-      System.out.println(payment.toString());
-    }
-  }
+	    // Display the sorted payments
+	    textArea.append("\nPayments:\n");
+	    for (Payment payment : sortedPayments) {
+	        textArea.append(payment.toString() + "\n");
+	    }
+	}
 
   public static Room getRoom(int roomNumber) {
     Room found = null;
