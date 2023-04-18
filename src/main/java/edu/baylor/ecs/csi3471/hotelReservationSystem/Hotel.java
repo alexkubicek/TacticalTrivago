@@ -1,6 +1,7 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.swing.JTextArea;
 
@@ -208,32 +209,21 @@ public class Hotel {
 
   public static void login(final String user, final String pass) {
     try {
-      accounts.forEach(u -> {
+      for(User u: accounts){
         AccountInformation cur_account = u.getAccountInformation();
         if(Objects.equals(cur_account.getUsername(), user)) {
           if(Objects.equals(cur_account.getPassword(), pass)) {
-            if(u.getClass() == Guest.class) {
-              GuestGUI gg = new GuestGUI(u.getNameFirst(), u);
-              gg.setVisible(true);
-            } else if(u.getClass() == Clerk.class) {
-              ClerkGUI cg = new ClerkGUI(u.getNameFirst(), u);
-              cg.setVisible(true);
-            } else if(u.getClass() == Admin.class) {
-              AdminGUI ag = new AdminGUI(u.getNameFirst(), u);
-              ag.setVisible(true);
-            }
+            u.login();
           } else {
             new LoginFailurePopupGUI();
           }
           throw new RuntimeException(); //to break out of loop
         }
-      });
+      }
     } catch(Exception ignored) {} //catch but ignore to break
-
   }
 
   public static void main(String[] args) {
     LoginPageGUI lp = new LoginPageGUI();
-    lp.setVisible(true);
   }
 }

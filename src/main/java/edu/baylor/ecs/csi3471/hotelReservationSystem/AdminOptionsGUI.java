@@ -10,9 +10,9 @@ public class AdminOptionsGUI extends UserOptions{
 	
 	private static JPanel jp;
 	
-	private static final JButton viewProfileButton = new CustomizedButtonActions("profile").getButton();
-	private static final JButton createClerkButton = new CustomizedButtonActions("createclerk").getButton();
-	private static final JButton viewEditClerkButton = new CustomizedButtonActions("viewclerk").getButton();
+	private static final JButton viewProfileButton = new JButton("View or Edit Profile");
+	private static final JButton createClerkButton = new JButton("Create New Clerk Account");
+	private static final JButton viewEditClerkButton = new JButton("View Existing Clerk Accounts");
 
 	private Admin myAdmin = null;
 	
@@ -31,6 +31,10 @@ public class AdminOptionsGUI extends UserOptions{
 		
 		return jp;
 	}
-	
-	
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+
+	}
 }

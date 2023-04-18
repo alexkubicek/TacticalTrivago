@@ -18,8 +18,7 @@ public class GuestCreateAccountGUI extends JFrame implements ActionListener {
     private JTextField nameLastField;
     private LoginPageGUI associatedLoginPage;
     private JCheckBox isCorpCheckBox;
-    public GuestCreateAccountGUI(LoginPageGUI lp) {
-        associatedLoginPage = lp;
+    public GuestCreateAccountGUI() {
         setAlwaysOnTop(true);
         setType(Type.POPUP);
         setTitle("Tactical Trivago - Create Account");
@@ -80,6 +79,8 @@ public class GuestCreateAccountGUI extends JFrame implements ActionListener {
         JButton submitButton = new JButton("Create Account");
         submitButton.setBounds(30, 205, 134, 29);
         getContentPane().add(submitButton);
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
+        setVisible(true);
     }
 
     @Override

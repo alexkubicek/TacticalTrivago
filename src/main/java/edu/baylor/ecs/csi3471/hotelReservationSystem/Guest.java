@@ -8,7 +8,7 @@ public class Guest extends User {
 		    super(nameFirst, nameLast, info);
 	  }
     private Boolean isCorporate;
-    
+
     public Guest(String[] line){
         // header labels assumed: nameFirst, nameLast, username, password
     	super(line[0], line[1], new AccountInformation(line[2], line[3]));
@@ -45,4 +45,8 @@ public class Guest extends User {
     public List<CreditCard> getPaymentMethods() {return paymentMethods;}
 
     public Guest(){}
+
+    public void login(){
+        this.gui = new GuestOptionsGUI(this);
+    }
 }

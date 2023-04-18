@@ -5,6 +5,7 @@ import java.util.Objects;
 public abstract class User {
   private String nameFirst, nameLast;
   private AccountInformation account;
+  protected UserOptions gui;
 
   public User(){}
   public User(String nameFirst, String nameLast, AccountInformation info){
@@ -61,4 +62,6 @@ public abstract class User {
   public int hashCode() {
     return Objects.hash(nameFirst, nameLast, account);
   }
+
+  public abstract void login();
 }

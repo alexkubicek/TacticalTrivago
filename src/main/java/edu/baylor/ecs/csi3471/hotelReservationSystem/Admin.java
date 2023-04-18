@@ -37,4 +37,8 @@ public class Admin extends User {
     public void resetPassword(User user, String newPassword) {
         user.getAccountInformation().setPassword(newPassword);
     }
+
+    public void login(){
+        gui = new AdminOptionsGUI(this);
+    }
 }

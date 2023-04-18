@@ -9,4 +9,7 @@ public class Clerk extends User {
 	public String getPublicInfo(){
 		return super.getFullName();
 	}
+	public void login(){
+		//TODO launch ClerkOptionsGUI once created
+	}
 }
