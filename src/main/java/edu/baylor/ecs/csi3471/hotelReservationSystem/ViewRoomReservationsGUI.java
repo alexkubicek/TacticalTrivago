@@ -6,14 +6,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ViewRoomReservationsGUI extends JFrame implements ActionListener {
-    //TODO: generic: table, edit button, delete button
-    //will pass either room model or table model for correct GUI
+    JTable table;
+    JButton editButton, deleteButton;
     public ViewRoomReservationsGUI(TableModel tm){
-        //TODO: design
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
+        table = new JTable(tm);
+        editButton = new JButton("Edit");
+        deleteButton = new JButton("Delete");
+        //TODO: put on frame and make frame visible
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if((JButton)e.getSource() == editButton){
+            //TODO: launch edit gui
+        } else if((JButton)e.getSource() == deleteButton){
+            //TODO: launch confirm delete popup
+        }
     }
 }
