@@ -14,7 +14,7 @@ public class AdminOptionsGUI extends UserOptions{
 	private static final JButton createClerkButton = new JButton("Create New Clerk Account");
 	private static final JButton viewEditClerkButton = new JButton("View Existing Clerk Accounts");
 
-	private Admin myAdmin = null;
+	private Admin myAdmin;
 	
 	AdminOptionsGUI(Admin a){
 		super(addButtons());	

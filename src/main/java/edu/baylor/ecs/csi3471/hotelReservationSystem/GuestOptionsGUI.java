@@ -35,7 +35,6 @@ public class GuestOptionsGUI extends UserOptions {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton b = (JButton) e.getSource();
-		this.setVisible(false);
 		if(Objects.equals(b, viewResButton)) {
 			//TODO
 		} else if(Objects.equals(b, createResButton)) {
