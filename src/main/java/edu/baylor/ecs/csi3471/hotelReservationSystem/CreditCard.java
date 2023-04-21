@@ -6,6 +6,24 @@ import java.text.SimpleDateFormat;
 public class CreditCard {
     private Integer cardNum, cvv;
     private Date expiration;
+    private Address address;
+    private String name;
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     //associations
     private User user;
@@ -47,6 +65,14 @@ public class CreditCard {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public CreditCard(String name, Date date, Integer cardID, Integer threeFancyDigits, Integer buildingNumber, Integer zipCode, String street, String city, State tx){
+        this.name = name;
+        this.expiration = date;
+        this.cvv = threeFancyDigits;
+        this.cardNum = cardID;
+        this.address = new Address(buildingNumber, zipCode, street, city, tx);
     }
 }
 

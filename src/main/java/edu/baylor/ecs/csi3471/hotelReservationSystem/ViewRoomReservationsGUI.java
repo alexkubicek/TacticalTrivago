@@ -19,7 +19,7 @@ public class ViewRoomReservationsGUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if((JButton)e.getSource() == editButton){
-            //TODO: launch edit gui
+            //TODO: launch edit gui (we should use polymorphism and call from tableModel)
         } else if((JButton)e.getSource() == deleteButton){
             //TODO: launch confirm delete popup
         }

@@ -6,14 +6,16 @@ public abstract class User {
   private String nameFirst, nameLast;
   private AccountInformation account;
   protected UserOptions gui;
-
+  protected abstract void launchProfile();
   public User(){}
   public User(String nameFirst, String nameLast, AccountInformation info){
       this.nameFirst = nameFirst;
       this.nameLast = nameLast;
       this.account = info;
   }
-  
+  public String[] getTableInfo(){
+    return null;
+  }
   public String getFullName() {
 	  return nameFirst + " " + nameLast;
   }

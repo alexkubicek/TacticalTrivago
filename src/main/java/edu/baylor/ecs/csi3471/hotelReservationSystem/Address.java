@@ -5,7 +5,7 @@ import java.util.Map;
 public class Address{
   	private Integer buildingNumber, zipCode;
   	private String street, city; //abbreviation mapped to full name
-	State state;
+	private State state;
   
   	public Integer getBuildingNumber() {
 		return buildingNumber;

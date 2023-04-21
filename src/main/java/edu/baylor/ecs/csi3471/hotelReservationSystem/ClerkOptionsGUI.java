@@ -34,6 +34,16 @@ public class ClerkOptionsGUI  extends UserOptions {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if(((JButton)e.getSource()).equals(viewRoomsButton)){
+            //TODO
+        } else if(((JButton)e.getSource()).equals(viewProfileButton)){
+            //TODO
+        } else if(((JButton)e.getSource()).equals(viewReservationsButton)){
+            //TODO
+        } else if(((JButton)e.getSource()).equals(createRoomButton)){
+            //TODO
+        } else if(((JButton)e.getSource()).equals(createReservationButton)){
+            //TODO
+        }
     }
 }
