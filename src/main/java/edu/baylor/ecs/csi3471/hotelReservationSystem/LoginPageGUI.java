@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
+import java.util.Objects;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -52,6 +53,7 @@ public class LoginPageGUI extends JFrame implements ActionListener {
         createAccount.addActionListener(this);
 
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
     }
 
     private static final long serialVersionUID = 1L;
@@ -61,11 +63,11 @@ public class LoginPageGUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String text = ((JButton) e.getSource()).getText();
-        this.setVisible(false);
-        if(text == "Create Account") {
-            GuestCreateAccountGUI gca = new GuestCreateAccountGUI(this);
-            gca.setVisible(true);
-        } else if(text == "Login") {
+        if(Objects.equals(text, "Create Account")) {
+            //TODO change GuestCreateAccountGUI to GuestProfileGUI
+            GuestCreateAccountGUI gca = new GuestCreateAccountGUI();
+        } else if(Objects.equals(text, "Login")) {
+            this.setVisible(false);
             String username = usernameField.getText();
             String password = String.valueOf(passwordField.getPassword());
             Hotel.login(username, password);
