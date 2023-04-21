@@ -70,11 +70,15 @@ public class LoginPageGUI extends JFrame implements ActionListener {
         if(Objects.equals(text, "Create Account")) {
             //TODO change GuestCreateAccountGUI to GuestProfileGUI
         } else if(Objects.equals(text, "Login")) {
-            this.setVisible(false);
             String username = usernameField.getText();
             String password = String.valueOf(passwordField.getPassword());
             User me = Hotel.login(username, password);
-            me.launchOptions();
+            if(me != null){
+                this.setVisible(false);
+                //System.out.println("about to launch options");
+                me.launchOptions();
+            }
+
         }
     }
 }
