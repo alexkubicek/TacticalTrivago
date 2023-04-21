@@ -8,7 +8,7 @@ public class Guest extends User {
 		    super(nameFirst, nameLast, info);
 	  }
     private Boolean isCorporate;
-    
+
     public Guest(String[] line){
         // header labels assumed: nameFirst, nameLast, username, password
     	super(line[0], line[1], new AccountInformation(line[2], line[3]));
@@ -18,7 +18,6 @@ public class Guest extends User {
   
     //associations
     private List<Reservation> upcomingReservations;
-    private List<Address> addresses; //index 0 being default to use
     private List<CreditCard> paymentMethods; //index 0 being default to use
 
     public void setCorporate(Boolean corporate) {isCorporate = corporate;}
@@ -32,7 +31,6 @@ public class Guest extends User {
     	this.upcomingReservations.add(reservation);
     }
 
-    public void setAddresses(List<Address> addresses) {this.addresses = addresses;}
 
     public void setPaymentMethods(List<CreditCard> paymentMethods) {this.paymentMethods = paymentMethods;}
 
@@ -40,9 +38,15 @@ public class Guest extends User {
 
     public List<Reservation> getUpcomingReservations() {return upcomingReservations;}
 
-    public List<Address> getAddresses() {return addresses;}
-
     public List<CreditCard> getPaymentMethods() {return paymentMethods;}
 
     public Guest(){}
+    @Override
+    protected void launchProfile() {
+        new UserProfileGUI(this);
+    }
+
+    public void login(){
+        this.gui = new GuestOptionsGUI(this);
+    }
 }

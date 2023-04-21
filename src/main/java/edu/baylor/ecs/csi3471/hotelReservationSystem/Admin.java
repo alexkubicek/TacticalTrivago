@@ -9,6 +9,12 @@ public class Admin extends User {
         super(nameFirst, nameLast, account);
         this.AdminId = AdminId;
     }
+
+    @Override
+    protected void launchProfile() {
+        new UserProfileGUI(this);
+    }
+
     public Admin(String nameFirst, String nameLast, AccountInformation account){
         super(nameFirst, nameLast, account);
     }
@@ -36,5 +42,9 @@ public class Admin extends User {
     }
     public void resetPassword(User user, String newPassword) {
         user.getAccountInformation().setPassword(newPassword);
+    }
+
+    public void login(){
+        gui = new AdminOptionsGUI(this);
     }
 }
