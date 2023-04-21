@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.User;
 
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
