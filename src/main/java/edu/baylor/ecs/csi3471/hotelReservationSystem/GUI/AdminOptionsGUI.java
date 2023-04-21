@@ -10,8 +10,7 @@ import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Admin;
 
 public class AdminOptionsGUI extends UserOptions{
 	
-	private static JPanel jp;
-	
+
 	private static final JButton viewProfileButton = new JButton("View or Edit Profile");
 	private static final JButton createClerkButton = new JButton("Create New Clerk Account");
 	private static final JButton viewEditClerkButton = new JButton("View Existing Clerk Accounts");
@@ -19,18 +18,19 @@ public class AdminOptionsGUI extends UserOptions{
 	private Admin myAdmin;
 	
 	public AdminOptionsGUI(Admin a){
-		super(addButtons());	
+		super(addButtons(), a.getNameFirst());
 		myAdmin = a;
-
+		setBounds(400, 100, 400, 300);
+		setVisible(true);
 	}
 
 	private static JPanel addButtons() {
-		jp = new JPanel();
+		JPanel jp = new JPanel();
 		jp.setLayout(new BoxLayout(jp, BoxLayout.Y_AXIS));
 		jp.add(viewProfileButton);
 		jp.add(createClerkButton);
 		jp.add(viewEditClerkButton);
-		
+		jp.setVisible(true);
 		return jp;
 	}
 

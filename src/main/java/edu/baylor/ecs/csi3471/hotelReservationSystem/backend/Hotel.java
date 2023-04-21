@@ -213,31 +213,27 @@ public class Hotel {
       if(user == null || pass == null){
           new LoginFailurePopupGUI();
       }
-    try {
+
       for(User u: accounts){
           System.out.println(u);
-        AccountInformation cur_account = u.getAccountInformation();
-        if(Objects.equals(cur_account.getUsername(), user)) {
-            System.out.println("found user");
-          if(Objects.equals(cur_account.getPassword(), pass)) {
-              System.out.println("password correct");
-            return u;
+          AccountInformation cur_account = u.getAccountInformation();
+          if(Objects.equals(cur_account.getUsername(), user)) {
+              if(Objects.equals(cur_account.getPassword(), pass)) {
+                  return u;
           } else {
-              System.out.println("password incorrect");
-            new LoginFailurePopupGUI();
+              new LoginFailurePopupGUI();
+              return null;
           }
-          throw new RuntimeException(); //to break out of loop
         }
       }
-    } catch(Exception ignored) {
-        System.out.println("exception");
-    } //catch but ignore to break
-    return null;
+      return null;
   }
 
   public static void main(String[] args) {
       accounts = new ArrayList<>();
-      accounts.add(new Guest("", "", new AccountInformation("user", "pass")));
+      accounts.add(new Guest("Alex", "", new AccountInformation("user", "pass")));
+      accounts.add(new Clerk("Clerk", "", new AccountInformation("clerk", "pass")));
+      accounts.add(new Admin("Admin", "", new AccountInformation("admin", "pass")));
       LoginPageGUI lp = new LoginPageGUI();
   }
 }

@@ -8,7 +8,7 @@ import javax.swing.SwingConstants;
 public class LoginFailurePopupGUI extends JFrame {
     public LoginFailurePopupGUI() {
         setAlwaysOnTop(true);
-        setBounds(200, 200, 400, 300);
+        setBounds(400, 200, 400, 300);
         JLabel lblNewLabel = new JLabel("invalid username/password combination");
         lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
         getContentPane().add(lblNewLabel, BorderLayout.CENTER);

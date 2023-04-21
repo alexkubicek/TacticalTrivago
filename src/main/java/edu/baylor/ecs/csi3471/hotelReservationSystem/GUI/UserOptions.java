@@ -14,23 +14,22 @@ import javax.swing.JPanel;
 
 public abstract class UserOptions extends JFrame implements ActionListener {
 
-	private JPanel buttonPanel;
+	protected JPanel buttonPanel;
 	
-	public void launch() {
-		setTitle("Welcome ");
+	protected UserOptions(JPanel jp, String name) {
+		System.out.println("recieved name " + name);
+		buttonPanel = jp;
+		buttonPanel.setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setTitle("Welcome " + name);
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-		
+
 		Component verticalStrut = Box.createVerticalStrut(50);
 		getContentPane().add(verticalStrut);
-		
+
 		JLabel optionsLabel = new JLabel("             What would you like to do?");
 		getContentPane().add(optionsLabel);
-		
-		buttonPanel = new JPanel();
+
 		getContentPane().add(buttonPanel);
-	}
-	
-	protected UserOptions(JPanel jp) {
-		buttonPanel = jp;
 	}
 }

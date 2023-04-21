@@ -47,7 +47,8 @@ public class Guest extends User {
 
     @Override
     public void launchOptions() {
-        new GuestOptionsGUI(this);
+        System.out.println("launching guest options");
+        GuestOptionsGUI myOptions = new GuestOptionsGUI(this);
     }
 
     @Override

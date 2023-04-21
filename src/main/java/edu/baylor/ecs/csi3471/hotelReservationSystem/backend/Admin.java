@@ -23,6 +23,7 @@ public class Admin extends User {
     }
     @Override
     public void launchOptions() {
+        System.out.println("launching admin options");
         new AdminOptionsGUI(this);
     }
     public int getAdminId() {
