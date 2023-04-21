@@ -36,11 +36,11 @@ public class GuestOptionsGUI extends UserOptions {
 	public void actionPerformed(ActionEvent e) {
 		JButton b = (JButton) e.getSource();
 		if(Objects.equals(b, viewResButton)) {
-			//TODO
+			//TODO: new ViewRoomReservationsGUI(UpcomingResTableModel, myGuest)
 		} else if(Objects.equals(b, createResButton)) {
-			//TODO
+			//TODO: new CreateEditReservation(myGuest)
 		} else if(Objects.equals(b, profileButton)){
-			//TODO
+			//TODO: new UserProfileGUI(myGuest)
 		}
 	}
 }

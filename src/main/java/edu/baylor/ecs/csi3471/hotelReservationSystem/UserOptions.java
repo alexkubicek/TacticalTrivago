@@ -12,12 +12,8 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JPanel;
 
-public abstract class UserOptions extends JFrame  {
-	
-	public void actionPerformed(ActionEvent e) {
-		
-	}
-	
+public abstract class UserOptions extends JFrame implements ActionListener {
+
 	private JPanel buttonPanel;
 	
 	public void launch() {
