@@ -7,6 +7,9 @@ import org.junit.runner.RunWith;
 import org.junit.runner.JUnitCore;
 import org.junit.runners.JUnit4;
 
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Address;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.State;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
