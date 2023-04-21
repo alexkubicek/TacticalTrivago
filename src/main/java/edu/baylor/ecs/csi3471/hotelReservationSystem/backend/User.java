@@ -10,6 +10,7 @@ public abstract class User {
   protected UserOptions gui;
   public abstract void launchProfile();
   public User(){}
+  public abstract void launchOptions();
   public User(String nameFirst, String nameLast, AccountInformation info){
       this.nameFirst = nameFirst;
       this.nameLast = nameLast;

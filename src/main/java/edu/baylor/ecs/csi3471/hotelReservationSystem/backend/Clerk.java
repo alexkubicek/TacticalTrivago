@@ -11,7 +11,10 @@ public class Clerk extends User {
 	public String getPublicInfo(){
 		return super.getFullName();
 	}
-
+	@Override
+	public void launchOptions() {
+		new ClerkOptionsGUI(this);
+	}
 	@Override
 	public String[] getTableInfo() {
 		String[] myInfo = new String[]{getAccountInformation().getUsername(), getNameFirst(), getNameLast()};

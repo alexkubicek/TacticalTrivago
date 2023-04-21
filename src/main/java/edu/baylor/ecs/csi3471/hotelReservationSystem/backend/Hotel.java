@@ -209,13 +209,14 @@ public class Hotel {
 
   }
 
-  public static void login(final String user, final String pass) {
+  public static User login(final String user, final String pass) {
+      User toReturn = null;
     try {
       for(User u: accounts){
         AccountInformation cur_account = u.getAccountInformation();
         if(Objects.equals(cur_account.getUsername(), user)) {
           if(Objects.equals(cur_account.getPassword(), pass)) {
-            u.login();
+            toReturn = u;
           } else {
             new LoginFailurePopupGUI();
           }
@@ -223,9 +224,12 @@ public class Hotel {
         }
       }
     } catch(Exception ignored) {} //catch but ignore to break
+    return toReturn;
   }
 
   public static void main(String[] args) {
-    LoginPageGUI lp = new LoginPageGUI();
+      accounts = new ArrayList<>();
+      accounts.add(new Guest("", "", new AccountInformation("user", "pass")));
+      LoginPageGUI lp = new LoginPageGUI();
   }
 }

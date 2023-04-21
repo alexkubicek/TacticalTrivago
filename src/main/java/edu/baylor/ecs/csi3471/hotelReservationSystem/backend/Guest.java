@@ -44,6 +44,12 @@ public class Guest extends User {
     public List<CreditCard> getPaymentMethods() {return paymentMethods;}
 
     public Guest(){}
+
+    @Override
+    public void launchOptions() {
+        new GuestOptionsGUI(this);
+    }
+
     @Override
 	public void launchProfile() {
         new UserProfileGUI(this);

@@ -72,7 +72,8 @@ public class LoginPageGUI extends JFrame implements ActionListener {
             this.setVisible(false);
             String username = usernameField.getText();
             String password = String.valueOf(passwordField.getPassword());
-            Hotel.login(username, password);
+            User me = Hotel.login(username, password);
+            me.launchOptions();
         }
     }
 }
