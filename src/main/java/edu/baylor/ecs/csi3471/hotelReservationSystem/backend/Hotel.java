@@ -210,26 +210,30 @@ public class Hotel {
   }
 
   public static User login(final String user, final String pass) {
-      User toReturn = null;
-    try {
+      if(user == null || pass == null){
+          new LoginFailurePopupGUI();
+      }
+
       for(User u: accounts){
-        AccountInformation cur_account = u.getAccountInformation();
-        if(Objects.equals(cur_account.getUsername(), user)) {
-          if(Objects.equals(cur_account.getPassword(), pass)) {
-            toReturn = u;
+          System.out.println(u);
+          AccountInformation cur_account = u.getAccountInformation();
+          if(Objects.equals(cur_account.getUsername(), user)) {
+              if(Objects.equals(cur_account.getPassword(), pass)) {
+                  return u;
           } else {
-            new LoginFailurePopupGUI();
+              new LoginFailurePopupGUI();
+              return null;
           }
-          throw new RuntimeException(); //to break out of loop
         }
       }
-    } catch(Exception ignored) {} //catch but ignore to break
-    return toReturn;
+      return null;
   }
 
   public static void main(String[] args) {
       accounts = new ArrayList<>();
-      accounts.add(new Guest("", "", new AccountInformation("user", "pass")));
+      accounts.add(new Guest("Alex", "", new AccountInformation("user", "pass")));
+      accounts.add(new Clerk("Clerk", "", new AccountInformation("clerk", "pass")));
+      accounts.add(new Admin("Admin", "", new AccountInformation("admin", "pass")));
       LoginPageGUI lp = new LoginPageGUI();
   }
 }

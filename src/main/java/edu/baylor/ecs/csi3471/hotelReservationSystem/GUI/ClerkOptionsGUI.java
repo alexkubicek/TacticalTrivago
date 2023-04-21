@@ -7,7 +7,6 @@ import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Clerk;
 import java.awt.event.ActionEvent;
 
 public class ClerkOptionsGUI  extends UserOptions {
-    private static JPanel jp;
 
     private static final JButton viewProfileButton = new JButton("View and Edit Profile");
     private static final JButton viewRoomsButton = new JButton("View and Edit Rooms");
@@ -18,19 +17,21 @@ public class ClerkOptionsGUI  extends UserOptions {
     private Clerk myClerk;
 
     public ClerkOptionsGUI(Clerk a){
-        super(addButtons());
+        super(addButtons(), a.getNameFirst());
         myClerk = a;
-
+        setBounds(400, 200, 400, 300);
+        setVisible(true);
     }
 
     private static JPanel addButtons() {
-        jp = new JPanel();
+        JPanel jp = new JPanel();
         jp.setLayout(new BoxLayout(jp, BoxLayout.Y_AXIS));
         jp.add(viewProfileButton);
         jp.add(viewReservationsButton);
         jp.add(createReservationButton);
         jp.add(viewRoomsButton);
         jp.add(createRoomButton);
+        jp.setVisible(true);
         return jp;
     }
 
