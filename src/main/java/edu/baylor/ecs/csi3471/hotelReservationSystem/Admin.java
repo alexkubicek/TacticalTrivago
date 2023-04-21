@@ -18,7 +18,10 @@ public class Admin extends User {
     public Admin(String nameFirst, String nameLast, AccountInformation account){
         super(nameFirst, nameLast, account);
     }
-
+    @Override
+    public void launchOptions() {
+        new AdminOptionsGUI(this);
+    }
     public int getAdminId() {
         return AdminId;
     }
