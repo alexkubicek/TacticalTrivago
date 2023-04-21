@@ -210,21 +210,29 @@ public class Hotel {
   }
 
   public static User login(final String user, final String pass) {
-      User toReturn = null;
+      if(user == null || pass == null){
+          new LoginFailurePopupGUI();
+      }
     try {
       for(User u: accounts){
+          System.out.println(u);
         AccountInformation cur_account = u.getAccountInformation();
         if(Objects.equals(cur_account.getUsername(), user)) {
+            System.out.println("found user");
           if(Objects.equals(cur_account.getPassword(), pass)) {
-            toReturn = u;
+              System.out.println("password correct");
+            return u;
           } else {
+              System.out.println("password incorrect");
             new LoginFailurePopupGUI();
           }
           throw new RuntimeException(); //to break out of loop
         }
       }
-    } catch(Exception ignored) {} //catch but ignore to break
-    return toReturn;
+    } catch(Exception ignored) {
+        System.out.println("exception");
+    } //catch but ignore to break
+    return null;
   }
 
   public static void main(String[] args) {

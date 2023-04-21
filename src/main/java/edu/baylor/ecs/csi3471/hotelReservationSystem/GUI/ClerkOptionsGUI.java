@@ -17,7 +17,7 @@ public class ClerkOptionsGUI  extends UserOptions {
 
     private Clerk myClerk;
 
-    ClerkOptionsGUI(Clerk a){
+    public ClerkOptionsGUI(Clerk a){
         super(addButtons());
         myClerk = a;
 
