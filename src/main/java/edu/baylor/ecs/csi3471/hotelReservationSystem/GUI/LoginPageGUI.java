@@ -3,18 +3,12 @@ package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.*;
 import java.awt.BorderLayout;
 import java.util.Objects;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.User;
-
-import javax.swing.JPasswordField;
-import javax.swing.JButton;
 
 public class LoginPageGUI extends JFrame implements ActionListener {
     public LoginPageGUI() {
@@ -70,6 +64,12 @@ public class LoginPageGUI extends JFrame implements ActionListener {
         if(Objects.equals(text, "Create Account")) {
             //TODO change GuestCreateAccountGUI to GuestProfileGUI
         } else if(Objects.equals(text, "Login")) {
+            if (usernameField.getText().isEmpty() ||
+                    passwordField.getPassword().length == 0) {
+                JOptionPane.showMessageDialog(LoginPageGUI.this, "Please fill in all required fields.");
+                return;
+                // This will return to prompting users to fill in textfields
+            }
             String username = usernameField.getText();
             String password = String.valueOf(passwordField.getPassword());
             User me = Hotel.login(username, password);
