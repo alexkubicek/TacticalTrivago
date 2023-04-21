@@ -58,7 +58,6 @@ public class UserProfileGUI extends JFrame implements ActionListener {
             panel.add(firstNameField);
             panel.add(lastNameLabel);
             panel.add(lastNameField);
-            panel.add(confirmButton);
             
             u.launchProfile();
         }
@@ -68,35 +67,23 @@ public class UserProfileGUI extends JFrame implements ActionListener {
         //we must be creating a user then
     }
     public UserProfileGUI(Guest g){
-
     	isCorporate.setSelected(g.corporate());
     	panel.add(isCorporate);
-
-        panel.add(confirmButton);
-        confirmButton.addActionListener(this);
 
         // Set properties for the JFrame
         configFrame("Guest Profile");
     }
 
     public UserProfileGUI(Clerk c){
-    	
-        panel.add(confirmButton);
-        confirmButton.addActionListener(this);
-
         // Set properties for the JFrame
         configFrame("Clerk Profile");
     }
 
     public UserProfileGUI(Admin a){
-    
         adminIDField.setText(Integer.toString(a.getAdminId()));
-
         panel.add(adminIDLabel);
         panel.add(adminIDField);
-
-        panel.add(confirmButton);
-        confirmButton.addActionListener(this);
+        
 
         // Set properties for the JFrame
         configFrame("Admin Profile");
@@ -104,6 +91,9 @@ public class UserProfileGUI extends JFrame implements ActionListener {
     }
 
     public void configFrame(String userType) {
+    	panel.add(confirmButton);
+        confirmButton.addActionListener(this);
+        
     	this.setTitle(userType);
         this.add(panel);
         this.pack();
