@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 // to initialize the fully populated hotel object? 
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.*;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
 
 public abstract class HotelReadWriteUtils {
 	//FIXME make sure the load function also loads users. Right now it only loads rooms into the hotel

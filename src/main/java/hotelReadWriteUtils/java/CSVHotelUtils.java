@@ -4,10 +4,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.baylor.ecs.csi3471.hotelReservationSystem.Guest;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.Hotel;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.Room;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.User;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Guest;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Room;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.User;
 
 public class CSVHotelUtils extends HotelReadWriteUtils{
 
