@@ -65,7 +65,7 @@ public class LoginPageGUI extends JFrame implements ActionListener {
         String text = ((JButton) e.getSource()).getText();
         if(Objects.equals(text, "Create Account")) {
             //TODO change GuestCreateAccountGUI to GuestProfileGUI
-            GuestCreateAccountGUI gca = new GuestCreateAccountGUI();
+            //GuestCreateAccountGUI gca = new GuestCreateAccountGUI();
         } else if(Objects.equals(text, "Login")) {
             this.setVisible(false);
             String username = usernameField.getText();
