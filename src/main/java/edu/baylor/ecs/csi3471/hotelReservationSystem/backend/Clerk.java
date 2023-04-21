@@ -14,6 +14,7 @@ public class Clerk extends User {
 	}
 	@Override
 	public void launchOptions() {
+		System.out.println("launching clerk options");
 		new ClerkOptionsGUI(this);
 	}
 	@Override
