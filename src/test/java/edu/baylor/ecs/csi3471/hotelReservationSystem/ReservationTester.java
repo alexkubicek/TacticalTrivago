@@ -6,6 +6,12 @@ import org.junit.runner.RunWith;
 import org.junit.runner.JUnitCore;
 import org.junit.runners.JUnit4;
 
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.CleanStatus;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Guest;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Reservation;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Room;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
