@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.*;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Room;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
