@@ -14,6 +14,7 @@ public class AdminOptionsGUI extends UserOptions{
 	private static final JButton viewProfileButton = new JButton("View or Edit Profile");
 	private static final JButton createClerkButton = new JButton("Create New Clerk Account");
 	private static final JButton viewEditClerkButton = new JButton("View Existing Clerk Accounts");
+	private static final JButton getAdminReport = new JButton("Get report");
 
 	private Admin myAdmin;
 	
@@ -30,6 +31,8 @@ public class AdminOptionsGUI extends UserOptions{
 		jp.add(viewProfileButton);
 		jp.add(createClerkButton);
 		jp.add(viewEditClerkButton);
+		jp.add(getAdminReport);
+
 		jp.setVisible(true);
 		return jp;
 	}
@@ -38,11 +41,13 @@ public class AdminOptionsGUI extends UserOptions{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(((JButton)e.getSource()).equals(viewProfileButton)){
-			//TODO
+			UserProfileGUI profile = new UserProfileGUI(myAdmin);
 		} else if(((JButton)e.getSource()).equals(createClerkButton)){
 			//TODO
 		} else if(((JButton)e.getSource()).equals(viewEditClerkButton)){
 			//TODO
+		} else if(((JButton)e.getSource()).equals(getAdminReport)){
+			 //TODO
 		}
 	}
 }
