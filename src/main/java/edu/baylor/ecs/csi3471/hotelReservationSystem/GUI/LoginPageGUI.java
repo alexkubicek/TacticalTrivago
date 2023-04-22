@@ -10,6 +10,9 @@ import java.util.Objects;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.AccountInformation;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Clerk;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Guest;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.User;
 
@@ -68,8 +71,12 @@ public class LoginPageGUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String text = ((JButton) e.getSource()).getText();
         if(Objects.equals(text, "Create Account")) {
-            //TODO change GuestCreateAccountGUI to GuestProfileGUI
-        } else if(Objects.equals(text, "Login")) {
+            User newUser = new Clerk("", "", new AccountInformation("", ""));
+            UserProfileGUI userProfileGUI = new UserProfileGUI(newUser);
+            userProfileGUI.setVisible(true);
+            this.dispose();
+        }
+        else if(Objects.equals(text, "Login")) {
             String username = usernameField.getText();
             String password = String.valueOf(passwordField.getPassword());
             User me = Hotel.login(username, password);
