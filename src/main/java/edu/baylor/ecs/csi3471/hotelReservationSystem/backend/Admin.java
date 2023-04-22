@@ -26,6 +26,9 @@ public class Admin extends User {
         System.out.println("launching admin options");
         new AdminOptionsGUI(this);
     }
+    public void edit(){
+        new UserProfileGUI(this);
+    }
     public int getAdminId() {
         return AdminId;
     }

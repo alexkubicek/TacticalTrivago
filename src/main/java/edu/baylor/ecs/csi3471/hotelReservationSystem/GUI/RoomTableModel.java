@@ -13,6 +13,7 @@ import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Room;
 public class RoomTableModel extends DefaultTableModel {
     public static final Class<?>[] columnClass = new Class[] {Integer.class, QualityLevel.class, Integer.class, BedType.class, boolean.class, Double.class};
     public static final String[] columnNames = {"Room Number", "Quality Level", "Bed Count", "Bed Size", "Smoking", "Rate"};
+
     @Override
     public int getColumnCount() {
         return columnNames.length;

@@ -14,6 +14,9 @@ public class UpcomingResTableModel extends DefaultTableModel {
     public static final Class<?>[] columnClass = new Class[] {Date.class, Date.class, Integer.class, Integer.class, BedType.class};
     public static final String[] columnNames = {"Start Date", "End Date", "Rooms", "Beds"};
 
+    public void launchEditor(){
+        CreateEditReservationGUI myRes = new CreateEditReservationGUI();
+    }
     public void populate(Guest g) {
         Hotel.reservations.stream().filter((res)-> res.getGuest() == g).forEach(r -> {
             StringBuilder bedString = new StringBuilder();

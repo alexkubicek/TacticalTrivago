@@ -5,6 +5,7 @@ import javax.swing.*;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.BedType;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.CleanStatus;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.QualityLevel;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Room;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,8 +15,9 @@ public class RoomEditorGUI extends JFrame implements ActionListener {
     JCheckBox smokingCheckBox;
     JFormattedTextField roomNumField, bedNumField;
     JComboBox qualityLevelDropDown, bedTypeDropDown, comboBox;
+
     private static final JButton confirmButton = new JButton("Confirm");
-    public RoomEditorGUI() {
+    public RoomEditorGUI(Room r) {
         confirmButton.addActionListener(this);
         getContentPane().setLayout(null);
 

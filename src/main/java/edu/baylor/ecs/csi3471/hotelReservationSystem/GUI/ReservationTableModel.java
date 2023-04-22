@@ -12,6 +12,9 @@ public class ReservationTableModel extends DefaultTableModel {
     public static final Class<?>[] columnClass = new Class[] {String.class, Date.class, Date.class, Integer.class, Integer.class};
     public static final String[] columnNames = {"Guest", "Start Date", "End Date", "Rooms", "Beds"};
 
+    public void launchEditor(){
+        CreateEditReservationGUI myRes = new CreateEditReservationGUI();
+    }
     public void populate() {
         Hotel.reservations.forEach(r->{
             String bedString = "";

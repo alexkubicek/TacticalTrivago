@@ -1,10 +1,16 @@
-package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
+package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
+
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Clerk;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
 
 import javax.swing.table.DefaultTableModel;
 
 public class ClerkTableModel extends DefaultTableModel {
     public static final Class<?>[] columnClass = new Class[] {String.class, String.class, String.class};
     public static final String[] columnNames = {"Username", "First Name", "Last Name"};
+    public void launchEditor(Clerk c){
+        UserProfileGUI myClerk = new UserProfileGUI(c);
+    }
     @Override
     public int getColumnCount() {
         return columnNames.length;
