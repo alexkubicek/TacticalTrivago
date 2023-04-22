@@ -14,8 +14,13 @@ public class Reservation {
   	//associations
   	private Guest guest;
   	private List<Room> rooms;
-  	private Hotel tacticalTrigavo;
-  
+	public String getRoomsString(){
+		StringBuilder line = new StringBuilder();
+		for (Room r : rooms) {
+			line.append(String.valueOf(r.getRoomNumber())).append(": ").append(String.valueOf(r.getBedCount())).append(" ").append(String.valueOf(r.getBedSize())).append("s\n");
+		}
+		return String.valueOf(line);
+	}
   	//constructors
 	public Reservation() {}
 	public Reservation(Date s, Date e, Guest g, List<Room> r) {
@@ -83,12 +88,6 @@ public class Reservation {
 	}
 	public void setRooms(List<Room> rooms) {
 		this.rooms = rooms;
-	}
-	public Hotel getTacticalTrivago() {
-		return tacticalTrigavo;
-	}
-	public void setTacticalTrivago(Hotel tacticalTrivago) {
-		this.tacticalTrigavo = tacticalTrivago;
 	}
 	
 	//operation contracts

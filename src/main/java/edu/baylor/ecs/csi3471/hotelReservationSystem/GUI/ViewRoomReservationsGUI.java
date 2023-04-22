@@ -3,20 +3,33 @@ package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ViewRoomReservationsGUI extends JFrame implements ActionListener {
-    JTable table;
     JButton editButton, deleteButton;
-    DefaultTableModel myTableModel;
-    public ViewRoomReservationsGUI(DefaultTableModel tm){
+    JPanel myTableModel;
+    public ViewRoomReservationsGUI(JPanel tm){
+        setBounds(300, 150, 600, 300);
         myTableModel = tm;
+        myTableModel.setVisible(true);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
-        table = new JTable(tm);
         editButton = new JButton("Edit");
+        editButton.addActionListener(this);
         deleteButton = new JButton("Delete");
-        //TODO: put on frame and make frame visible
+        deleteButton.addActionListener(this);
+        JPanel buttons = new JPanel();
+        buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
+
+        buttons.add(editButton);
+        buttons.add(deleteButton);
+        buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
+        setLayout(new BorderLayout());
+        add(myTableModel, BorderLayout.CENTER);
+        add(buttons, BorderLayout.SOUTH);
+
+        setVisible(true);
     }
 
     @Override

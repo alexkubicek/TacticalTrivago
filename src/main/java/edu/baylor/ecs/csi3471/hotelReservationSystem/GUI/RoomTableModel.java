@@ -21,7 +21,6 @@ import java.util.List;
 import net.coderazzi.filters.gui.*;
 
 public class RoomTableModel extends JPanel {
-    protected Hotel hotel;
     protected JTable table;
     protected Date startDate, endDate;
 
@@ -35,11 +34,10 @@ public class RoomTableModel extends JPanel {
             "Smoking", "Room Rate" };
     private static Object[][] rooms = new Object[MAX_ROOMS][NUM_COLUMNS];
 
-    public RoomTableModel(Hotel h, Guest g){
+    public RoomTableModel(){
         super();
-        this.hotel = h;
         // get all rooms from hotel
-        loadRoomsIntoTable(hotel.getRooms());
+        loadRoomsIntoTable(Hotel.getRooms());
         // create table of rooms
         DefaultTableModel model = new DefaultTableModel(rooms, columnNames) {
             @Override
@@ -51,8 +49,8 @@ public class RoomTableModel extends JPanel {
         // set dimensions of table
         table.setPreferredScrollableViewportSize(new Dimension(500, 300));
         table.setFillsViewportHeight(true);
-        // only reserve one room at a time
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        // reserve multiple rooms at a time
+        table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         // make it scrollable
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane);

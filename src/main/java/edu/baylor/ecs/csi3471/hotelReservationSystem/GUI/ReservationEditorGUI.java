@@ -32,13 +32,12 @@ import static edu.baylor.ecs.csi3471.hotelReservationSystem.backend.DateHelper.g
 
 public class ReservationEditorGUI {
     private RoomTableModel roomsTable;
-    private Guest g;
-    private Hotel h;
+    private Reservation r;
 
-    ReservationEditorGUI(Guest g, Hotel h){
-        this.g = g;
-        this.h = h;
-        this.roomsTable = new RoomTableModel(h, g);
+    ReservationEditorGUI(Reservation r){
+        this.r = r;
+        this.roomsTable = new RoomTableModel();
+        display();
     }
     private boolean datesAreValid(){
         Date today = null, start = null, end = null;
@@ -97,7 +96,7 @@ public class ReservationEditorGUI {
         panel.add(confirmButton);
         confirmButton.addActionListener(e -> {
             // reserve room (should never throw an error if you make it this far)
-            Hotel.reserveRoom(room, roomsTable.startDate, roomsTable.endDate, this.g);
+            Hotel.reserveRoom(room, roomsTable.startDate, roomsTable.endDate, this.r.getGuest());
             JOptionPane.showMessageDialog(null, "Reservation made successfully!");
             // close dialog
             dialog.dispose();
@@ -126,6 +125,7 @@ public class ReservationEditorGUI {
             if ("date".equals(e.getPropertyName())) {
                 roomsTable.startDate = (Date) e.getNewValue();
                 // TODO: update table??
+                // maybe empty the table and then repopulate with filter applied?
             }
         });
         endDateChooser.getDateEditor().addPropertyChangeListener(e -> {
@@ -157,12 +157,14 @@ public class ReservationEditorGUI {
     }
 
     public void display(){
+        //TODO: when a clerk is viewing, they should have a place to enter the guest username
         roomsTable.setOpaque(true);
 
         roomsTable.add(createDateSelection());
         roomsTable.add(createReserveButton(), BorderLayout.SOUTH);
 
         JFrame frame = new JFrame("Available Rooms in Hotel");
+        frame.setBounds(300, 150, 800, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 500);
         frame.setContentPane(roomsTable);

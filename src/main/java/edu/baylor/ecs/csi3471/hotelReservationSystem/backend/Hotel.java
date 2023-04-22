@@ -13,17 +13,15 @@ public class Hotel {
   // associations
   @XmlElementWrapper(name = "Rooms")
   @XmlElement(name = "Room")
-  public static List<Room> rooms;
-  public static List<Reservation> reservations;
-  private static List<Payment> pastPayments;
+  public static List<Room> rooms = new ArrayList<>();
+  public static List<Reservation> reservations = new ArrayList<>();
+  private static List<Payment> pastPayments = new ArrayList<>();
 
 
   public void setUsers(List<Guest> guests) {this.accounts = accounts;}
 
-
-  public static List<User> accounts;
-
-  public List<Room> getRooms() {return rooms;}
+  public static List<User> accounts = new ArrayList<>();
+  public static List<Room> getRooms() {return rooms;}
   public void setRooms(List<Room> rooms) {this.rooms = rooms;}
   public List<Reservation> getReservations() {return reservations;}
   public void setReservations(List<Reservation> reservations) {this.reservations = reservations;}

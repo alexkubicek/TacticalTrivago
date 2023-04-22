@@ -10,6 +10,7 @@ public class Guest extends User {
     public Guest(String nameFirst, String nameLast, AccountInformation info) {
 		    super(nameFirst, nameLast, info);
             isCorporate = false;
+            upcomingReservations = new ArrayList<>();
 	  }
     private Boolean isCorporate;
 
@@ -17,10 +18,12 @@ public class Guest extends User {
         // header labels assumed: nameFirst, nameLast, username, password
     	super(line[0], line[1], new AccountInformation(line[2], line[3]));
     	isCorporate = Boolean.parseBoolean(line[4]);
+        upcomingReservations = new ArrayList<>();
       }
     public Guest(){
         super();
         isCorporate = false;
+        upcomingReservations = new ArrayList<>();
     }
     //associations
     private List<Reservation> upcomingReservations;

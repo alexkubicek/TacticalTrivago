@@ -1,75 +1,62 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
+import java.awt.*;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Reservation;
+import net.coderazzi.filters.gui.AutoChoices;
+import net.coderazzi.filters.gui.TableFilterHeader;
 
-public class ReservationTableModel extends DefaultTableModel {
-    public static final Class<?>[] columnClass = new Class[] {String.class, Date.class, Date.class, Integer.class, Integer.class};
-    public static final String[] columnNames = {"Guest", "Start Date", "End Date", "Rooms", "Beds"};
+public class ReservationTableModel extends JPanel {
+    public static final Class<?>[] columnClass = new Class[] {String.class, Date.class, Date.class, String.class, Double.class};
+    public static final String[] columnNames = {"Guest", "Start Date", "End Date", "Rooms", "Rate"};
+    protected JTable table;
 
-    public void launchEditor(){
-        CreateEditReservationGUI myRes = new CreateEditReservationGUI();
-    }
-    public void populate() {
-        Hotel.reservations.forEach(r->{
-            String bedString = "";
-            if(r.getRooms().size() == 1) {
-                bedString = r.getRooms().get(0).getBedCount().toString() + " " + r.getRooms().get(0).getBedSize();
-            } else {
-                Map<String, Integer> beds = new HashMap<>();
-                r.getRooms().forEach(room->{
-                    if(beds.containsKey(room.getBedSize())) {
-                        beds.replace(room.getBedSize(), beds.get(room.getBedSize() + room.getBedCount()));
-                    } else {
-                        beds.put(room.getBedSize(), room.getBedCount());
-                    }
-                });
-                for(String key : beds.keySet()) {
-                    bedString += beds.get(key) + " " + key + "S\n";
-                }
-            }
-            Object[] curRes = {r.getGuest().getFullName(), r.getStartDate(), r.getEndDate(), r.getRooms().size(), bedString};
-            this.addRow(curRes);
-        });
-    }
-
-    public ReservationTableModel() {
+    private static final int MAX_RESERVATIONS = 50;
+    private static final int NUM_COLUMNS = 5;
+    private static final Object[][] reservations = new Object[MAX_RESERVATIONS][NUM_COLUMNS];
+    public ReservationTableModel(){
         super();
-        populate();
+        // get all rooms from hotel
+        loadReservationsIntoTable(Hotel.reservations);
+        // create table of rooms
+        DefaultTableModel model = new DefaultTableModel(reservations, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {return false;}
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {return columnClass[columnIndex];}
+        };
+        table = new JTable(model);
+        // set dimensions of table
+        table.setPreferredScrollableViewportSize(new Dimension(500, 300));
+        table.setFillsViewportHeight(true);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        // make it scrollable
+        JScrollPane scrollPane = new JScrollPane(table);
+        add(scrollPane);
+        // add filters for each column
+        TableFilterHeader filterHeader = new TableFilterHeader(table, AutoChoices.ENABLED);
     }
-
-    @Override
-    public int getColumnCount() {
-        return columnNames.length;
-    }
-
-    @Override
-    public Class<?> getColumnClass(int columnIndex) {
-        return columnClass[columnIndex];
-    }
-
-    @Override
-    public String getColumnName(int col) {
-        return columnNames[col];
-    }
-    @Override
-    public boolean isCellEditable(int row, int column) {return false;}
-
-    public void filter(String firstName, String lastName, Date startDate) {
-        this.populate();
-        for(int i = 0; i < this.getRowCount(); i++) {
-            if(firstName != null && ((String) this.getValueAt(i, 0)).split(" ")[0] != firstName) {
-                this.removeRow(i--);
-            } else if(lastName != null && ((String)this.getValueAt(i, 0)).split(" ")[1] != lastName) {
-                this.removeRow(i--);
-            } else if(startDate != null && this.getValueAt(i, 1) != startDate) {
-                this.removeRow(i--);
+    public void loadReservationsIntoTable(List<Reservation> reservationList){
+        int i = 0;
+        for (Reservation r : reservationList){
+            if(i > MAX_RESERVATIONS){
+                return;
             }
+            reservations[i] = new Object[NUM_COLUMNS];
+            reservations[i][0] = r.getGuest().getAccountUsername();
+            reservations[i][1] = r.getRoomsString();
+            reservations[i][2] = r.getStartDate();
+            reservations[i][3] = r.getEndDate();
+            reservations[i][4] = r.getRate();
+            i++;
         }
     }
 }

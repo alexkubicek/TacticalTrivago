@@ -10,6 +10,7 @@ import java.util.Objects;
 import javax.swing.*;
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Guest;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Reservation;
 
 public class GuestOptionsGUI extends UserOptions {
 	private static final JButton viewResButton = (new JButton("View Existing Reservations"));
@@ -36,9 +37,11 @@ public class GuestOptionsGUI extends UserOptions {
 	public void actionPerformed(ActionEvent e) {
 		JButton b = (JButton) e.getSource();
 		if(Objects.equals(b, viewResButton)) {
-			//TODO: new ViewRoomReservationsGUI(UpcomingResTableModel, myGuest)
+			new ViewRoomReservationsGUI(new UpcomingResTableModel(myGuest));
 		} else if(Objects.equals(b, createResButton)) {
-			//TODO: new CreateEditReservation(myGuest)
+			Reservation myNewRes = new Reservation();
+			myNewRes.setGuest(myGuest);
+			new ReservationEditorGUI(myNewRes);
 		} else if(Objects.equals(b, profileButton)){
 			new UserProfileGUI(myGuest);
 		}
