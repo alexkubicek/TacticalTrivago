@@ -73,7 +73,11 @@ public class RoomTableModel extends JPanel implements LaunchEditor{
 
     @Override
     public void launch() {
-        int[] index = table.getSelectedRows();
-        new RoomEditorGUI(Hotel.rooms.get(index[0]));
+    	int[] index = table.getSelectedRows();
+        if (index.length == 0) {
+            JOptionPane.showMessageDialog(this, "No row selected.");
+        } else {
+            new RoomEditorGUI(Hotel.rooms.get(index[0]));
+        }
     }
 }
