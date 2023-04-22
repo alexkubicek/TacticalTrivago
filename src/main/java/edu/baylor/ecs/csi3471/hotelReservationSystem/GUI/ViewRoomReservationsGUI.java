@@ -34,6 +34,7 @@ public class ViewRoomReservationsGUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if((JButton)e.getSource() == editButton){
+            System.out.println("launching");
             myTableModel.launch();
         } else if((JButton)e.getSource() == deleteButton){
             //TODO: launch confirm delete popup

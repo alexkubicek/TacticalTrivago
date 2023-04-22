@@ -236,10 +236,12 @@ public class Hotel {
   }
 
   public static void main(String[] args) {
-      accounts = new ArrayList<>();
       accounts.add(new Guest("Alex", "", new AccountInformation("user", "pass")));
       accounts.add(new Clerk("Clerk", "", new AccountInformation("clerk", "pass")));
       accounts.add(new Admin("Admin", "", new AccountInformation("admin", "pass")));
+      rooms.add(new Room(1, 1, true, QualityLevel.COMFORT, BedType.QUEEN));
+      rooms.add(new Room(2, 1, true, QualityLevel.EXECUTIVE, BedType.KING));
+      rooms.add(new Room(3, 1, true, QualityLevel.ECONOMY, BedType.TWIN));
       LoginPageGUI lp = new LoginPageGUI();
   }
 }
