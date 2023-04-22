@@ -77,6 +77,12 @@ public class RoomEditorGUI extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //TODO: check formatting and create room
+        //TODO What else am I checking for here?
+        if (roomNumField.getText().isEmpty() ||
+                bedNumField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(RoomEditorGUI.this, "Please fill in all required fields.");
+            return;
+            // This will return to prompting users to fill in textfields
+        }
     }
 }

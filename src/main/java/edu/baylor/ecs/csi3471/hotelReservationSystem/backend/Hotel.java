@@ -1,10 +1,7 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
-
 import javax.swing.JTextArea;
-
 import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.LoginFailurePopupGUI;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.LoginPageGUI;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -23,7 +20,7 @@ public class Hotel {
 
   public void setUsers(List<Guest> guests) {this.accounts = accounts;}
 
-  
+
   public static List<User> accounts;
 
   public List<Room> getRooms() {return rooms;}
@@ -69,6 +66,17 @@ public class Hotel {
 
   }
 
+  public static void reserveRoom(Room r, Date start, Date end, Guest g){
+      // create reservation
+      Reservation reservation = new Reservation(start, end, g, r);
+      // add to hotel's reservation list
+      if (reservations == null) {
+          reservations = new ArrayList<>();
+      }
+      reservations.add(reservation);
+      // update room's unavailable dates
+      r.bookRoom(start, end);
+  }
 
   public static void reserveRooms(List<Integer> roomNumbers, Date start, Date end, Guest g) {
 	  List<Room> selectedRooms = new ArrayList<>();
@@ -91,7 +99,7 @@ public class Hotel {
 		  }
 		  
 		  if (reservations == null) {
-		      reservations = new ArrayList<Reservation>();
+		      reservations = new ArrayList<>();
 		  }
 		  reservations.add(reservation);
 		  g.addUpcomingReservations(reservation);
@@ -198,7 +206,7 @@ public class Hotel {
   public static boolean isUsernameUnique(String username) {
     try {
       accounts.forEach(u->{
-        if(u.getAccountInformation().getUsername() == username) {
+        if(Objects.equals(u.getAccountInformation().getUsername(), username)) {
           throw new RuntimeException();
         }
       });

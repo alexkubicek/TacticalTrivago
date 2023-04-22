@@ -1,16 +1,11 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
-import javax.swing.JFrame;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import java.awt.Component;
-import javax.swing.Box;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public abstract class UserOptions extends JFrame implements ActionListener {
 
@@ -27,7 +22,7 @@ public abstract class UserOptions extends JFrame implements ActionListener {
 		Component verticalStrut = Box.createVerticalStrut(50);
 		getContentPane().add(verticalStrut);
 
-		JLabel optionsLabel = new JLabel("             What would you like to do?");
+		JLabel optionsLabel = new JLabel("What would you like to do?");
 		getContentPane().add(optionsLabel);
 
 		getContentPane().add(buttonPanel);

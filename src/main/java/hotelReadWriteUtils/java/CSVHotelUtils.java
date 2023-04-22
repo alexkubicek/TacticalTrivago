@@ -10,14 +10,6 @@ import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Room;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.User;
 
 public class CSVHotelUtils extends HotelReadWriteUtils{
-
-    // TODO Check if separate function would clean up code/be more efficient
-    /**
-     * public String[] stringCut(String s){
-     *         String[] ss = s.split(",");
-     *         return ss;
-     *     }
-     */
 	@Override
 	public Hotel load() throws FileNotFoundException {
 		Hotel hotel = new Hotel();
@@ -34,7 +26,7 @@ public class CSVHotelUtils extends HotelReadWriteUtils{
             String line;
             reader.readLine();
             // read each row
-            String[] split;     //WE SHOULD NOT BE MAKING A NEW ONE EACH LOOP
+            String[] split;
             Room r;
             while ((line = reader.readLine()) != null) {
                 split = line.split(",");
