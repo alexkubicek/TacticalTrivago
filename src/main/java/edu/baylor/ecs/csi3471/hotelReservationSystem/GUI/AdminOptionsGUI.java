@@ -35,7 +35,7 @@ public class AdminOptionsGUI extends UserOptions{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(((JButton)e.getSource()).equals(viewProfileButton)){
-			UserProfileGUI profile = new UserProfileGUI(myAdmin);
+			new UserProfileGUI(myAdmin);
 		} else if(((JButton)e.getSource()).equals(createClerkButton)){
 			//TODO
 		} else if(((JButton)e.getSource()).equals(viewEditClerkButton)){

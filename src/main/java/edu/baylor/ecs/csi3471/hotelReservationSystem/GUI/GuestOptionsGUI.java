@@ -40,7 +40,7 @@ public class GuestOptionsGUI extends UserOptions {
 		} else if(Objects.equals(b, createResButton)) {
 			//TODO: new CreateEditReservation(myGuest)
 		} else if(Objects.equals(b, profileButton)){
-			//TODO: new UserProfileGUI(myGuest)
+			new UserProfileGUI(myGuest);
 		}
 	}
 }

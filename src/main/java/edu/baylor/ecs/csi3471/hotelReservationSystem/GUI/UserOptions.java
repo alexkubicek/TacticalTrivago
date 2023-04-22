@@ -13,12 +13,12 @@ public abstract class UserOptions extends JFrame implements ActionListener {
 	protected JPanel buttonPanel;
 	
 	protected UserOptions(List<JButton> buttonList, String name) {
-		System.out.println("recieved name " + name);
 		JLabel optionsLabel = new JLabel("What would you like to do?");
 		buttonPanel = new JPanel();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.PAGE_AXIS));
 		buttonPanel.add(optionsLabel);
 		buttonList.forEach(b->{
+			b.addActionListener(this);
 			b.setAlignmentX(Component.CENTER_ALIGNMENT);
 			buttonPanel.add(b);
 		});

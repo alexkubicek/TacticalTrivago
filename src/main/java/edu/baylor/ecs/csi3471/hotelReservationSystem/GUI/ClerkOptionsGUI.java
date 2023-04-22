@@ -37,7 +37,7 @@ public class ClerkOptionsGUI  extends UserOptions {
         if(((JButton)e.getSource()).equals(viewRoomsButton)){
             //TODO
         } else if(((JButton)e.getSource()).equals(viewProfileButton)){
-            //TODO
+            new UserProfileGUI(myClerk);
         } else if(((JButton)e.getSource()).equals(viewReservationsButton)){
             //TODO
         } else if(((JButton)e.getSource()).equals(createRoomButton)){
