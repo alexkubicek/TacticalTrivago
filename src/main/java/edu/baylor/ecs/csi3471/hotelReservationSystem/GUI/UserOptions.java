@@ -3,7 +3,8 @@ package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Objects;
+import java.util.*;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -11,20 +12,21 @@ public abstract class UserOptions extends JFrame implements ActionListener {
 
 	protected JPanel buttonPanel;
 	
-	protected UserOptions(JPanel jp, String name) {
+	protected UserOptions(List<JButton> buttonList, String name) {
 		System.out.println("recieved name " + name);
-		buttonPanel = jp;
+		JLabel optionsLabel = new JLabel("What would you like to do?");
+		buttonPanel = new JPanel();
+		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.PAGE_AXIS));
+		buttonPanel.add(optionsLabel);
+		buttonList.forEach(b->{
+			b.setAlignmentX(Component.CENTER_ALIGNMENT);
+			buttonPanel.add(b);
+		});
 		buttonPanel.setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Welcome " + name);
-		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+		setLayout(new BorderLayout());
 
-		Component verticalStrut = Box.createVerticalStrut(50);
-		getContentPane().add(verticalStrut);
-
-		JLabel optionsLabel = new JLabel("What would you like to do?");
-		getContentPane().add(optionsLabel);
-
-		getContentPane().add(buttonPanel);
+		add(buttonPanel, BorderLayout.CENTER);
 	}
 }
