@@ -116,6 +116,7 @@ public class UserProfileGUI extends JFrame implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
+        //TODO: something like 'if this field is on the panel...' for dynamic fields
         //action listener for guest profile
         // Validate that all required fields are filled in
         if (usernameField.getText().isEmpty() ||
