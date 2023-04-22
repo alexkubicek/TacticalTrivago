@@ -3,6 +3,9 @@ package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 import javax.swing.*;
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Clerk;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Reservation;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Room;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -35,15 +38,21 @@ public class ClerkOptionsGUI  extends UserOptions {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(((JButton)e.getSource()).equals(viewRoomsButton)){
-            //TODO
+            new ViewRoomReservationsGUI(new RoomTableModel());
         } else if(((JButton)e.getSource()).equals(viewProfileButton)){
             new UserProfileGUI(myClerk);
         } else if(((JButton)e.getSource()).equals(viewReservationsButton)){
-            //TODO
+            new ViewRoomReservationsGUI(new ReservationTableModel());
         } else if(((JButton)e.getSource()).equals(createRoomButton)){
-            //TODO
+            Room myNewRoom = new Room();
+            new RoomEditorGUI(myNewRoom);
+            //TODO: need to check that Room has been properly created
+            Hotel.addRoom(myNewRoom);
         } else if(((JButton)e.getSource()).equals(createReservationButton)){
-            //TODO
+            Reservation myNewReservation = new Reservation();
+            new ReservationEditorGUI(myNewReservation);
+            //TODO: need a way to not add it if reservation is not properly created
+            Hotel.reservations.add(myNewReservation);
         }
     }
 }

@@ -157,7 +157,6 @@ public class ReservationEditorGUI {
     }
 
     public void display(){
-        //TODO: when a clerk is viewing, they should have a place to enter the guest username
         roomsTable.setOpaque(true);
 
         roomsTable.add(createDateSelection());
@@ -165,7 +164,7 @@ public class ReservationEditorGUI {
 
         JFrame frame = new JFrame("Available Rooms in Hotel");
         frame.setBounds(300, 150, 800, 400);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setSize(600, 500);
         frame.setContentPane(roomsTable);
         frame.setVisible(true);

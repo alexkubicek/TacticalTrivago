@@ -14,7 +14,7 @@ import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Reservation;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
 
-public class ReservationTableModel extends JPanel {
+public class ReservationTableModel extends JPanel implements LaunchEditor{
     public static final Class<?>[] columnClass = new Class[] {String.class, Date.class, Date.class, String.class, Double.class};
     public static final String[] columnNames = {"Guest", "Start Date", "End Date", "Rooms", "Rate"};
     protected JTable table;
@@ -58,6 +58,12 @@ public class ReservationTableModel extends JPanel {
             reservations[i][4] = r.getRate();
             i++;
         }
+    }
+
+    @Override
+    public void launch() {
+        int[] index = table.getSelectedRows();
+        new RoomEditorGUI(Hotel.rooms.get(index[0]));
     }
 }
 
