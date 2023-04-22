@@ -21,6 +21,13 @@ public class Reservation {
 		}
 		return String.valueOf(line);
 	}
+	public void setGuest(String username){
+		for(User u: Hotel.accounts){
+			if(Objects.equals(u.getAccountUsername(), username)){
+				this.guest = (Guest)u;
+			}
+		}
+	}
   	//constructors
 	public Reservation() {}
 	public Reservation(Date s, Date e, Guest g, List<Room> r) {
@@ -45,11 +52,8 @@ public class Reservation {
 	}
 	public static Reservation createReservation(Date start, Date end, Guest g, ArrayList<Integer> roomNums) {
 		List<Room> rooms = new ArrayList<>();
-		Hotel.rooms.stream().filter((room)->roomNums.contains(room.getRoomNumber())).forEach(r->{
-			rooms.add(r);
-		});
-		Reservation res = new Reservation(start, end, g, rooms);
-		return res;
+		Hotel.rooms.stream().filter((room)->roomNums.contains(room.getRoomNumber())).forEach(rooms::add);
+		return new Reservation(start, end, g, rooms);
 	}
 	
 	//getters and setters

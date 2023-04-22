@@ -1,6 +1,8 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -64,5 +66,37 @@ public class UpcomingResTableModel extends JPanel implements LaunchEditor{
     public void launch() {
         int[] index = table.getSelectedRows();
         new ReservationEditorGUI(myGuest.getUpcomingReservations().get(index[0])); //launch with selected reservation
+    }
+
+    @Override
+    public JTable getTable() {
+        return table;
+    }
+
+    @Override
+    public String getMessage() {
+        return "No reservation selected";
+    }
+    @Override
+    public void deleteSelected() {
+        JDialog dialog = new JDialog();
+        dialog.setTitle("Confirm Deletion");
+        dialog.setSize(400, 300);
+        dialog.setVisible(true);
+        JPanel myInfo = new JPanel();
+        String text = "Are you sure you want to cancel your reservation?";
+        int index = table.getSelectedRow();
+        JLabel myText = new JLabel(text);
+        JButton confirm = new JButton("Confirm cancellation");
+        myInfo.add(myText);
+        myInfo.add(confirm);
+        confirm.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Hotel.reservations.remove(index);
+                JOptionPane.showMessageDialog(null, "Reservation successfully deleted");
+                dialog.dispose();
+            }
+        });
     }
 }

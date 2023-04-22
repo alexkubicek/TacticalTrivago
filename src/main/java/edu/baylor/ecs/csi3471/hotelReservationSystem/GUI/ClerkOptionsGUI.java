@@ -46,10 +46,7 @@ public class ClerkOptionsGUI  extends UserOptions {
         } else if(((JButton)e.getSource()).equals(createRoomButton)){
         	new AddRoomGui();
         } else if(((JButton)e.getSource()).equals(createReservationButton)){
-            Reservation myNewReservation = new Reservation();
-            new ReservationEditorGUI(myNewReservation);
-            //TODO: need a way to not add it if reservation is not properly created
-            Hotel.reservations.add(myNewReservation);
+            new ReservationEditorGUI();
         }
     }
 }

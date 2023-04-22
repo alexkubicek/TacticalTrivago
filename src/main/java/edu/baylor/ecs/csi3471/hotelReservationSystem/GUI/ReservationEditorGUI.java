@@ -33,10 +33,18 @@ import static edu.baylor.ecs.csi3471.hotelReservationSystem.backend.DateHelper.g
 public class ReservationEditorGUI {
     private RoomTableModel roomsTable;
     private Reservation r;
+    private boolean clerk;
 
     ReservationEditorGUI(Reservation r){
         this.r = r;
         this.roomsTable = new RoomTableModel();
+        clerk = false;
+        display();
+    }
+    ReservationEditorGUI(){
+        this.r = new Reservation();
+        this.roomsTable = new RoomTableModel();
+        clerk = true;
         display();
     }
     private boolean datesAreValid(){
@@ -87,6 +95,10 @@ public class ReservationEditorGUI {
 
         JPanel panel = new JPanel();
         panel.add(new JLabel("Confirm room reservation information:"));
+        if(clerk){
+            panel.add(new JLabel("<html><br>Guest: " + users.getSelectedItem() + "</html>"));
+            r.setGuest((String)users.getSelectedItem());
+        }
         panel.add(new JLabel(room.toStringForUI()));
         SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd, yyyy");
         panel.add(new JLabel("<html>Check-in date: " + formatter.format(roomsTable.startDate) +
@@ -155,13 +167,17 @@ public class ReservationEditorGUI {
         });
         return reserveButton;
     }
-
+    private static JComboBox<String> users;
     public void display(){
         roomsTable.setOpaque(true);
 
         roomsTable.add(createDateSelection());
         roomsTable.add(createReserveButton(), BorderLayout.SOUTH);
-
+        if(clerk){
+            roomsTable.add(new JLabel("Guest Username"));
+            users = new JComboBox<>(Hotel.getGuests());
+            roomsTable.add(users);
+        }
         JFrame frame = new JFrame("Available Rooms in Hotel");
         frame.setBounds(300, 150, 800, 400);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

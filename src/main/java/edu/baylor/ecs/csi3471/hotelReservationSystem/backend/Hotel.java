@@ -66,7 +66,9 @@ public class Hotel {
 
   public static void reserveRoom(Room r, Date start, Date end, Guest g){
       // create reservation
+      System.out.println(r);
       Reservation reservation = new Reservation(start, end, g, r);
+      System.out.println(reservation.getRoomsString());
       // add to hotel's reservation list
       if (reservations == null) {
           reservations = new ArrayList<>();
@@ -234,7 +236,21 @@ public class Hotel {
       }
       return null;
   }
-
+    public static Vector<String> getGuests(){
+      Vector<String> myGuests = new Vector<>();
+      accounts.stream().filter(u->u.getClass() == Guest.class).forEach(user->{
+          System.out.println(user.getAccountUsername());
+          myGuests.add(user.getAccountUsername());
+      });
+      return myGuests;
+    }
+    public static List<Clerk> getClerks(){
+        List<Clerk> myClerks = new ArrayList<>();
+        accounts.stream().filter(u->u.getClass() == Clerk.class).forEach(user->{
+            myClerks.add((Clerk)user);
+        });
+        return myClerks;
+    }
   public static void main(String[] args) {
       accounts.add(new Guest("Alex", "", new AccountInformation("user", "pass")));
       accounts.add(new Clerk("Clerk", "", new AccountInformation("clerk", "pass")));

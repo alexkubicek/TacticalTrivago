@@ -16,6 +16,8 @@ import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.List;
 import net.coderazzi.filters.gui.*;
@@ -75,5 +77,39 @@ public class RoomTableModel extends JPanel implements LaunchEditor{
     public void launch() {
         int[] index = table.getSelectedRows();
         new RoomEditorGUI(Hotel.rooms.get(index[0]));
+    }
+
+    @Override
+    public JTable getTable() {
+        return table;
+    }
+
+    @Override
+    public String getMessage() {
+        return "No room selected";
+    }
+
+    @Override
+    public void deleteSelected() {
+        JDialog dialog = new JDialog();
+        dialog.setTitle("Confirm Deletion");
+        dialog.setSize(400, 300);
+        dialog.setVisible(true);
+        JPanel myInfo = new JPanel();
+        String text = "Are you sure you want to delete room ";
+        int index = table.getSelectedRow();
+        text += table.getValueAt(index, 0);
+        JLabel myText = new JLabel(text);
+        JButton confirm = new JButton("Confirm deletion");
+        myInfo.add(myText);
+        myInfo.add(confirm);
+        confirm.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Hotel.reservations.remove(index);
+                JOptionPane.showMessageDialog(null, "Room successfully deleted");
+                dialog.dispose();
+            }
+        });
     }
 }
