@@ -71,6 +71,7 @@ public class AddRoomGui {
                 Hotel.addRoom(newRoom);
                 JOptionPane.showMessageDialog(frame, "Room " + roomNumber + " added successfully.");
                 clearFields();
+                frame.dispose();
             }
         });
 
@@ -90,8 +91,8 @@ public class AddRoomGui {
         smokingField.setSelected(false);
     }
 
-    public static void main(String[] args) {
-        new AddRoomGui();
-    }
+    //public static void main(String[] args) {
+        //new AddRoomGui();
+    //}
 }
 

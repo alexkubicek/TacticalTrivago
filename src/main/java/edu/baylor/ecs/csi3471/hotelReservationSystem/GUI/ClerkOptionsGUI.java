@@ -44,12 +44,7 @@ public class ClerkOptionsGUI  extends UserOptions {
         } else if(((JButton)e.getSource()).equals(viewReservationsButton)){
             new ViewRoomReservationsGUI(new ReservationTableModel());
         } else if(((JButton)e.getSource()).equals(createRoomButton)){
-            //TODO
-        	//new AddRoomGui();
-            Room myNewRoom = new Room();
-            new RoomEditorGUI(myNewRoom);
-            //TODO: need to check that Room has been properly created
-            Hotel.addRoom(myNewRoom);
+        	new AddRoomGui();
         } else if(((JButton)e.getSource()).equals(createReservationButton)){
             Reservation myNewReservation = new Reservation();
             new ReservationEditorGUI(myNewReservation);
