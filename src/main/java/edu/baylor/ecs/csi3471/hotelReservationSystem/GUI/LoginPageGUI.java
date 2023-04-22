@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.BorderLayout;
 import java.util.Objects;
 
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Guest;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.User;
 
@@ -62,7 +63,8 @@ public class LoginPageGUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String text = ((JButton) e.getSource()).getText();
         if(Objects.equals(text, "Create Account")) {
-            //TODO change GuestCreateAccountGUI to GuestProfileGUI
+            Guest myNewGuest = new Guest();
+            new UserProfileGUI(myNewGuest);
         } else if(Objects.equals(text, "Login")) {
             if (usernameField.getText().isEmpty() ||
                     passwordField.getPassword().length == 0) {
@@ -75,7 +77,6 @@ public class LoginPageGUI extends JFrame implements ActionListener {
             User me = Hotel.login(username, password);
             if(me != null){
                 this.setVisible(false);
-                //System.out.println("about to launch options");
                 me.launchOptions();
             }
 

@@ -12,7 +12,9 @@ public class Admin extends User {
         super(nameFirst, nameLast, account);
         this.AdminId = AdminId;
     }
-
+    public Admin(){
+        super();
+    }
     @Override
 	public void launchProfile() {
         new UserProfileGUI(this);
@@ -36,7 +38,7 @@ public class Admin extends User {
         this.AdminId = id;
     }
 
-    public Clerk createClerk(String Username, String nameFirst, String nameLast){
+    public static Clerk createClerk(String Username, String nameFirst, String nameLast){
         if(Username == null || nameFirst == null || nameLast == null) throw new NullPointerException();
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";  // Characters to use for password
         StringBuilder password = new StringBuilder();  // StringBuilder to store generated password
@@ -56,5 +58,10 @@ public class Admin extends User {
 
     public void login(){
         gui = new AdminOptionsGUI(this);
+    }
+
+    @Override
+    public void updateFromProfileGUI(UserProfileGUI myGUI) {
+        myGUI.updateUser(this);
     }
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.*;
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Admin;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Clerk;
 
 public class AdminOptionsGUI extends UserOptions{
 	
@@ -37,7 +38,7 @@ public class AdminOptionsGUI extends UserOptions{
 		if(((JButton)e.getSource()).equals(viewProfileButton)){
 			new UserProfileGUI(myAdmin);
 		} else if(((JButton)e.getSource()).equals(createClerkButton)){
-			//TODO
+			new UserProfileGUI(new Clerk());
 		} else if(((JButton)e.getSource()).equals(viewEditClerkButton)){
 			//TODO
 		} else if(((JButton)e.getSource()).equals(getAdminReport)){
