@@ -9,11 +9,10 @@ import java.awt.event.ActionListener;
 
 public class ViewRoomReservationsGUI extends JFrame implements ActionListener {
     JButton editButton, deleteButton;
-    JPanel myTableModel;
-    public ViewRoomReservationsGUI(JPanel tm){
+    LaunchEditor myTableModel;
+    public ViewRoomReservationsGUI(LaunchEditor tm){
         setBounds(300, 150, 600, 300);
         myTableModel = tm;
-        myTableModel.setVisible(true);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         editButton = new JButton("Edit");
         editButton.addActionListener(this);
@@ -26,7 +25,7 @@ public class ViewRoomReservationsGUI extends JFrame implements ActionListener {
         buttons.add(deleteButton);
         buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
         setLayout(new BorderLayout());
-        add(myTableModel, BorderLayout.CENTER);
+        add((Component) myTableModel, BorderLayout.CENTER);
         add(buttons, BorderLayout.SOUTH);
 
         setVisible(true);
@@ -35,8 +34,7 @@ public class ViewRoomReservationsGUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if((JButton)e.getSource() == editButton){
-            //myTableModel.launch
-            //TODO: launch edit gui (we should use polymorphism and call from tableModel)
+            myTableModel.launch();
         } else if((JButton)e.getSource() == deleteButton){
             //TODO: launch confirm delete popup
         }

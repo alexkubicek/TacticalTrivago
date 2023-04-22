@@ -13,16 +13,17 @@ import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.*;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
 
-public class UpcomingResTableModel extends JPanel {
+public class UpcomingResTableModel extends JPanel implements LaunchEditor{
     public static final Class<?>[] columnClass = new Class[] {Date.class, Date.class, String.class, Double.class};
     public static final String[] columnNames = {"Start Date", "End Date", "Rooms", "Rate"};
     protected JTable table;
-
+    private final Guest myGuest;
     private static final int MAX_RESERVATIONS = 40;
     private static final int NUM_COLUMNS = 4;
     private static final Object[][] reservations = new Object[MAX_RESERVATIONS][NUM_COLUMNS];
     public UpcomingResTableModel(Guest g){
         super();
+        myGuest = g;
         // get all reservations from hotel
         loadReservationsIntoTable(g.getUpcomingReservations());
         // create table of reservations
@@ -57,5 +58,11 @@ public class UpcomingResTableModel extends JPanel {
             reservations[i][3] = r.getRate();
             i++;
         }
+    }
+
+    @Override
+    public void launch() {
+        int[] index = table.getSelectedRows();
+        new ReservationEditorGUI(myGuest.getUpcomingReservations().get(index[0])); //launch with selected reservation
     }
 }

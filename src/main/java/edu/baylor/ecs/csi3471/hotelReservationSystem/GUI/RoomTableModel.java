@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 import net.coderazzi.filters.gui.*;
 
-public class RoomTableModel extends JPanel {
+public class RoomTableModel extends JPanel implements LaunchEditor{
     protected JTable table;
     protected Date startDate, endDate;
 
@@ -69,5 +69,11 @@ public class RoomTableModel extends JPanel {
             rooms[i][5] = r.getQuality().getRate();
             i++;
         }
+    }
+
+    @Override
+    public void launch() {
+        int[] index = table.getSelectedRows();
+        new RoomEditorGUI(Hotel.rooms.get(index[0]));
     }
 }
