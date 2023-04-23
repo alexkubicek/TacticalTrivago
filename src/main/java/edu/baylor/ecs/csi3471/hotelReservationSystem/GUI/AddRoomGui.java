@@ -26,7 +26,7 @@ public class AddRoomGui {
     public AddRoomGui() {
         frame = new JFrame("Room Management");
         frame.setSize(600, 400);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         JPanel mainPanel = new JPanel(new BorderLayout());
         JPanel formPanel = new JPanel(new GridLayout(0, 2));

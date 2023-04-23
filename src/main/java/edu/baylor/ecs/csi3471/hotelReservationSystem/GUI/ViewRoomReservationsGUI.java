@@ -36,11 +36,7 @@ public class ViewRoomReservationsGUI extends JFrame implements ActionListener {
         if((JButton)e.getSource() == editButton){
             myTableModel.launch();
         } else if((JButton)e.getSource() == deleteButton){
-            if(myTableModel.getTable().getSelectedRows().length < 0){
-                JOptionPane.showMessageDialog(this, myTableModel.getMessage());
-                return;
-            }
-
+        	myTableModel.deleteSelected();
         }
     }
 }

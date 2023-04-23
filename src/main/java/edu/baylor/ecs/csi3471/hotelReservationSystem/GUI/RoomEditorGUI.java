@@ -17,6 +17,7 @@ public class RoomEditorGUI extends JFrame implements ActionListener {
     JFormattedTextField roomNumField, bedNumField;
     JComboBox qualityLevelDropDown, bedTypeDropDown, comboBox;
     private Room associatedRoom;
+    private boolean isUpdated = false;
 
     private static final JButton confirmButton = new JButton("Confirm");
     public RoomEditorGUI(Room r) {
@@ -106,6 +107,10 @@ public class RoomEditorGUI extends JFrame implements ActionListener {
         associatedRoom.setClean_status((CleanStatus) comboBox.getSelectedItem());
         associatedRoom.setSmoking(smokingCheckBox.isSelected());
         JOptionPane.showMessageDialog(RoomEditorGUI.this, "Room successfully updated.");
+        this.isUpdated = true;
         this.dispose();
+    }
+    public boolean isRoomUpdated() {
+        return isUpdated;
     }
 }
