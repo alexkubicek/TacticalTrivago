@@ -8,18 +8,18 @@ import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.UserProfileGUI;
 
 public class Guest extends User {
     public Guest(String nameFirst, String nameLast, AccountInformation info) {
-		    super(nameFirst, nameLast, info);
-            isCorporate = false;
-            upcomingReservations = new ArrayList<>();
-	  }
+        super(nameFirst, nameLast, info);
+        isCorporate = false;
+        upcomingReservations = new ArrayList<>();
+    }
     private Boolean isCorporate = false;
 
     public Guest(String[] line){
         // header labels assumed: nameFirst, nameLast, username, password
-    	super(line[0], line[1], new AccountInformation(line[2], line[3]));
-    	isCorporate = Boolean.parseBoolean(line[4]);
+        super(line[0], line[1], new AccountInformation(line[2], line[3]));
+        isCorporate = Boolean.parseBoolean(line[4]);
         upcomingReservations = new ArrayList<>();
-      }
+    }
     public Guest(){
         super();
         isCorporate = false;
@@ -32,12 +32,12 @@ public class Guest extends User {
     public void setCorporate(Boolean corporate) {isCorporate = corporate;}
 
     public void setUpcomingReservations(List<Reservation> upcomingReservations) {this.upcomingReservations = upcomingReservations;}
-    
+
     public void addUpcomingReservations(Reservation reservation) {
-    	if(this.upcomingReservations == null) {
-    		this.upcomingReservations = new ArrayList<Reservation>();
-    	}
-    	this.upcomingReservations.add(reservation);
+        if(this.upcomingReservations == null) {
+            this.upcomingReservations = new ArrayList<Reservation>();
+        }
+        this.upcomingReservations.add(reservation);
     }
 
 
@@ -56,7 +56,7 @@ public class Guest extends User {
     }
 
     @Override
-	public void launchProfile() {
+    public void launchProfile() {
         new UserProfileGUI(this);
     }
 
