@@ -10,7 +10,7 @@ public class Guest extends User {
     public Guest(String nameFirst, String nameLast, AccountInformation info) {
 		    super(nameFirst, nameLast, info);
 	  }
-    private Boolean isCorporate;
+    private Boolean isCorporate = false;
 
     public Guest(String[] line){
         // header labels assumed: nameFirst, nameLast, username, password

@@ -2,10 +2,7 @@ package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import javax.swing.*;
 
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Admin;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Clerk;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Guest;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.User;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.*;
 
 
 import java.awt.*;
@@ -35,7 +32,91 @@ public class UserProfileGUI extends JFrame implements ActionListener {
         }
         if(createClerk){
             //todo: needed fields: username, firstName, lastName
+            JPanel panel = new JPanel();
+            panel.setLayout(new GridLayout(6, 2, 10, 10));
+            panel.add(usernameLabel);
+            panel.add(usernameField);
+            panel.add(confirmPasswordLabel);
+            panel.add(confirmPasswordField);
+            panel.add(firstNameLabel);
+            panel.add(firstNameField);
+            panel.add(lastNameLabel);
+            panel.add(lastNameField);
+
+            JButton confirmButton = new JButton("Confirm");
+            confirmButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Validate that all required fields are filled in
+                    if (usernameField.getText().isEmpty() ||
+                            confirmPasswordField.getPassword().length == 0 ||
+                            firstNameField.getText().isEmpty() ||
+                            lastNameField.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(UserProfileGUI.this, "Please fill in all required fields.");
+                        return;
+                    }
+                        // This will return to prompting users to fill in textfields
+                        // Update the guest object with the new values
+                        u.setAccountUsername(usernameField.getText());
+                        u.setNameFirst(firstNameField.getText());
+                        u.setNameLast(lastNameField.getText());
+                        // Show a popup to confirm that the profile was updated
+                        JOptionPane.showMessageDialog(UserProfileGUI.this, "Profile updated.");
+
+                }
+            });
+            add(panel, BorderLayout.CENTER);
+            add(confirmButton, BorderLayout.SOUTH);
+            // Set the size of the frame and make it visible
+            setSize(400, 300);
+            setLocationRelativeTo(null);
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setVisible(true);
+
         } else{
+            JPanel panel = new JPanel();
+            panel.add(usernameLabel);
+            panel.add(usernameField);
+            panel.add(passwordLabel);
+            panel.add(passwordField);
+            panel.add(confirmPasswordLabel);
+            panel.add(confirmPasswordField);
+            panel.add(firstNameLabel);
+            panel.add(firstNameField);
+            panel.add(lastNameLabel);
+            panel.add(lastNameField);
+            panel.add(isCorporate);
+            JButton confirmButton = new JButton("Confirm");
+            confirmButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String username = usernameField.getText();
+                    String password = new String(passwordField.getPassword());
+                    String confirmPassword = new String(confirmPasswordField.getPassword());
+                    String firstName = firstNameField.getText();
+                    String lastName = lastNameField.getText();
+                    boolean corporate = isCorporate.isSelected();
+
+                    // validate inputs
+                    if(username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || firstName.isEmpty() || lastName.isEmpty()){
+                        JOptionPane.showMessageDialog(panel, "Please fill in all required fields", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    if(!password.equals(confirmPassword)){
+                        JOptionPane.showMessageDialog(panel, "Passwords do not match", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    // create new user
+                    AccountInformation accInfo = new AccountInformation(username, password);
+                    Guest g = new Guest(firstName, lastName, accInfo);
+                    if(corporate){
+                        g.setCorporate(true);
+                    }
+                    JOptionPane.showMessageDialog(panel, "User created successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                }
+            });
             //todo: creating guest, need fields: all but adminID
         }
         //we must be creating a user then
@@ -166,6 +247,5 @@ public class UserProfileGUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //TODO validate input
         //todo: profile created/updated popup
-
     }
 }
