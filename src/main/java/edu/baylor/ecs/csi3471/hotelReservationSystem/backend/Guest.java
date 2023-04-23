@@ -9,6 +9,8 @@ import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.UserProfileGUI;
 public class Guest extends User {
     public Guest(String nameFirst, String nameLast, AccountInformation info) {
 		    super(nameFirst, nameLast, info);
+            isCorporate = false;
+            upcomingReservations = new ArrayList<>();
 	  }
     private Boolean isCorporate = false;
 
@@ -16,9 +18,13 @@ public class Guest extends User {
         // header labels assumed: nameFirst, nameLast, username, password
     	super(line[0], line[1], new AccountInformation(line[2], line[3]));
     	isCorporate = Boolean.parseBoolean(line[4]);
-    	
+        upcomingReservations = new ArrayList<>();
       }
-  
+    public Guest(){
+        super();
+        isCorporate = false;
+        upcomingReservations = new ArrayList<>();
+    }
     //associations
     private List<Reservation> upcomingReservations;
     private List<CreditCard> paymentMethods; //index 0 being default to use
@@ -43,8 +49,6 @@ public class Guest extends User {
 
     public List<CreditCard> getPaymentMethods() {return paymentMethods;}
 
-    public Guest(){}
-
     @Override
     public void launchOptions() {
         System.out.println("launching guest options");
@@ -58,5 +62,10 @@ public class Guest extends User {
 
     public void login(){
         this.gui = new GuestOptionsGUI(this);
+    }
+
+    @Override
+    public void updateFromProfileGUI(UserProfileGUI myGUI) {
+        myGUI.updateUser(this);
     }
 }

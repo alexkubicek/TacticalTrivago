@@ -1,12 +1,13 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Admin;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Clerk;
 
 public class AdminOptionsGUI extends UserOptions{
 	
@@ -15,35 +16,29 @@ public class AdminOptionsGUI extends UserOptions{
 	private static final JButton createClerkButton = new JButton("Create New Clerk Account");
 	private static final JButton viewEditClerkButton = new JButton("View Existing Clerk Accounts");
 	private static final JButton getAdminReport = new JButton("Get report");
-
-	private Admin myAdmin;
+	private static final List<JButton> myButtons = new ArrayList<>();
+	static {
+		myButtons.add(createClerkButton);
+		myButtons.add(viewEditClerkButton);
+		myButtons.add(getAdminReport);
+		myButtons.add(viewProfileButton);
+	}
+	private final Admin myAdmin;
 	
 	public AdminOptionsGUI(Admin a){
-		super(addButtons(), a.getNameFirst());
+		super(myButtons, a.getNameFirst());
 		myAdmin = a;
 		setBounds(400, 100, 400, 300);
 		setVisible(true);
-	}
-
-	private static JPanel addButtons() {
-		JPanel jp = new JPanel();
-		jp.setLayout(new BoxLayout(jp, BoxLayout.Y_AXIS));
-		jp.add(viewProfileButton);
-		jp.add(createClerkButton);
-		jp.add(viewEditClerkButton);
-		jp.add(getAdminReport);
-
-		jp.setVisible(true);
-		return jp;
 	}
 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(((JButton)e.getSource()).equals(viewProfileButton)){
-			UserProfileGUI profile = new UserProfileGUI(myAdmin);
+			new UserProfileGUI(myAdmin);
 		} else if(((JButton)e.getSource()).equals(createClerkButton)){
-			//TODO
+			new UserProfileGUI(new Clerk());
 		} else if(((JButton)e.getSource()).equals(viewEditClerkButton)){
 			//TODO
 		} else if(((JButton)e.getSource()).equals(getAdminReport)){

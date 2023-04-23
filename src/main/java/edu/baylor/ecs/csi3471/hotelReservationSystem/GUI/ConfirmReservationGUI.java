@@ -50,7 +50,7 @@ public class ConfirmReservationGUI extends JFrame implements ActionListener {
             setVisible(false);
             Hotel.reservations.add(associatedReservation);
             associatedReservation.getGuest().addUpcomingReservations(associatedReservation);
-            ((UpcomingResTableModel)(upcomingResForGuest.getModel())).populate(associatedReservation.getGuest());
+            //((UpcomingResTableModel)(upcomingResForGuest.getModel())).populate(associatedReservation.getGuest());
         }
 
     }

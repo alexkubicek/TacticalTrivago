@@ -1,34 +1,32 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Clerk;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Reservation;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.User;
+import net.coderazzi.filters.gui.AutoChoices;
+import net.coderazzi.filters.gui.TableFilterHeader;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Reservation;
-import net.coderazzi.filters.gui.AutoChoices;
-import net.coderazzi.filters.gui.TableFilterHeader;
-
-public class ReservationTableModel extends JPanel implements LaunchEditor{
-    public static final Class<?>[] columnClass = new Class[] {String.class, String.class, String.class, String.class, String.class};
-    public static final String[] columnNames = {"Guest", "Start Date", "End Date", "Rooms", "Cost"};
+public class ClerkTableModel extends JPanel implements LaunchEditor{
+    public static final Class<?>[] columnClass = new Class[] {String.class, String.class, String.class};
+    public static final String[] columnNames = {"Username", "First Name", "Last Name"};
     protected JTable table;
 
-    private static final int MAX_RESERVATIONS = 50;
+    private static final int MAX_USERS = 50;
     private static final int NUM_COLUMNS = 5;
-    private static final Object[][] reservations = new Object[MAX_RESERVATIONS][NUM_COLUMNS];
-    public ReservationTableModel(){
+    private static final Object[][] reservations = new Object[MAX_USERS][NUM_COLUMNS];
+    public ClerkTableModel(){
         super();
         // get all rooms from hotel
-        loadReservationsIntoTable(Hotel.reservations);
+        loadClerksIntoTable(Hotel.getClerks());
         // create table of rooms
         DefaultTableModel model = new DefaultTableModel(reservations, columnNames) {
             @Override
@@ -47,27 +45,29 @@ public class ReservationTableModel extends JPanel implements LaunchEditor{
         // add filters for each column
         TableFilterHeader filterHeader = new TableFilterHeader(table, AutoChoices.ENABLED);
     }
-    public void loadReservationsIntoTable(List<Reservation> reservationList){
+    public void loadClerksIntoTable(List<Clerk> users){
         int i = 0;
-        for (Reservation r : reservationList){
-            if(i > MAX_RESERVATIONS){
+        for (Clerk u : users){
+            if(i > MAX_USERS){
                 return;
             }
-            SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd");
             reservations[i] = new Object[NUM_COLUMNS];
-            reservations[i][0] = r.getGuest().getAccountUsername();
-            reservations[i][1] = r.getRoomsString();
-            reservations[i][2] = formatter.format(r.getStartDate());
-            reservations[i][3] = formatter.format(r.getEndDate());
-            reservations[i][4] = String.format("$%.2f", r.calculateTotal());
+            reservations[i][0] = u.getAccountUsername();
+            reservations[i][1] = u.getNameFirst();
+            reservations[i][2] = u.getNameLast();
             i++;
         }
     }
 
     @Override
     public void launch() {
-        int[] index = table.getSelectedRows();
-        new RoomEditorGUI(Hotel.rooms.get(index[0]));
+        String username = (String)table.getValueAt(table.getSelectedRow(), 0);
+        for(User u: Hotel.accounts){
+            if(u.getAccountUsername().equals(username)){
+                u.launchProfile();
+                return;
+            }
+        }
     }
 
     @Override
@@ -77,7 +77,7 @@ public class ReservationTableModel extends JPanel implements LaunchEditor{
 
     @Override
     public String getMessage() {
-        return "No reservation selected";
+        return "No clerk selected";
     }
 
     @Override
@@ -89,19 +89,18 @@ public class ReservationTableModel extends JPanel implements LaunchEditor{
         JPanel myInfo = new JPanel();
         String text = "Are you sure you want to cancel ";
         int index = table.getSelectedRow();
-        text += table.getValueAt(index, 0) + "'s reservation?";
+        text += table.getValueAt(index, 0) + "'s account?";
         JLabel myText = new JLabel(text);
-        JButton confirm = new JButton("Confirm cancellation");
+        JButton confirm = new JButton("Confirm deletion");
         myInfo.add(myText);
         myInfo.add(confirm);
         confirm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Hotel.reservations.remove(index);
-                JOptionPane.showMessageDialog(null, "Reservation successfully deleted");
+                JOptionPane.showMessageDialog(null, "Clerk successfully deleted");
                 dialog.dispose();
             }
         });
     }
 }
-

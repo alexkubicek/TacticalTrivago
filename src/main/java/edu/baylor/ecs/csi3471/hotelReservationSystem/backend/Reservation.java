@@ -14,8 +14,20 @@ public class Reservation {
   	//associations
   	private Guest guest;
   	private List<Room> rooms;
-  	private Hotel tacticalTrigavo;
-  
+	public String getRoomsString(){
+		StringBuilder line = new StringBuilder();
+		for (Room r : rooms) {
+			line.append(String.valueOf(r.getRoomNumber())).append(": ").append(String.valueOf(r.getBedCount())).append(" ").append(String.valueOf(r.getBedSize())).append("s\n");
+		}
+		return String.valueOf(line);
+	}
+	public void setGuest(String username){
+		for(User u: Hotel.accounts){
+			if(Objects.equals(u.getAccountUsername(), username)){
+				this.guest = (Guest)u;
+			}
+		}
+	}
   	//constructors
 	public Reservation() {}
 	public Reservation(Date s, Date e, Guest g, List<Room> r) {
@@ -40,11 +52,8 @@ public class Reservation {
 	}
 	public static Reservation createReservation(Date start, Date end, Guest g, ArrayList<Integer> roomNums) {
 		List<Room> rooms = new ArrayList<>();
-		Hotel.rooms.stream().filter((room)->roomNums.contains(room.getRoomNumber())).forEach(r->{
-			rooms.add(r);
-		});
-		Reservation res = new Reservation(start, end, g, rooms);
-		return res;
+		Hotel.rooms.stream().filter((room)->roomNums.contains(room.getRoomNumber())).forEach(rooms::add);
+		return new Reservation(start, end, g, rooms);
 	}
 	
 	//getters and setters
@@ -83,12 +92,6 @@ public class Reservation {
 	}
 	public void setRooms(List<Room> rooms) {
 		this.rooms = rooms;
-	}
-	public Hotel getTacticalTrivago() {
-		return tacticalTrigavo;
-	}
-	public void setTacticalTrivago(Hotel tacticalTrivago) {
-		this.tacticalTrigavo = tacticalTrivago;
 	}
 	
 	//operation contracts

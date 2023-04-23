@@ -1,10 +1,7 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
-
 import javax.swing.JTextArea;
-
 import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.LoginFailurePopupGUI;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.LoginPageGUI;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -16,17 +13,15 @@ public class Hotel {
   // associations
   @XmlElementWrapper(name = "Rooms")
   @XmlElement(name = "Room")
-  public static List<Room> rooms;
-  public static List<Reservation> reservations;
-  private static List<Payment> pastPayments;
+  public static List<Room> rooms = new ArrayList<>();
+  public static List<Reservation> reservations = new ArrayList<>();
+  private static List<Payment> pastPayments = new ArrayList<>();
 
 
   public void setUsers(List<Guest> guests) {this.accounts = accounts;}
 
-  
-  public static List<User> accounts;
-
-  public List<Room> getRooms() {return rooms;}
+  public static List<User> accounts = new ArrayList<>();
+  public static List<Room> getRooms() {return rooms;}
   public void setRooms(List<Room> rooms) {this.rooms = rooms;}
   public List<Reservation> getReservations() {return reservations;}
   public void setReservations(List<Reservation> reservations) {this.reservations = reservations;}
@@ -69,6 +64,19 @@ public class Hotel {
 
   }
 
+  public static void reserveRoom(Room r, Date start, Date end, Guest g){
+      // create reservation
+      System.out.println(r);
+      Reservation reservation = new Reservation(start, end, g, r);
+      System.out.println(reservation.getRoomsString());
+      // add to hotel's reservation list
+      if (reservations == null) {
+          reservations = new ArrayList<>();
+      }
+      reservations.add(reservation);
+      // update room's unavailable dates
+      r.bookRoom(start, end);
+  }
 
   public static void reserveRooms(List<Integer> roomNumbers, Date start, Date end, Guest g) {
 	  List<Room> selectedRooms = new ArrayList<>();
@@ -91,7 +99,7 @@ public class Hotel {
 		  }
 		  
 		  if (reservations == null) {
-		      reservations = new ArrayList<Reservation>();
+		      reservations = new ArrayList<>();
 		  }
 		  reservations.add(reservation);
 		  g.addUpcomingReservations(reservation);
@@ -198,7 +206,7 @@ public class Hotel {
   public static boolean isUsernameUnique(String username) {
     try {
       accounts.forEach(u->{
-        if(u.getAccountInformation().getUsername() == username) {
+        if(Objects.equals(u.getAccountInformation().getUsername(), username)) {
           throw new RuntimeException();
         }
       });
@@ -228,12 +236,28 @@ public class Hotel {
       }
       return null;
   }
-
+    public static Vector<String> getGuests(){
+      Vector<String> myGuests = new Vector<>();
+      accounts.stream().filter(u->u.getClass() == Guest.class).forEach(user->{
+          System.out.println(user.getAccountUsername());
+          myGuests.add(user.getAccountUsername());
+      });
+      return myGuests;
+    }
+    public static List<Clerk> getClerks(){
+        List<Clerk> myClerks = new ArrayList<>();
+        accounts.stream().filter(u->u.getClass() == Clerk.class).forEach(user->{
+            myClerks.add((Clerk)user);
+        });
+        return myClerks;
+    }
   public static void main(String[] args) {
-      accounts = new ArrayList<>();
       accounts.add(new Guest("Alex", "", new AccountInformation("user", "pass")));
       accounts.add(new Clerk("Clerk", "", new AccountInformation("clerk", "pass")));
       accounts.add(new Admin("Admin", "", new AccountInformation("admin", "pass")));
+      rooms.add(new Room(1, 1, true, QualityLevel.COMFORT, BedType.QUEEN));
+      rooms.add(new Room(2, 1, true, QualityLevel.EXECUTIVE, BedType.KING));
+      rooms.add(new Room(3, 1, true, QualityLevel.ECONOMY, BedType.TWIN));
       LoginPageGUI lp = new LoginPageGUI();
   }
 }

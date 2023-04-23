@@ -1,13 +1,13 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
+
+import static edu.baylor.ecs.csi3471.hotelReservationSystem.backend.DateHelper.*;
 
 @XmlRootElement(name = "Room")
 
@@ -84,26 +84,65 @@ public class Room {
   public String getStatus(){
     return clean_status.toString();
   }
+
+
   public boolean isAvailable(Date start, Date end) {
-    // Check if the room is available for the given dates
-	  if(unavailable != null) {
-		  for (Date date : unavailable) {
-		      if (date.compareTo(start) >= 0 && date.compareTo(end) <= 0) {
-		        return false;
-		      }
-		  }
-	  }
+    List<Date> daysToBook = getDaysInBetween(start, end);
+    // room has no reservations yet
+    if(unavailable == null){
+      return true;
+    }
+    // loop through unavailable dates
+    for(Date date : unavailable) {
+      // if we want to book any unavailable date
+      if(daysToBook.contains(date)){
+        return false;
+      }
+    }
     return true;
   }
 
   public void bookRoom(Date start, Date end) {
-    // Mark the room as unavailable for the given dates
-    Calendar c = new GregorianCalendar();
-    c.setTime(start);
-    while(!c.after(end)){
-      unavailable.add(c.getTime());
-      c.add(Calendar.DATE, 1);
+    if(unavailable == null){
+      unavailable = new ArrayList<>();
+    }
+    List<Date> daysToBook = getDaysInBetween(start, end);
+    for(Date d : daysToBook){
+      if(unavailable.contains(d)){
+        System.err.println("Error in Room bookRoom(): " +
+                "trying to book room when it's unavailable");
+        return;
+      }
+      unavailable.add(d);
     }
   }
   public Room(){}
+
+  public void setRoomNumber(Integer roomNumber) {
+    this.roomNumber = roomNumber;
+  }
+
+  public void setBedCount(Integer bedCount) {
+    this.bedCount = bedCount;
+  }
+
+  public void setSmoking(Boolean smoking) {
+    this.smoking = smoking;
+  }
+
+  public void setUnavailable(List<Date> unavailable) {
+    this.unavailable = unavailable;
+  }
+
+  public void setQuality(QualityLevel quality) {
+    this.quality = quality;
+  }
+
+  public void setBedSizes(BedType bedSizes) {
+    this.bedSizes = bedSizes;
+  }
+
+  public void setClean_status(CleanStatus clean_status) {
+    this.clean_status = clean_status;
+  }
 }
