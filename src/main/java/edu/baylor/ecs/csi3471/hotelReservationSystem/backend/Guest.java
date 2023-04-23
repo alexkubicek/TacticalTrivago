@@ -12,7 +12,7 @@ public class Guest extends User {
             isCorporate = false;
             upcomingReservations = new ArrayList<>();
 	  }
-    private Boolean isCorporate;
+    private Boolean isCorporate = false;
 
     public Guest(String[] line){
         // header labels assumed: nameFirst, nameLast, username, password
