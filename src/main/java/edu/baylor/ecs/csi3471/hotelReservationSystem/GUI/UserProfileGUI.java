@@ -2,24 +2,26 @@ package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import javax.swing.*;
 
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Admin;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Clerk;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Guest;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.User;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.*;
 
-import java.awt.GridLayout;
+
+import java.awt.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
+import java.util.Objects;
+
+import static java.lang.Thread.sleep;
 
 public class UserProfileGUI extends JFrame implements ActionListener {
-	protected static final JPanel panel = new JPanel(new GridLayout(7, 2));
     protected static final JLabel adminIDLabel = new JLabel("ID:");
     protected static final JLabel usernameLabel = new JLabel("Username:");
     protected static final JLabel passwordLabel = new JLabel("Password:");
     protected static final JLabel confirmPasswordLabel = new JLabel("Confirm Password:");
     protected static final JLabel firstNameLabel = new JLabel("First Name:");
     protected static final JLabel lastNameLabel = new JLabel("Last Name:");
-    protected static final JFormattedTextField adminIDField = new JFormattedTextField();
+    protected static final JFormattedTextField adminIDField = new JFormattedTextField(NumberFormat.getIntegerInstance());
     protected static final JTextField usernameField = new JTextField();
     protected static final JTextField firstNameField = new JTextField();
     protected static final JTextField lastNameField = new JTextField();
@@ -27,83 +29,217 @@ public class UserProfileGUI extends JFrame implements ActionListener {
     protected static final JPasswordField confirmPasswordField = new JPasswordField();
     protected static final JCheckBox isCorporate = new JCheckBox("Corporate");
     protected static final JButton confirmButton = new JButton("Confirm");
-    public UserProfileGUI(User u, boolean createClerk){
-        if(u != null){
-            u.launchProfile();
-        }
-        if(createClerk){
-            //todo: needed fields: username, firstName, lastName
-        } else{
-            //todo: creating guest, need fields: all but adminID
-        }
-        //we must be creating a user then
+    protected User myUser;
+    protected final JPanel fullPanel = new JPanel();
+    protected final JPanel gridPanel = new JPanel();
+    protected final JPanel bottomPanel = new JPanel();
+    protected boolean create = false, returned;
+    private void setUp(){
+        gridPanel.setLayout(new GridLayout(6, 2, 10, 10));
+        gridPanel.add(adminIDLabel);
+        gridPanel.add(adminIDField);
+        gridPanel.add(usernameLabel);
+        gridPanel.add(usernameField);
+        gridPanel.add(passwordLabel);
+        gridPanel.add(passwordField);
+        gridPanel.add(confirmPasswordLabel);
+        gridPanel.add(confirmPasswordField);
+        gridPanel.add(firstNameLabel);
+        gridPanel.add(firstNameField);
+        gridPanel.add(lastNameLabel);
+        gridPanel.add(lastNameField);
+        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.Y_AXIS));
+        isCorporate.setAlignmentX(Component.CENTER_ALIGNMENT);
+        confirmButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        confirmButton.addActionListener(this);
+        bottomPanel.add(isCorporate);
+        bottomPanel.add(confirmButton);
+        gridPanel.setVisible(true);
+        bottomPanel.setVisible(true);
+        fullPanel.setLayout(new BorderLayout());
+        fullPanel.add(gridPanel, BorderLayout.CENTER);
+        fullPanel.add(bottomPanel, BorderLayout.SOUTH);
     }
-    public UserProfileGUI(User u){
-        if(u != null){
-        	
-            usernameField.setText(u.getAccountUsername());
-            firstNameField.setText(u.getNameFirst());
-            lastNameField.setText(u.getNameLast());
-            passwordField.setText(u.getAccountPassword());
-            confirmPasswordField.setText(u.getAccountPassword());
-            
-            // Create and set layout for the JPanel
-            JPanel panel = new JPanel(new GridLayout(7, 2));
-            
-            panel.add(usernameLabel);
-            panel.add(usernameField);
-            panel.add(passwordLabel);
-            panel.add(passwordField);
-            panel.add(firstNameLabel);
-            panel.add(firstNameField);
-            panel.add(lastNameLabel);
-            panel.add(lastNameField);
-            
-            u.launchProfile();
+    private void removeIDRow(){
+        gridPanel.remove(adminIDField);
+        gridPanel.remove(adminIDLabel);
+    }
+    private void removeCorpCheckBox(){
+        bottomPanel.remove(isCorporate);
+    }
+    private void removePasswordFields(){
+        gridPanel.remove(passwordLabel);
+        gridPanel.remove(passwordField);
+        gridPanel.remove(confirmPasswordLabel);
+        gridPanel.remove(confirmPasswordField);
+    }
+    private void checkIfCreate(){
+        if(myUser.getAccountInformation() == null){
+            create = true;
+            myUser.setAccountInformation(new AccountInformation());
+        } else {
+            fillStandardFieldsFromUser();
         }
-        
-        //assume we are making guest
-        //todo: needed fields: username, password, confirm password, first and last name, isCorporate checkBox
-        //we must be creating a user then
+    }
+    private void fillStandardFieldsFromUser(){
+        usernameField.setText(myUser.getAccountUsername());
+        firstNameField.setText(myUser.getNameFirst());
+        lastNameField.setText(myUser.getNameLast());
+        passwordField.setText(myUser.getAccountPassword());
+        confirmPasswordField.setText(myUser.getAccountPassword());
     }
     public UserProfileGUI(Guest g){
-    	isCorporate.setSelected(g.corporate());
-    	panel.add(isCorporate);
+        setUp();
+        myUser = g;
+        checkIfCreate();
+        if(!create){
+            isCorporate.setSelected(g.corporate());
+        }
+        setTitle("Guest Profile");
+        removeIDRow();
+        // Add the panel and confirm button to the frame
+        add(fullPanel);
 
-        // Set properties for the JFrame
-        configFrame("Guest Profile");
+        // Set the size of the frame and make it visible
+        setSize(400, 300);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        setVisible(true);
     }
 
     public UserProfileGUI(Clerk c){
+        setUp();
+        myUser = c;
+        checkIfCreate();
+        if(create){
+            removePasswordFields();
+        }
+        gridPanel.setLayout(new GridLayout(3, 2));
         // Set properties for the JFrame
-        configFrame("Clerk Profile");
+        setTitle("Clerk Profile");
+        removeIDRow();
+        removeCorpCheckBox();
+        if(c.getAccountInformation() == null){
+            removePasswordFields();
+        }
+        // Add the panel and confirm button to the frame
+        add(fullPanel);
+
+        // Set the size of the frame and make it visible
+        setSize(400, 300);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        setVisible(true);
     }
 
     public UserProfileGUI(Admin a){
-        adminIDField.setText(Integer.toString(a.getAdminId()));
-        panel.add(adminIDLabel);
-        panel.add(adminIDField);
-        
+        setUp();
+        myUser = a;
+        checkIfCreate();
+        if(!create){
+            adminIDField.setText(String.valueOf(a.getAdminId()));
+        }
+        setTitle("Admin Profile");
+        removeCorpCheckBox();
+        // Add the panel and confirm button to the frame
+        add(fullPanel);
 
-        // Set properties for the JFrame
-        configFrame("Admin Profile");
+        // Set the size of the frame and make it visible
+        setSize(400, 300);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        setVisible(true);
     	
     }
-
-    public void configFrame(String userType) {
-    	panel.add(confirmButton);
-        confirmButton.addActionListener(this);
-        
-    	this.setTitle(userType);
-        this.add(panel);
-        this.pack();
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
+    private void fillFromStandardFields(){
+        if (usernameField.getText().isEmpty() ||
+                firstNameField.getText().isEmpty() ||
+                lastNameField.getText().isEmpty() ||
+                passwordField.getPassword().length == 0 ||
+                confirmPasswordField.getPassword().length == 0) {
+            JOptionPane.showMessageDialog(UserProfileGUI.this, "Please fill in all required fields.");
+            returned = true;
+            return;
+            // This will return to prompting users to fill in textfields
+        }
+        String newUsername = usernameField.getText();
+        if(!Objects.equals(newUsername, myUser.getAccountUsername()) && !Hotel.isUsernameUnique(newUsername)){
+            JOptionPane.showMessageDialog(UserProfileGUI.this, "Username is not unique.");
+            returned = true;
+            return;
+        }
+        myUser.setAccountUsername(newUsername);
+        myUser.setNameFirst(firstNameField.getText());
+        myUser.setNameLast(lastNameField.getText());
+        if(passwordField.getPassword().length == 0 ||
+                confirmPasswordField.getPassword().length == 0){
+            JOptionPane.showMessageDialog(UserProfileGUI.this, "Please fill in all required fields.");
+            returned = true;
+            return;
+        }
+        String myPass, confirmMyPass;
+        myPass = String.valueOf(passwordField.getPassword());
+        confirmMyPass = String.valueOf(confirmPasswordField.getPassword());
+        if(!myPass.equals(confirmMyPass)){
+            JOptionPane.showMessageDialog(UserProfileGUI.this, "Passwords don't match.");
+            returned = true;
+            return;
+        }
+        myUser.setAccountPassword(myPass);
     }
-    
+
+    public void updateUser(Guest g){
+        fillFromStandardFields();
+        if(returned){
+            return;
+        }
+        g.setCorporate(isCorporate.isSelected());
+        myUser = g;
+    }
+    public void updateUser(Clerk c){
+        if(create){
+            if (usernameField.getText().isEmpty() ||
+                    firstNameField.getText().isEmpty() ||
+                    lastNameField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(UserProfileGUI.this, "Please fill in all required fields.");
+                returned = true;
+                return;
+                // This will return to prompting users to fill in textfields
+            }
+            myUser = Admin.createClerk(usernameField.getText(), firstNameField.getText(), lastNameField.getText());
+        } else {
+            fillFromStandardFields();
+            if(returned){
+                return;
+            }
+        }
+    }
+    public void updateUser(Admin a){
+        fillFromStandardFields();
+        if(returned){
+            return;
+        }
+        if(adminIDField.getText().isEmpty()){
+            JOptionPane.showMessageDialog(UserProfileGUI.this, "Please fill in all required fields.");
+            returned = true;
+            return;
+        }
+        a.setAdminId(Integer.parseInt(adminIDField.getText()));
+        myUser = a;
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
-        //TODO validate input
-        //todo: profile created/updated popup
+        returned = false;
+        myUser.updateFromProfileGUI(this);
+        if(returned){
+            return;
+        }
+        Hotel.addAccount(myUser);
+        String message = "Profile Successfully Updated";
+        if(create){
+            message = message.replace("Updated", "Created");
+        }
+        JOptionPane.showMessageDialog(UserProfileGUI.this, message);
+        this.dispose();
     }
 }

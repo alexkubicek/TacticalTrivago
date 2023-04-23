@@ -8,7 +8,7 @@ public class Clerk extends User {
 	public Clerk(String nameFirst, String nameLast, AccountInformation account){
 		super(nameFirst, nameLast, account);
 	}
-
+	public Clerk(){super();}
 	public String getPublicInfo(){
 		return super.getFullName();
 	}
@@ -28,5 +28,10 @@ public class Clerk extends User {
 	}
 	public void login(){
 		//TODO launch ClerkOptionsGUI once created
+	}
+
+	@Override
+	public void updateFromProfileGUI(UserProfileGUI myGUI) {
+		myGUI.updateUser(this);
 	}
 }

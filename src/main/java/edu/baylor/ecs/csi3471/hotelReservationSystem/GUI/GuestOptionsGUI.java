@@ -7,44 +7,43 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Guest;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Reservation;
 
 public class GuestOptionsGUI extends UserOptions {
 	private static final JButton viewResButton = (new JButton("View Existing Reservations"));
 	private static final JButton createResButton = (new JButton("Create New Reservation"));
 	private static final JButton profileButton = (new JButton("View or Edit Profile"));
+	private static final List<JButton> myButtons = new ArrayList<>();
+
+	static {
+		myButtons.add(createResButton);
+		myButtons.add(viewResButton);
+		myButtons.add(profileButton);
+	}
 	private Guest myGuest;
 
 	public GuestOptionsGUI(Guest g) {
-		super(addButtons(), g.getNameFirst());
+		super(myButtons, g.getNameFirst());
 		myGuest = g;
 		setBounds(400, 200, 400, 300);
 		this.add(buttonPanel);
 		buttonPanel.setVisible(true);
 		setVisible(true);}
 
-	private static JPanel addButtons() {
-		JPanel jp = new JPanel();
-		jp.setLayout(new BoxLayout(jp, BoxLayout.Y_AXIS));
-		jp.add(profileButton);
-		jp.add(createResButton);
-		jp.add(viewResButton);
-		return jp;
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton b = (JButton) e.getSource();
 		if(Objects.equals(b, viewResButton)) {
-			//TODO: new ViewRoomReservationsGUI(UpcomingResTableModel, myGuest)
+			new ViewRoomReservationsGUI(new UpcomingResTableModel(myGuest));
 		} else if(Objects.equals(b, createResButton)) {
-			//TODO: new CreateEditReservation(myGuest)
+			Reservation myNewRes = new Reservation();
+			myNewRes.setGuest(myGuest);
+			new ReservationEditorGUI(myNewRes);
 		} else if(Objects.equals(b, profileButton)){
-			//TODO: new UserProfileGUI(myGuest)
+			new UserProfileGUI(myGuest);
 		}
 	}
 }
