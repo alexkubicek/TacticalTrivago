@@ -68,7 +68,7 @@ public class PaymentGUI extends JFrame implements ActionListener {
         panel.add(cardNumLabel, c);
 
         cardNumField.setColumns(16);
-        cardNumField.setDocument(new JTextFieldLimit(16));
+        cardNumField.setDocument(new NumberOnlyDocument(16));
         c.gridx = 1;
         c.gridy = 0;
         panel.add(cardNumField, c);
@@ -79,7 +79,7 @@ public class PaymentGUI extends JFrame implements ActionListener {
         panel.add(cvvLabel, c);
 
         cvvField.setColumns(3);
-        cvvField.setDocument(new JTextFieldLimit(3));
+        cvvField.setDocument(new NumberOnlyDocument(3));
         c.gridx = 1;
         c.gridy = 1;
         panel.add(cvvField, c);
@@ -165,6 +165,7 @@ public class PaymentGUI extends JFrame implements ActionListener {
         panel.add(zipCodeLabel, c);
 
         zipCodeField = new JTextField();
+        zipCodeField.setDocument(new NumberOnlyDocument(5));
         c.gridx = 1;
         c.gridy = 9;
         panel.add(zipCodeField, c);
@@ -212,6 +213,20 @@ public class PaymentGUI extends JFrame implements ActionListener {
                 }
             }
             String zipCode = zipCodeField.getText();
+
+            // Validate the input fields
+            if (cardNum.length() != 16 || !cardNum.matches("\\d+")) {
+                JOptionPane.showMessageDialog(this, "Please enter a 16-digit card number.");
+                return;
+            }
+            if (cvv.length() != 3 || !cvv.matches("\\d+")) {
+                JOptionPane.showMessageDialog(this, "Please enter a 3-digit CVV.");
+                return;
+            }
+            if (zipCode.length() != 5 || !zipCode.matches("\\d+")) {
+                JOptionPane.showMessageDialog(this, "Please enter a 5-digit ZIP code.");
+                return;
+            }
             // Create the Address and CreditCard objects
             Address billingAddress = new Address(Integer.parseInt(buildingNum), Integer.parseInt(zipCode), street, city, state);
             CreditCard creditCard = new CreditCard(expirationDate, Integer.parseInt(cardNum), Integer.parseInt(cvv), billingAddress);
