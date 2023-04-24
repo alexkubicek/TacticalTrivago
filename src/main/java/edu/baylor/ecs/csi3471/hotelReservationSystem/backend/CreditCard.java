@@ -39,6 +39,13 @@ public class CreditCard {
         this.cvv = threeFancyDigits;
     }
 
+    public CreditCard(Date date, Integer cardID, Integer cvv, Address billAddress){
+        this.cardNum = cardID;
+        this.expiration = date;
+        this.cvv = cvv;
+        this.address = billAddress;
+    }
+
     public static void printDate(Date c) {
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         System.out.println(f.format(c.getTime()));

@@ -40,7 +40,9 @@ public class Guest extends User {
         this.upcomingReservations.add(reservation);
     }
 
-
+    public void setPaymentInfo(CreditCard card){
+        this.paymentMethods.add(card);
+    }
     public void setPaymentMethods(List<CreditCard> paymentMethods) {this.paymentMethods = paymentMethods;}
 
     public Boolean corporate() {return isCorporate;}
