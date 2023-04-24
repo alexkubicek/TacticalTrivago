@@ -19,11 +19,13 @@ public class Guest extends User {
         super(line[0], line[1], new AccountInformation(line[2], line[3]));
         isCorporate = Boolean.parseBoolean(line[4]);
         upcomingReservations = new ArrayList<>();
+        this.paymentMethods = new ArrayList<>();
     }
     public Guest(){
         super();
         isCorporate = false;
         upcomingReservations = new ArrayList<>();
+        this.paymentMethods = new ArrayList<>();
     }
     //associations
     private List<Reservation> upcomingReservations;

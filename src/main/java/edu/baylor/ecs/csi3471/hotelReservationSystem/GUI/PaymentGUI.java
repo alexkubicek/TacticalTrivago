@@ -34,7 +34,9 @@ public class PaymentGUI extends JFrame implements ActionListener {
     private static final JLabel cardNumLabel = new JLabel("Card Number:");
     private static final JTextField cardNumField = new JTextField();
     private static final JLabel expirationLabel = new JLabel("expiration");
-    private static final JFormattedTextField expirationField = new JFormattedTextField();
+    //private static final JFormattedTextField expirationField = new JFormattedTextField();
+    private static JComboBox<String> monthComboBox;
+    private static JComboBox<String> yearComboBox;
     private static final JLabel cvvLabel = new JLabel("CVV:");
     private static final JTextField cvvField = new JTextField(3);
 
@@ -88,8 +90,8 @@ public class PaymentGUI extends JFrame implements ActionListener {
         c.gridy = 2;
         panel.add(expirationLabel, c);
 
-        JComboBox<String> monthComboBox = new JComboBox<>(new DefaultComboBoxModel<>(new String[]{"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"}));
-        JComboBox<String> yearComboBox = new JComboBox<>(new DefaultComboBoxModel<>(new String[]{"2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"}));
+        monthComboBox = new JComboBox<>(new DefaultComboBoxModel<>(new String[]{"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"}));
+        yearComboBox = new JComboBox<>(new DefaultComboBoxModel<>(new String[]{"2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"}));
         JPanel expirationPanel = new JPanel();
         expirationPanel.add(monthComboBox);
         expirationPanel.add(new JLabel("/"));
@@ -191,14 +193,25 @@ public class PaymentGUI extends JFrame implements ActionListener {
             // Get the data from the fields
             String cardNum = cardNumField.getText();
             String cvv = cvvField.getText();
-            Date expirationDate = Date.valueOf(expirationField.getText());
+            String selectedMonth = (String) monthComboBox.getSelectedItem();
+            String selectedYear = (String) yearComboBox.getSelectedItem();
+
+            // Create complete date string in format "yyyy-mm-dd"
+            String expirationDateStr = selectedYear + "-" + selectedMonth + "-01";
+            Date expirationDate = Date.valueOf(expirationDateStr);
             String name = nameField.getText();
             String buildingNum = buildingNumField.getText();
             String street = streetField.getText();
             String city = cityField.getText();
-            State state = (State) stateComboBox.getSelectedItem();
+            String stateAbbreviation = (String) stateComboBox.getSelectedItem();
+            State state = null;
+            for (State s : State.values()) {
+                if (s.getState().equals(stateAbbreviation)) {
+                    state = s;
+                    break;
+                }
+            }
             String zipCode = zipCodeField.getText();
-
             // Create the Address and CreditCard objects
             Address billingAddress = new Address(Integer.parseInt(buildingNum), Integer.parseInt(zipCode), street, city, state);
             CreditCard creditCard = new CreditCard(expirationDate, Integer.parseInt(cardNum), Integer.parseInt(cvv), billingAddress);
