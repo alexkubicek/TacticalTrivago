@@ -4,7 +4,8 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 public class CreditCard {
-    private Integer cardNum, cvv;
+    private Long cardNum;
+    private Integer cvv;
     private Date expiration;
     private Address address;
     private String name;
@@ -29,17 +30,17 @@ public class CreditCard {
     private User user;
 
     public User getUser() {return user;}
-    public Integer getCardNum(){return cardNum;}
+    public Long getCardNum(){return cardNum;}
     public Integer getCvv(){return cvv;}
     public Date getExpiration(){return expiration;}
 
-    public CreditCard(Date date, Integer cardID, Integer threeFancyDigits) {
+    public CreditCard(Date date, Long cardID, Integer threeFancyDigits) {
         this.cardNum = cardID;
         this.expiration = date;
         this.cvv = threeFancyDigits;
     }
 
-    public CreditCard(Date date, Integer cardID, Integer cvv, Address billAddress){
+    public CreditCard(Date date, Long cardID, Integer cvv, Address billAddress){
         this.cardNum = cardID;
         this.expiration = date;
         this.cvv = cvv;
@@ -58,7 +59,7 @@ public class CreditCard {
         printDate(this.expiration);
     }
 
-    public void setCardNum(Integer cardNum) {
+    public void setCardNum(Long cardNum) {
         this.cardNum = cardNum;
     }
 
@@ -74,7 +75,7 @@ public class CreditCard {
         this.user = user;
     }
 
-    public CreditCard(String name, Date date, Integer cardID, Integer threeFancyDigits, Integer buildingNumber, Integer zipCode, String street, String city, State tx){
+    public CreditCard(String name, Date date, Long cardID, Integer threeFancyDigits, Integer buildingNumber, Integer zipCode, String street, String city, State tx){
         this.name = name;
         this.expiration = date;
         this.cvv = threeFancyDigits;

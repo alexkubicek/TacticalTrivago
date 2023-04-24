@@ -229,7 +229,7 @@ public class PaymentGUI extends JFrame implements ActionListener {
             }
             // Create the Address and CreditCard objects
             Address billingAddress = new Address(Integer.parseInt(buildingNum), Integer.parseInt(zipCode), street, city, state);
-            CreditCard creditCard = new CreditCard(expirationDate, Integer.parseInt(cardNum), Integer.parseInt(cvv), billingAddress);
+            CreditCard creditCard = new CreditCard(expirationDate, Long.parseLong(cardNum), Integer.parseInt(cvv), billingAddress);
 
             // Set the CreditCard object to the guest's payment info
             guest.setPaymentInfo(creditCard);
