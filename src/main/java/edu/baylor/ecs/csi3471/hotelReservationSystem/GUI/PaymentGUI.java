@@ -20,10 +20,7 @@
 
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Address;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.CreditCard;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Guest;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.State;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,13 +32,15 @@ public class PaymentGUI extends JFrame implements ActionListener {
     private static final JLabel nameLabel = new JLabel("Name on card:");
     private static final JTextField nameField = new JTextField();
     private static final JLabel cardNumLabel = new JLabel("Card Number:");
-    private static final JFormattedTextField cardNumField = new JFormattedTextField();
+    private static final JTextField cardNumField = new JTextField();
     private static final JLabel expirationLabel = new JLabel("expiration");
     private static final JFormattedTextField expirationField = new JFormattedTextField();
     private static final JLabel cvvLabel = new JLabel("CVV:");
-    private static final JFormattedTextField cvvField = new JFormattedTextField();
+    private static final JTextField cvvField = new JTextField(3);
 
     private JTextField buildingNumField, zipCodeField, streetField, cityField;
+
+    private JTextField cardNumberField1, cardNumberField2, cardNumberField3, cardNumberField4;
     private JComboBox<String> stateComboBox;
     private JButton saveButton, cancelButton;
     private Guest guest;
@@ -61,38 +60,43 @@ public class PaymentGUI extends JFrame implements ActionListener {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.insets = new Insets(5, 5, 5, 5);
 
-        // Card Number label and text field
         JLabel cardNumLabel = new JLabel("Card Number: ");
         c.gridx = 0;
         c.gridy = 0;
         panel.add(cardNumLabel, c);
 
-        cardNumField.setColumns(20);
+        cardNumField.setColumns(16);
+        cardNumField.setDocument(new JTextFieldLimit(16));
         c.gridx = 1;
         c.gridy = 0;
         panel.add(cardNumField, c);
 
-        // CVV label and text field
         JLabel cvvLabel = new JLabel("CVV: ");
         c.gridx = 0;
         c.gridy = 1;
         panel.add(cvvLabel, c);
 
-        cvvField.setColumns(20);
+        cvvField.setColumns(3);
+        cvvField.setDocument(new JTextFieldLimit(3));
         c.gridx = 1;
         c.gridy = 1;
         panel.add(cvvField, c);
 
-        // Expiration Date label and text field
-        JLabel expirationLabel = new JLabel("Expiration Date (yyyy-mm-dd): ");
+        // Expiration Date label and combo box
+        JLabel expirationLabel = new JLabel("Expiration Date: ");
         c.gridx = 0;
         c.gridy = 2;
         panel.add(expirationLabel, c);
 
-        JTextField expirationField = new JTextField();
+        JComboBox<String> monthComboBox = new JComboBox<>(new DefaultComboBoxModel<>(new String[]{"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"}));
+        JComboBox<String> yearComboBox = new JComboBox<>(new DefaultComboBoxModel<>(new String[]{"2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"}));
+        JPanel expirationPanel = new JPanel();
+        expirationPanel.add(monthComboBox);
+        expirationPanel.add(new JLabel("/"));
+        expirationPanel.add(yearComboBox);
         c.gridx = 1;
         c.gridy = 2;
-        panel.add(expirationField, c);
+        panel.add(expirationPanel, c);
 
         // Name on Card label and text field
         JLabel nameLabel = new JLabel("Name on Card: ");
@@ -175,8 +179,9 @@ public class PaymentGUI extends JFrame implements ActionListener {
         c.gridx = 1;
         c.gridy = 10;
         panel.add(cancelButton, c);
-
+        
         this.add(panel, BorderLayout.CENTER);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
 
