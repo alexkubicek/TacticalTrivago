@@ -20,49 +20,26 @@ import com.toedter.calendar.JDateChooser;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.*;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static edu.baylor.ecs.csi3471.hotelReservationSystem.backend.DateHelper.getDateWithoutTime;
 
-public class ReservationEditorGUI {
+public class ReservationEditorGUI implements LaunchEditor {
     private RoomTableModel roomsTable;
     private Date startDate = null, endDate = null;
     private Guest g;
-    private Reservation r;
-    private boolean clerk;
-    private Hotel h;
-    private static JComboBox<String> users;
 
-    public ReservationEditorGUI(Guest g, Hotel h){
+    public ReservationEditorGUI(Guest g){
         this.g = g;
-        this.h = h;
-        this.roomsTable = new RoomTableModel(h, g);
-        display();
-    }
-
-    ReservationEditorGUI(Reservation r){
-        this.r = r;
         this.roomsTable = new RoomTableModel();
-        clerk = false;
         display();
     }
-    
-    ReservationEditorGUI(){
-        this.r = new Reservation();
-        this.roomsTable = new RoomTableModel();
-        clerk = true;
-        display();
-    }
-    
     private boolean datesAreValid(){
         Date today = null, start = null, end = null;
         if(startDate == null || endDate == null){
@@ -114,17 +91,10 @@ public class ReservationEditorGUI {
         dialog.setVisible(true);
 
         JPanel panel = new JPanel();
-
         panel.setLayout(new BorderLayout());
         panel.add(new JLabel("  Confirm room reservation information:"), BorderLayout.NORTH);
 
         String reservationInfo = room.toStringForUI();
-
-        if(clerk){
-            panel.add(new JLabel("<html><br>Guest: " + users.getSelectedItem() + "</html>"));
-            r.setGuest((String)users.getSelectedItem());
-        }
-
         SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd, yyyy");
         reservationInfo = reservationInfo + "<br/>----------------------------------------------<br/>" +
                 "Check-in date: " + formatter.format(startDate) +
@@ -135,7 +105,7 @@ public class ReservationEditorGUI {
         panel.add(confirmButton, BorderLayout.SOUTH);
         confirmButton.addActionListener(e -> {
             // reserve room (should never throw an error if you make it this far)
-            Hotel.reserveRoom(room, startDate, endDate, this.r.getGuest());
+            Hotel.reserveRoom(room, startDate, endDate, this.g);
             roomsTable.updateTable(startDate, endDate);
             JOptionPane.showMessageDialog(null, "Reservation made successfully!");
             // close dialog
@@ -234,27 +204,34 @@ public class ReservationEditorGUI {
         return panel;
     }
 
-    public void display(){
+    private void display(){
         roomsTable.setOpaque(true);
 
         roomsTable.add(createReserveButton());
         roomsTable.add(createSearchBar());
         roomsTable.add(createDateSelection());
-        roomsTable.add(createReserveButton(), BorderLayout.SOUTH);
-        
-        if(clerk){
-            roomsTable.add(new JLabel("Guest Username"));
-            users = new JComboBox<>(Hotel.getGuests());
-            roomsTable.add(users);
-        }
-        
-        JFrame frame = new JFrame("Available Rooms in Hotel");
-        frame.setBounds(300, 150, 800, 400);
-        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        frame.setSize(600, 550);
 
+        JFrame frame = new JFrame("Available Rooms in Hotel");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(600, 550);
         frame.setContentPane(roomsTable);
         frame.setVisible(true);
     }
 
+    @Override
+    public void launch() {
+
+    }
+    @Override
+    public JTable getTable() {
+        return null;
+    }
+    @Override
+    public String getMessage() {
+        return null;
+    }
+    @Override
+    public void deleteSelected() {
+
+    }
 }

@@ -65,7 +65,7 @@ public class UpcomingResTableModel extends JPanel implements LaunchEditor{
     @Override
     public void launch() {
         int[] index = table.getSelectedRows();
-        new ReservationEditorGUI(myGuest.getUpcomingReservations().get(index[0])); //launch with selected reservation
+        new ReservationEditorGUI(myGuest); //launch with selected reservation
     }
 
     @Override
