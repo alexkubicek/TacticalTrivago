@@ -75,6 +75,7 @@ public class ReservationEditorGUI implements LaunchEditor {
             return;
         }
 
+
         // check for valid dates
         if(!datesAreValid()){
             JOptionPane.showMessageDialog(null, "Selected dates are invalid!");
@@ -96,22 +97,24 @@ public class ReservationEditorGUI implements LaunchEditor {
         }
 
         JDialog dialog = new JDialog();
-        dialog.setTitle("Confirm Reservation");
+        dialog.setTitle("Please Confirm Reservation Information");
         dialog.setSize(380, 250);
         dialog.setVisible(true);
 
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
-        panel.add(new JLabel("  Confirm room reservation information:"), BorderLayout.NORTH);
 
-        String reservationInfo = room.toStringForUI();
         SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd, yyyy");
-        reservationInfo = reservationInfo + "<br/>----------------------------------------------<br/>" +
+        String guestInfo = "Reservation for " + g.toStringForUI() + ":</br>";
+        String roomInfo = room.toStringForUI();
+        String reservationInfo = "<html>" + guestInfo +
+                "<br/>-------------------------------------------------------------------<br/>" +
+                roomInfo + "<br/>-------------------------------------------------------------------<br/>" +
                 "Check-in date: " + formatter.format(startDate) +
                 "<br> Check-out date: " + formatter.format(endDate) + "</html>";
         panel.add(new JLabel(reservationInfo, SwingConstants.CENTER), BorderLayout.CENTER);
 
-        JButton confirmButton = new JButton("Submit reservation");
+        JButton confirmButton = new JButton("Confirm reservation");
         panel.add(confirmButton, BorderLayout.SOUTH);
         confirmButton.addActionListener(e -> {
             // reserve room (should never throw an error if you make it this far)

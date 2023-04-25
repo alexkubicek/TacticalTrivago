@@ -7,12 +7,13 @@ import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.GuestOptionsGUI;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.UserProfileGUI;
 
 public class Guest extends User {
+    private Boolean isCorporate = false;
+
     public Guest(String nameFirst, String nameLast, AccountInformation info) {
         super(nameFirst, nameLast, info);
         isCorporate = false;
         upcomingReservations = new ArrayList<>();
     }
-    private Boolean isCorporate = false;
 
     public Guest(String[] line){
         // header labels assumed: nameFirst, nameLast, username, password
@@ -74,5 +75,9 @@ public class Guest extends User {
     @Override
     public void updateFromProfileGUI(UserProfileGUI myGUI) {
         myGUI.updateUser(this);
+    }
+
+    public String toStringForUI(){
+        return getFullName() + " (" + getAccountUsername()+ ")";
     }
 }

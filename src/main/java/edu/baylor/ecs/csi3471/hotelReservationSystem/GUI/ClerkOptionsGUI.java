@@ -43,7 +43,10 @@ public class ClerkOptionsGUI  extends UserOptions {
         } else if(((JButton)e.getSource()).equals(createRoomButton)){
         	new AddRoomGui();
         } else if(((JButton)e.getSource()).equals(createReservationButton)){
-            new ReservationEditorGUI(new Guest());
+            // TODO: clerk should supply the guest they want to make the reservation for
+            // maybe prompt for guest information?
+            new ReservationEditorGUI(new Guest("First", "Last",
+                    new AccountInformation("username", "password")));
         }
     }
 }

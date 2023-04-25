@@ -6,9 +6,6 @@
  * displays ALL rooms in the hotel (until filtered or updated)
  */
 
-// TODO: fix updateTable function
-// TODO: pass it hotel object? or keep it as class reference?
-
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.*;
@@ -23,8 +20,6 @@ import java.util.List;
 import net.coderazzi.filters.gui.*;
 
 public class RoomTableModel extends JPanel {
-    // TODO: pass it hotel object? or keep it as class reference?
-    // protected Hotel hotel;
     protected JTable table;
     TableRowSorter<DefaultTableModel> sorter;
 
@@ -36,7 +31,7 @@ public class RoomTableModel extends JPanel {
     private static final String[] columnNames = {
             "Room Number", "Bed Count", "Bed Size", "Quality Level",
             "Smoking", "Room Rate" };
-    private static Object[][] rooms = new Object[MAX_ROOMS][NUM_COLUMNS];
+    private Object[][] rooms = new Object[MAX_ROOMS][NUM_COLUMNS];
 
     public RoomTableModel(){
         super();
@@ -88,14 +83,40 @@ public class RoomTableModel extends JPanel {
         }
     }
 
+    private boolean inTable(Room r){
+        int i = 0;
+        while(i < table.getRowCount()) {
+            // get each room in the table
+            int roomNum = (Integer)table.getModel().getValueAt(i, 0);
+            Room room = Hotel.getRoom(roomNum);
+            // if this room is in table
+            if(room.equals(r)) {
+                return true;
+            }
+            i++;
+        }
+        return false;
+    }
+
     public void updateTable(Date startDate, Date endDate){
-        // reload all rooms into table
-        // TODO: fix this.. it's not reloading/restoring the table
-        loadRoomsIntoTable(Hotel.getRooms());
-        ((DefaultTableModel)table.getModel()).fireTableStructureChanged();
+        // reload table with any rooms that were removed
+        int i = 0;
+        for(Room r : Hotel.getRooms()){
+            if(!inTable(r)){
+                Object[] row = new Object[NUM_COLUMNS];
+                row[0] = r.getRoomNumber();
+                row[1] = r.getBedCount();
+                row[2] = r.getBedSize();
+                row[3] = r.getQuality();
+                row[4] = r.getSmoking();
+                row[5] = "$" + r.getQuality().getRate();
+                ((DefaultTableModel)table.getModel()).insertRow(i, row);
+            }
+            i++;
+        }
 
         // remove unavailable rooms from table
-        int i = 0;
+        i = 0;
         while(i < table.getRowCount()) {
             // get each room in the hotel
             int roomNum = (Integer)table.getModel().getValueAt(i, 0);
