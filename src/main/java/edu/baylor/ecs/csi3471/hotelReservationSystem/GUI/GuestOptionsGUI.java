@@ -41,9 +41,7 @@ public class GuestOptionsGUI extends UserOptions {
 		if(Objects.equals(b, viewResButton)) {
 			new ViewRoomReservationsGUI(new UpcomingResTableModel(myGuest));
 		} else if(Objects.equals(b, createResButton)) {
-			Reservation myNewRes = new Reservation();
-			myNewRes.setGuest(myGuest);
-			new ReservationEditorGUI(myNewRes);
+			new ReservationEditorGUI(myGuest);
 		} else if(Objects.equals(b, profileButton)){
 			new UserProfileGUI(myGuest);
 		}else if (Objects.equals(b, paymentButton)) {

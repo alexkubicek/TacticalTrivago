@@ -1,5 +1,6 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
+import java.io.*;
 import java.util.*;
 import javax.swing.JTextArea;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.LoginFailurePopupGUI;
@@ -16,11 +17,11 @@ public class Hotel {
   public static List<Room> rooms = new ArrayList<>();
   public static List<Reservation> reservations = new ArrayList<>();
   private static List<Payment> pastPayments = new ArrayList<>();
-
-
-  public void setUsers(List<Guest> guests) {this.accounts = accounts;}
-
   public static List<User> accounts = new ArrayList<>();
+
+
+    public void setUsers(List<Guest> guests) {this.accounts = accounts;}
+
   public static List<Room> getRooms() {return rooms;}
   public void setRooms(List<Room> rooms) {this.rooms = rooms;}
   public List<Reservation> getReservations() {return reservations;}
@@ -251,13 +252,4 @@ public class Hotel {
         });
         return myClerks;
     }
-  public static void main(String[] args) {
-      accounts.add(new Guest("Alex", "", new AccountInformation("user", "pass")));
-      accounts.add(new Clerk("Clerk", "", new AccountInformation("clerk", "pass")));
-      accounts.add(new Admin("Admin", "", new AccountInformation("admin", "pass")));
-      rooms.add(new Room(1, 1, true, QualityLevel.COMFORT, BedType.QUEEN));
-      rooms.add(new Room(2, 1, true, QualityLevel.EXECUTIVE, BedType.KING));
-      rooms.add(new Room(3, 1, true, QualityLevel.ECONOMY, BedType.TWIN));
-      LoginPageGUI lp = new LoginPageGUI();
-  }
 }
