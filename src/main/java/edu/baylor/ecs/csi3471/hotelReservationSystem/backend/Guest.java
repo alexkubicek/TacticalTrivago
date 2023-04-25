@@ -43,6 +43,9 @@ public class Guest extends User {
     }
 
     public void setPaymentInfo(CreditCard card){
+        if(this.paymentMethods == null){
+            paymentMethods = new ArrayList<>();
+        }
         this.paymentMethods.add(card);
     }
     public void setPaymentMethods(List<CreditCard> paymentMethods) {this.paymentMethods = paymentMethods;}

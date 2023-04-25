@@ -7,12 +7,8 @@
  * available rooms in the hotel. Reserve room button attempts to
  * reserve selected room for chosen dates.
  *
- * INSTRUCTIONS:
- * ReservationEditorGUI r = new ReservationEditorGUI(guest, hotel);
- * r.display();
+ * USAGE: new ReservationEditorGUI(guest);
  */
-
-// TODO: add payment functionality
 
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
@@ -27,6 +23,7 @@ import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
 
 import static edu.baylor.ecs.csi3471.hotelReservationSystem.backend.DateHelper.getDateWithoutTime;
 
@@ -35,11 +32,15 @@ public class ReservationEditorGUI implements LaunchEditor {
     private Date startDate = null, endDate = null;
     private Guest g;
 
+    /**
+     * @param g - guest you want to make reservations for
+     */
     public ReservationEditorGUI(Guest g){
         this.g = g;
         this.roomsTable = new RoomTableModel();
         display();
     }
+
     private boolean datesAreValid(){
         Date today = null, start = null, end = null;
         if(startDate == null || endDate == null){
@@ -63,7 +64,16 @@ public class ReservationEditorGUI implements LaunchEditor {
     }
 
     private void createConfirmationDialog(DefaultTableModel model, int modelRow)  {
-        // TODO: get payment method, check that payment is valid, confirmation
+        // check that guest has at least one payment method
+        // I'm assuming that if they are in the list, they are valid
+        List<CreditCard> creditCardList = g.getPaymentMethods();
+        if(creditCardList == null || creditCardList.size() == 0){
+            JOptionPane.showMessageDialog(null,
+                    "Please enter payment method details before\n" +
+                            "making a reservation, then try again!");
+            PaymentGUI paymentGUI = new PaymentGUI(g);
+            return;
+        }
 
         // check for valid dates
         if(!datesAreValid()){
@@ -113,6 +123,7 @@ public class ReservationEditorGUI implements LaunchEditor {
         });
         dialog.add(panel);
     }
+
     private JPanel createDateSelection(){
         JPanel panel = new JPanel(new GridLayout(2, 2));
 
@@ -217,6 +228,9 @@ public class ReservationEditorGUI implements LaunchEditor {
         frame.setContentPane(roomsTable);
         frame.setVisible(true);
     }
+
+
+
 
     @Override
     public void launch() {

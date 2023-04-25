@@ -3,10 +3,11 @@
  * author: KayLynn Beard
  *
  * Filterable, scrollable, selectable table object that
- * displays all available rooms in the hotel
+ * displays ALL rooms in the hotel (until filtered or updated)
  */
 
-// TODO: update table function with chosen dates as filter
+// TODO: fix updateTable function
+// TODO: pass it hotel object? or keep it as class reference?
 
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
@@ -22,7 +23,8 @@ import java.util.List;
 import net.coderazzi.filters.gui.*;
 
 public class RoomTableModel extends JPanel {
-    //protected Hotel hotel;
+    // TODO: pass it hotel object? or keep it as class reference?
+    // protected Hotel hotel;
     protected JTable table;
     TableRowSorter<DefaultTableModel> sorter;
 
@@ -36,7 +38,8 @@ public class RoomTableModel extends JPanel {
             "Smoking", "Room Rate" };
     private static Object[][] rooms = new Object[MAX_ROOMS][NUM_COLUMNS];
 
-    private void initializeTable(){
+    public RoomTableModel(){
+        super();
         // get all rooms from hotel
         loadRoomsIntoTable(Hotel.getRooms());
         // create table of rooms
@@ -71,12 +74,7 @@ public class RoomTableModel extends JPanel {
         TableFilterHeader filterHeader = new TableFilterHeader(table, AutoChoices.ENABLED);
     }
 
-    public RoomTableModel(){
-        super();
-        initializeTable();
-    }
-
-    public void loadRoomsIntoTable(List<Room> roomList){
+    private void loadRoomsIntoTable(List<Room> roomList){
         int i = 0;
         for (Room r : roomList){
             rooms[i] = new Object[NUM_COLUMNS];
@@ -96,6 +94,7 @@ public class RoomTableModel extends JPanel {
         loadRoomsIntoTable(Hotel.getRooms());
         ((DefaultTableModel)table.getModel()).fireTableStructureChanged();
 
+        // remove unavailable rooms from table
         int i = 0;
         while(i < table.getRowCount()) {
             // get each room in the hotel
