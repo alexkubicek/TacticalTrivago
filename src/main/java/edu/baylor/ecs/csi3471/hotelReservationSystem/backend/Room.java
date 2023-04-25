@@ -117,4 +117,32 @@ public class Room {
     }
   }
   public Room(){}
+
+  public void setRoomNumber(Integer roomNumber) {
+    this.roomNumber = roomNumber;
+  }
+
+  public void setBedCount(Integer bedCount) {
+    this.bedCount = bedCount;
+  }
+
+  public void setSmoking(Boolean smoking) {
+    this.smoking = smoking;
+  }
+
+  public void setUnavailable(List<Date> unavailable) {
+    this.unavailable = unavailable;
+  }
+
+  public void setQuality(QualityLevel quality) {
+    this.quality = quality;
+  }
+
+  public void setBedSizes(BedType bedSizes) {
+    this.bedSizes = bedSizes;
+  }
+
+  public void setClean_status(CleanStatus clean_status) {
+    this.clean_status = clean_status;
+  }
 }

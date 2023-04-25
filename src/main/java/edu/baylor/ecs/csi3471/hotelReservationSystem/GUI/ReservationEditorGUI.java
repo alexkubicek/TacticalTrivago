@@ -37,13 +37,32 @@ public class ReservationEditorGUI {
     private RoomTableModel roomsTable;
     private Date startDate = null, endDate = null;
     private Guest g;
+    private Reservation r;
+    private boolean clerk;
     private Hotel h;
+    private static JComboBox<String> users;
 
     public ReservationEditorGUI(Guest g, Hotel h){
         this.g = g;
         this.h = h;
         this.roomsTable = new RoomTableModel(h, g);
+        display();
     }
+
+    ReservationEditorGUI(Reservation r){
+        this.r = r;
+        this.roomsTable = new RoomTableModel();
+        clerk = false;
+        display();
+    }
+    
+    ReservationEditorGUI(){
+        this.r = new Reservation();
+        this.roomsTable = new RoomTableModel();
+        clerk = true;
+        display();
+    }
+    
     private boolean datesAreValid(){
         Date today = null, start = null, end = null;
         if(startDate == null || endDate == null){
@@ -95,10 +114,17 @@ public class ReservationEditorGUI {
         dialog.setVisible(true);
 
         JPanel panel = new JPanel();
+
         panel.setLayout(new BorderLayout());
         panel.add(new JLabel("  Confirm room reservation information:"), BorderLayout.NORTH);
 
         String reservationInfo = room.toStringForUI();
+
+        if(clerk){
+            panel.add(new JLabel("<html><br>Guest: " + users.getSelectedItem() + "</html>"));
+            r.setGuest((String)users.getSelectedItem());
+        }
+
         SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd, yyyy");
         reservationInfo = reservationInfo + "<br/>----------------------------------------------<br/>" +
                 "Check-in date: " + formatter.format(startDate) +
@@ -109,7 +135,7 @@ public class ReservationEditorGUI {
         panel.add(confirmButton, BorderLayout.SOUTH);
         confirmButton.addActionListener(e -> {
             // reserve room (should never throw an error if you make it this far)
-            Hotel.reserveRoom(room, startDate, endDate, this.g);
+            Hotel.reserveRoom(room, startDate, endDate, this.r.getGuest());
             roomsTable.updateTable(startDate, endDate);
             JOptionPane.showMessageDialog(null, "Reservation made successfully!");
             // close dialog
@@ -214,10 +240,19 @@ public class ReservationEditorGUI {
         roomsTable.add(createReserveButton());
         roomsTable.add(createSearchBar());
         roomsTable.add(createDateSelection());
-
+        roomsTable.add(createReserveButton(), BorderLayout.SOUTH);
+        
+        if(clerk){
+            roomsTable.add(new JLabel("Guest Username"));
+            users = new JComboBox<>(Hotel.getGuests());
+            roomsTable.add(users);
+        }
+        
         JFrame frame = new JFrame("Available Rooms in Hotel");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(300, 150, 800, 400);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setSize(600, 550);
+
         frame.setContentPane(roomsTable);
         frame.setVisible(true);
     }

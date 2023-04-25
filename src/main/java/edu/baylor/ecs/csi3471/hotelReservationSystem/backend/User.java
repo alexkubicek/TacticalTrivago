@@ -3,13 +3,16 @@ package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 import java.util.Objects;
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.UserOptions;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.UserProfileGUI;
 
 public abstract class User {
   private String nameFirst, nameLast;
   private AccountInformation account;
   protected UserOptions gui;
   public abstract void launchProfile();
-  public User(){}
+  public User(){
+    account = null;
+  }
   public abstract void launchOptions();
   public User(String nameFirst, String nameLast, AccountInformation info){
       this.nameFirst = nameFirst;
@@ -69,4 +72,5 @@ public abstract class User {
   }
 
   public abstract void login();
+  public abstract void updateFromProfileGUI(UserProfileGUI myGUI);
 }
