@@ -70,7 +70,7 @@ public class Room {
     } else{
       s = s + "Smoking is NOT allowed";
     }
-    return "<html>" + s + "</html>";
+    return "<html>" + s;
   }
   public Integer getRoomNumber(){
     return roomNumber;
