@@ -149,7 +149,7 @@ public class UserProfileGUI extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setVisible(true);
-    	
+
     }
     private void fillFromStandardFields(){
         if (usernameField.getText().isEmpty() ||

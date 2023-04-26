@@ -2,10 +2,7 @@ package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import javax.swing.*;
 
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Clerk;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Reservation;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Room;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.*;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -38,7 +35,7 @@ public class ClerkOptionsGUI  extends UserOptions {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(((JButton)e.getSource()).equals(viewRoomsButton)){
-            new ViewRoomReservationsGUI(new RoomTableModel());
+            new ViewRoomReservationsGUI((LaunchEditor) new RoomTableModel());
         } else if(((JButton)e.getSource()).equals(viewProfileButton)){
             new UserProfileGUI(myClerk);
         } else if(((JButton)e.getSource()).equals(viewReservationsButton)){
@@ -46,7 +43,10 @@ public class ClerkOptionsGUI  extends UserOptions {
         } else if(((JButton)e.getSource()).equals(createRoomButton)){
         	new AddRoomGui();
         } else if(((JButton)e.getSource()).equals(createReservationButton)){
-            new ReservationEditorGUI();
+            // TODO: clerk should supply the guest they want to make the reservation for
+            // maybe prompt for guest information?
+            new ReservationEditorGUI(new Guest("First", "Last",
+                    new AccountInformation("username", "password")));
         }
     }
 }

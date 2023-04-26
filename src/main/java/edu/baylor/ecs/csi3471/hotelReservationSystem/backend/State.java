@@ -54,5 +54,16 @@ public enum State {
     WY("Wyoming");
     private final String fullName;
     State(String s){fullName=s;}
+
+    public static String[] getStatesArray() {
+        // This populates JCombobox
+        State[] states = State.values();
+        String[] stateNames = new String[states.length];
+        for (int i = 0; i < states.length; i++) {
+            stateNames[i] = states[i].getState();
+        }
+        return stateNames;
+    }
+
     public String getState(){return fullName;}
 }
