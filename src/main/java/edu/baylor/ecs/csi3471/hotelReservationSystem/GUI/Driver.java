@@ -23,7 +23,6 @@ public class Driver {
         }
         // TODO: load (somehow) guest associations with creditcards and upcomingreservations (can't get from the csv file)
         // TODO: Alex: maybe make a creditcard.csv? or put credit cards with guests
-        // would have to give reservations a unique id to look up with that goes in TacticalTrivagoGuests.csv
         /*
         Alex: I would do something like this so that we don't have to have any redundant data
 

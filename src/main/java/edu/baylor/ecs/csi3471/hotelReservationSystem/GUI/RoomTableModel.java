@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 import net.coderazzi.filters.gui.*;
 
-public class RoomTableModel extends JPanel {
+public class RoomTableModel extends JPanel implements LaunchEditor {
     protected JTable table;
     TableRowSorter<DefaultTableModel> sorter;
 
@@ -127,5 +127,25 @@ public class RoomTableModel extends JPanel {
             }
             i++;
         }
+    }
+
+    @Override
+    public void launch() {
+
+    }
+
+    @Override
+    public JTable getTable() {
+        return null;
+    }
+
+    @Override
+    public String getMessage() {
+        return null;
+    }
+
+    @Override
+    public void deleteSelected() {
+
     }
 }
