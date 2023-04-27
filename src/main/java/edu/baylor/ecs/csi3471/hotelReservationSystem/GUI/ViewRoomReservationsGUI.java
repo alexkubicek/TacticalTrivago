@@ -33,10 +33,22 @@ public class ViewRoomReservationsGUI extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+    	Object index = myTableModel.getTable().getValueAt(myTableModel.getTable().getSelectedRow(), 
+    			myTableModel.getTable().getSelectedColumn());
         if((JButton)e.getSource() == editButton){
-            myTableModel.launch();
+        	if(index == null) {
+        		JOptionPane.showMessageDialog(null, "No reservation selected!");
+        	}
+        	else {
+        		myTableModel.launch();
+        	}
         } else if((JButton)e.getSource() == deleteButton){
-        	myTableModel.deleteSelected();
+        	if(index == null) {
+        		JOptionPane.showMessageDialog(null, "No reservation selected!");
+        	}
+        	else {
+        		myTableModel.deleteSelected();
+        	}
         }
     }
 }
