@@ -1,10 +1,8 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
-import java.io.*;
 import java.util.*;
 import javax.swing.JTextArea;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.LoginFailurePopupGUI;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.LoginPageGUI;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -122,32 +120,6 @@ public class Hotel {
     }
     return null;
   }
-
-//  public static void printRecords() {
-//    // print past reservations and payments sorted by date
-//    List<Reservation> sortedReservations = new ArrayList<>(reservations);
-//    List<Payment> sortedPayments = new ArrayList<>(pastPayments);
-//
-//    // Sort reservations and payments by date
-//    Comparator<Reservation> reservationComparator = Comparator.comparing(Reservation::getStartDate);
-//
-//    Comparator<Payment> paymentComparator = Comparator.comparing(Payment::getDate);
-//
-//    sortedReservations.sort(reservationComparator);
-//    sortedPayments.sort(paymentComparator);
-//
-//    // Print the sorted reservations
-//    System.out.println("Reservations:");
-//    for (Reservation reservation : sortedReservations) {
-//      System.out.println(reservation.toString());
-//    }
-//
-//    // Print the sorted payments
-//    System.out.println("\nPayments:");
-//    for (Payment payment : sortedPayments) {
-//      System.out.println(payment.toString());
-//    }
-//  }
   
   public static void printRecords(JTextArea textArea) {
 	    // print past reservations and payments sorted by date
@@ -247,7 +219,7 @@ public class Hotel {
         }
         return list;
     }
-    public List<Clerk> getClerkAccounts(){
+    public static List<Clerk> getClerkAccounts(){
         List<Clerk> list = new ArrayList<>();
         for(User u : accounts){
             if(u.getClass() == Clerk.class){
@@ -256,7 +228,7 @@ public class Hotel {
         }
         return list;
     }
-    public List<Admin> getAdminAccounts(){
+    public static List<Admin> getAdminAccounts(){
         List<Admin> list = new ArrayList<>();
         for(User u : accounts){
             if(u.getClass() == Admin.class){

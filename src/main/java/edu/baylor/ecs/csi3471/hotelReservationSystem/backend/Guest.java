@@ -26,14 +26,14 @@ public class Guest extends User {
         super(line[0], line[1], new AccountInformation(line[2], line[3]));
         isCorporate = Boolean.parseBoolean(line[4]);
         upcomingReservations = new ArrayList<>();
-        paymentMethods = new ArrayList<>();
-        //paymentMethod = new CreditCard(line);
+        if(line.length == 10){
+            paymentMethod = new CreditCard(line);
+        }
     }
     public Guest(){
         super();
         isCorporate = false;
         upcomingReservations = new ArrayList<>();
-        this.paymentMethod = new CreditCard();
     }
 
     public void setCorporate(Boolean corporate) {isCorporate = corporate;}
@@ -49,6 +49,9 @@ public class Guest extends User {
 
     //takes in a card to set current guest payment to that card
     public void setPaymentInfo(CreditCard card){
+        if(paymentMethod == null){
+            paymentMethod = new CreditCard();
+        }
         this.paymentMethod.setCreditCard(card);
     }
     public void setPaymentMethods(CreditCard paymentMethod) {this.paymentMethod = paymentMethod;}
