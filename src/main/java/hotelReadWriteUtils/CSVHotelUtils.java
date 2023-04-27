@@ -86,6 +86,11 @@ public class CSVHotelUtils extends HotelReadWriteUtils {
             // add reservations to the hotel
             Hotel.setReservations(reservations);
 
+            for(Reservation reservation : Hotel.getReservations()){
+                Guest guestOnReservation = reservation.getGuest();
+                guestOnReservation.addUpcomingReservations(reservation);
+            }
+
         } catch (IOException e) {
             String hint;
             try {

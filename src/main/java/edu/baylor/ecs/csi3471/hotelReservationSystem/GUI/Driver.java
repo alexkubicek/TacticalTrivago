@@ -21,18 +21,6 @@ public class Driver {
             System.err.println(e.getLocalizedMessage());
             System.exit(1);
         }
-        // TODO: load (somehow) guest associations with creditcards and upcomingreservations (can't get from the csv file)
-        // TODO: Alex: maybe make a creditcard.csv? or put credit cards with guests
-        /*
-        Alex: I would do something like this so that we don't have to have any redundant data
-
-            Hotel.accounts <- all users from admins/clerks/guests csv
-            Hotel.rooms <- rooms from CSV
-            for each reservation in CSV:
-                Hotel.reservations.append(reservation)
-                Hotel.accounts[reservation's associated guest].upcomingRes.append(reservation)
-                Hotel.rooms[rooms booked].unavailable.append(dates of reservation)
-         */
         LoginPageGUI lp = new LoginPageGUI();
     }
 }
