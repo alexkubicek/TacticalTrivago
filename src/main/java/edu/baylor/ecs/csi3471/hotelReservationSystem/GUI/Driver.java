@@ -14,13 +14,15 @@ import java.io.*;
 public class Driver {
     static Hotel tacticalTrivagoHotel = new Hotel();
     public static void main(String[] args) {
+        CSVHotelUtils csvLoader = null;
         try{
-            CSVHotelUtils csvLoader = new CSVHotelUtils();
+            csvLoader = new CSVHotelUtils();
             tacticalTrivagoHotel = csvLoader.load();
         } catch (FileNotFoundException e) {
             System.err.println(e.getLocalizedMessage());
             System.exit(1);
         }
         LoginPageGUI lp = new LoginPageGUI();
+        csvLoader.save(tacticalTrivagoHotel);
     }
 }

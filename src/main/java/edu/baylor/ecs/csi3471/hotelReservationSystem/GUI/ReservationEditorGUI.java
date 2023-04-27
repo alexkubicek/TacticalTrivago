@@ -66,8 +66,8 @@ public class ReservationEditorGUI implements LaunchEditor {
     private void createConfirmationDialog(DefaultTableModel model, int modelRow)  {
         // check that guest has at least one payment method
         // I'm assuming that if they are in the list, they are valid
-        List<CreditCard> creditCardList = g.getPaymentMethods();
-        if(creditCardList == null || creditCardList.size() == 0){
+        CreditCard creditCard = g.getPaymentMethods();
+        if(creditCard == null){
             JOptionPane.showMessageDialog(null,
                     "Please enter payment method details before\n" +
                             "making a reservation, then try again!");

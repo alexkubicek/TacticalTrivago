@@ -28,7 +28,7 @@ public class Hotel {
   public static void setReservations(List<Reservation> r) { reservations = r;}
   public List<Payment> getPastPayments() {return pastPayments;}
   public void setPastPayments(List<Payment> pastPayments) {this.pastPayments = pastPayments;}
-  public List<User> getAccounts() {return accounts;}
+  public static List<User> getAccounts() {return accounts;}
   public void setAccounts(List<User> accounts) {this.accounts = accounts;}
 
   public static void addAccounts(List<? extends User> accounts) {
@@ -237,6 +237,35 @@ public class Hotel {
       }
       return null;
   }
+
+    public static List<Guest> getGuestAccounts(){
+        List<Guest> list = new ArrayList<>();
+        for(User u : accounts){
+            if(u.getClass() == Guest.class){
+                list.add((Guest)u);
+            }
+        }
+        return list;
+    }
+    public List<Clerk> getClerkAccounts(){
+        List<Clerk> list = new ArrayList<>();
+        for(User u : accounts){
+            if(u.getClass() == Clerk.class){
+                list.add((Clerk)u);
+            }
+        }
+        return list;
+    }
+    public List<Admin> getAdminAccounts(){
+        List<Admin> list = new ArrayList<>();
+        for(User u : accounts){
+            if(u.getClass() == Admin.class){
+                list.add((Admin)u);
+            }
+        }
+        return list;
+    }
+
     public static Vector<String> getGuests(){
       Vector<String> myGuests = new Vector<>();
       accounts.stream().filter(u->u.getClass() == Guest.class).forEach(user->{
