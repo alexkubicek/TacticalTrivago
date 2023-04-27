@@ -177,7 +177,7 @@ public class CSVHotelUtils {
 
             file = new FileWriter("src/main/resources/TacticalTrivagoAdmins.csv");
             writer = new BufferedWriter(file);
-            writer.write("nameFirst,nameLast,username,password\n");
+            writer.write("nameFirst,nameLast,username,password,adminID\n");
             for (Admin a : Hotel.getAdminAccounts()) {
                 writer.write(a.getNameFirst() + "," + a.getNameLast() + ","
                         + a.getAccountUsername() + "," + a.getAccountPassword() + ","
