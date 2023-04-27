@@ -2,6 +2,8 @@ package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
 import java.util.Map;
 
+import static java.lang.Integer.parseInt;
+
 public class Address{
   	private Integer buildingNumber, zipCode;
   	private String street, city; //abbreviation mapped to full name
@@ -47,4 +49,16 @@ public class Address{
 	}
 	
 	public Address() {}
+
+	public Address(String line) {
+		super();
+		String[] addressLine;
+		addressLine = line.split(".");
+
+		this.buildingNumber = parseInt(addressLine[0]);
+		this.zipCode = parseInt(addressLine[1]);
+		this.street = addressLine[2];
+		this.city = addressLine[3];
+		this.state = State.valueOf(addressLine[4]);
+	}
 }
