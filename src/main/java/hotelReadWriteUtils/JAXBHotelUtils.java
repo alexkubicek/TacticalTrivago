@@ -1,12 +1,10 @@
-package hotelReadWriteUtils.java;
+package hotelReadWriteUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.List;
 
-import edu.baylor.ecs.csi3471.hotelReservationSystem.*;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Room;
 import jakarta.xml.bind.JAXBContext;
@@ -14,7 +12,7 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 
-public class JAXBHotelUtils extends HotelReadWriteUtils{
+public class JAXBHotelUtils extends HotelReadWriteUtils {
 
 	@Override
 	public Hotel load() throws FileNotFoundException {

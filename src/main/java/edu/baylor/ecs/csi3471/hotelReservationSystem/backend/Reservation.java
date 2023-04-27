@@ -1,5 +1,7 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +15,7 @@ public class Reservation {
   
   	//associations
   	private Guest guest;
-  	private List<Room> rooms;
+  	private List<Room> rooms = null;
 	public String getRoomsString(){
 		StringBuilder line = new StringBuilder();
 		for (Room r : rooms) {
@@ -39,6 +41,30 @@ public class Reservation {
 		nights = (int)((endDate.getTime() - startDate.getTime()) / (1000*60*60*24));
 		rate = 0.0;
 		rooms.forEach(t->{rate += t.quality.getRate();});
+	}
+	public Reservation(String[] line){
+		if(rooms == null){
+			rooms = new ArrayList<>();
+		}
+		rooms.add(Hotel.getRoom(Integer.parseInt(line[0])));
+		SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+		try {
+			startDate = formatter.parse(line[1]);
+			endDate = formatter.parse(line[2]);
+		} catch (ParseException e) {
+			System.err.println("Error in Reservation(String[]): invalid date format from csv");
+			throw new RuntimeException(e);
+		}
+		try{
+			guest = (Guest) Hotel.searchForAccountByUsername(line[3]);
+			if(guest == null){
+				System.err.println("Error in Reservation(String[]): guest associated with reservation does not exist");
+				throw new RuntimeException();
+			}
+		} catch (ClassCastException e){
+			System.err.println("Error in Reservation(String[]): reservation is under a clerk/admin");
+			throw new RuntimeException();
+		}
 	}
 	public Reservation(Date s, Date e, Guest g, Room r) {
 		startDate = s;
