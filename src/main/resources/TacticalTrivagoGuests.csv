@@ -1,5 +1,5 @@
-nameFirst,nameLast,username,password,isCorporate
-firstname,lastname,user,pass,0
+nameFirst,nameLast,username,password,isCorporate,cardNum,cvv,expiration,address,name
+firstname,lastname,user,pass,0,1234567890123456,123,3-6-2024,firstname lastname
 firstname,lastname,userCorporate,pass,1
 Emma,Johnson,ejohnson,Pa$$w0rd1,1
 James,Davis,jdavis,SecurePassword2,0
