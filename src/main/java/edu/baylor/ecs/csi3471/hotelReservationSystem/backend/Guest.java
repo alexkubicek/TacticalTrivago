@@ -8,6 +8,9 @@ import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.UserProfileGUI;
 
 public class Guest extends User {
     private Boolean isCorporate = false;
+    //associations
+    private List<Reservation> upcomingReservations;
+    private List<CreditCard> paymentMethods; //index 0 being default to use
 
     public Guest(String nameFirst, String nameLast, AccountInformation info) {
         super(nameFirst, nameLast, info);
@@ -28,9 +31,6 @@ public class Guest extends User {
         upcomingReservations = new ArrayList<>();
         this.paymentMethods = new ArrayList<>();
     }
-    //associations
-    private List<Reservation> upcomingReservations;
-    private List<CreditCard> paymentMethods; //index 0 being default to use
 
     public void setCorporate(Boolean corporate) {isCorporate = corporate;}
 

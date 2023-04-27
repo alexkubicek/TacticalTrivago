@@ -8,6 +8,10 @@ public class Clerk extends User {
 	public Clerk(String nameFirst, String nameLast, AccountInformation account){
 		super(nameFirst, nameLast, account);
 	}
+
+	public Clerk(String[] line){
+		super(line[0], line[1], new AccountInformation(line[2], line[3]));
+	}
 	public Clerk(){super();}
 	public String getPublicInfo(){
 		return super.getFullName();
