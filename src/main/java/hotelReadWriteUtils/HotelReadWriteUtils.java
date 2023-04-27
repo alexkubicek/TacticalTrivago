@@ -1,4 +1,4 @@
-package hotelReadWriteUtils.java;
+package hotelReadWriteUtils;
 import java.io.FileNotFoundException;
 
 //FIXME have a load guests function so that we're affecting the same hotel?
@@ -22,6 +22,4 @@ public abstract class HotelReadWriteUtils {
 	protected Hotel hook(Hotel hotel) {
 		return hotel;
 	}
-	
-
 }

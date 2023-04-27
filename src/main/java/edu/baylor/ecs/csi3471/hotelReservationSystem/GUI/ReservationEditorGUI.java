@@ -105,7 +105,12 @@ public class ReservationEditorGUI implements LaunchEditor {
         panel.setLayout(new BorderLayout());
 
         SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd, yyyy");
-        String guestInfo = "Reservation for " + g.toStringForUI() + ":</br>";
+        String guestInfo = "Reservation for ";
+        if (g.getAccountInformation() == null){
+            guestInfo += g.getFullName() + ":</br>";
+        } else{
+            guestInfo += g.toStringForUI() + ":</br>";
+        }
         String roomInfo = room.toStringForUI();
         String reservationInfo = "<html>" + guestInfo +
                 "<br/>-------------------------------------------------------------------<br/>" +

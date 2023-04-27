@@ -1,47 +1,39 @@
-package hotelReadWriteUtils.java;
+package hotelReadWriteUtils;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Guest;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Room;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.User;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.*;
 
-public class CSVHotelUtils extends HotelReadWriteUtils{
+public class CSVHotelUtils extends HotelReadWriteUtils {
+    // loads "database" for hotel (rooms, current reservations, all user types)
 	@Override
 	public Hotel load() throws FileNotFoundException {
-		Hotel hotel = new Hotel();
-		String file = "src/main/resources/testRooms1.csv";
-        List<Room> rooms = new ArrayList<>();
+        Hotel hotel = new Hotel();
+        String file = "src/main/resources/TacticalTrivagoRooms.csv";
         BufferedReader reader = null;
-        if(!file.endsWith(".csv")){
-            System.err.println("file must be csv");
-            throw new RuntimeException();
-        }
         try {
+            // read rooms from file
             reader = new BufferedReader(new FileReader(file));
             // ignore header line
             String line;
             reader.readLine();
             // read each row
             String[] split;
+            List<Room> rooms = new ArrayList<>();
             Room r;
             while ((line = reader.readLine()) != null) {
                 split = line.split(",");
                 r = new Room(split);
                 rooms.add(r);
             }
-            Hotel.rooms = (rooms);
+            Hotel.rooms = rooms;
 
-            // This is also opening a new file and using the same
-            // variables to see if it can read from the guest file
-            file = "src/main/resources/testUsers1.csv";
+            // read guests from file
+            file = "src/main/resources/TacticalTrivagoGuests.csv";
             reader = new BufferedReader(new FileReader(file));
-            //ignore header
             reader.readLine();
-
             List<Guest> guests = new ArrayList<>();
             Guest g;
             while ((line = reader.readLine()) != null) {
@@ -49,9 +41,50 @@ public class CSVHotelUtils extends HotelReadWriteUtils{
                 g = new Guest(split);
                 guests.add(g);
             }
-            //adds the guests (users) to the hotel
-            hotel.addAccounts(guests);
-            //hotel.setGuests(guests);        //THIS LINE IS FOR COPYING INTO BOTH THE GUEST AND USERS
+            // add guests to the hotel
+            Hotel.addAccounts(guests);
+
+            // read clerks from file
+            file = "src/main/resources/TacticalTrivagoClerks.csv";
+            reader = new BufferedReader(new FileReader(file));
+            reader.readLine();
+            List<Clerk> clerks = new ArrayList<>();
+            Clerk c;
+            while ((line = reader.readLine()) != null) {
+                split = line.split(",");
+                c = new Clerk(split);
+                clerks.add(c);
+            }
+            // add clerks to the hotel
+            Hotel.addAccounts(clerks);
+
+            // read admins from file
+            file = "src/main/resources/TacticalTrivagoAdmins.csv";
+            reader = new BufferedReader(new FileReader(file));
+            reader.readLine();
+            List<Admin> admins = new ArrayList<>();
+            Admin a;
+            while ((line = reader.readLine()) != null) {
+                split = line.split(",");
+                a = new Admin(split);
+                admins.add(a);
+            }
+            // add admins to the hotel
+            Hotel.addAccounts(admins);
+
+            // read reservations from file
+            file = "src/main/resources/TacticalTrivagoReservations.csv";
+            reader = new BufferedReader(new FileReader(file));
+            reader.readLine();
+            List<Reservation> reservations = new ArrayList<>();
+            Reservation res;
+            while ((line = reader.readLine()) != null) {
+                split = line.split(",");
+                res = new Reservation(split);
+                reservations.add(res);
+            }
+            // add reservations to the hotel
+            Hotel.setReservations(reservations);
 
         } catch (IOException e) {
             String hint;
@@ -70,8 +103,7 @@ public class CSVHotelUtils extends HotelReadWriteUtils{
                 }
             }
         }
-    
-		return hotel;
+        return hotel;
 	}
 
 	@Override
