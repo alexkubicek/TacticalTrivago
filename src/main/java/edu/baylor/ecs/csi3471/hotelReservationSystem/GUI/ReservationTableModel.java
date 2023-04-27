@@ -60,7 +60,6 @@ public class ReservationTableModel extends JPanel implements LaunchEditor{
             reservations[i][2] = formatter.format(r.getStartDate());
             reservations[i][3] = formatter.format(r.getEndDate());
             reservations[i][4] = String.format("$%.2f", r.calculateTotal());
-            i++;
         }
     }
 

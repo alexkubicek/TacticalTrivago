@@ -45,7 +45,7 @@ public class RoomTableModel extends JPanel implements LaunchEditor {
         // get all rooms from hotel
         loadRoomsIntoTable(Hotel.getRooms());
         // create table of rooms
-        DefaultTableModel model = new DefaultTableModel(rooms, columnNames) {
+        model = new DefaultTableModel(rooms, columnNames) {
             @Override
             public boolean isCellEditable(int row, int column) {return false;}
             @Override
@@ -142,11 +142,13 @@ public class RoomTableModel extends JPanel implements LaunchEditor {
 
     @Override
     public void launch() {
-        int[] index = table.getSelectedRows();
-        if (index.length == 0) {
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "No row selected.");
         } else {
-            RoomEditorGUI roomEditorGUI = new RoomEditorGUI(Hotel.rooms.get(index[0]));
+            int roomNum = (Integer) table.getModel().getValueAt(selectedRow, 0);
+            Room roomToEdit = Hotel.getRoom(roomNum);
+            RoomEditorGUI roomEditorGUI = new RoomEditorGUI(roomToEdit);
             roomEditorGUI.setVisible(true);
 
             // Wait for the RoomEditorGUI to close
@@ -155,19 +157,21 @@ public class RoomTableModel extends JPanel implements LaunchEditor {
                 public void windowClosed(WindowEvent e) {
                     if (roomEditorGUI.isRoomUpdated()) {
                         // Update the table model after editing a room
-                        Room updatedRoom = Hotel.rooms.get(index[0]);
-                        model.setValueAt(updatedRoom.getRoomNumber(), index[0], 0);
-                        model.setValueAt(updatedRoom.getBedCount(), index[0], 1);
-                        model.setValueAt(updatedRoom.getBedSize(), index[0], 2);
-                        model.setValueAt(updatedRoom.getQuality(), index[0], 3);
-                        model.setValueAt(updatedRoom.getSmoking(), index[0], 4);
-                        model.setValueAt(updatedRoom.getQuality().getRate(), index[0], 5);
-                        model.fireTableRowsUpdated(index[0], index[0]);
+                        int modelIndex = Hotel.rooms.indexOf(roomToEdit);
+                        model.setValueAt(roomToEdit.getRoomNumber(), modelIndex, 0);
+                        model.setValueAt(roomToEdit.getBedCount(), modelIndex, 1);
+                        model.setValueAt(roomToEdit.getBedSize(), modelIndex, 2);
+                        model.setValueAt(roomToEdit.getQuality(), modelIndex, 3);
+                        model.setValueAt(roomToEdit.getSmoking(), modelIndex, 4);
+                        model.setValueAt("$" + roomToEdit.getQuality().getRate(), modelIndex, 5);
+                        model.fireTableRowsUpdated(modelIndex, modelIndex);
                     }
                 }
             });
         }
     }
+
+
 
 
     @Override
@@ -202,12 +206,13 @@ public class RoomTableModel extends JPanel implements LaunchEditor {
                     int modelIndex = modelIndices[i];
                     // Remove room from Hotel.rooms and update the table model
                     Hotel.rooms.remove(modelIndex);
-                    reloadRooms();
+                    model.removeRow(modelIndex);
                 }
 
-                // Show success message
                 JOptionPane.showMessageDialog(null, "Room(s) successfully deleted");
+
             }
         }
     }
 }
+
