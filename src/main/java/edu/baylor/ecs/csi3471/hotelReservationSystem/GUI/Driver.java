@@ -1,3 +1,9 @@
+/*
+USER LOGIN: user pass
+CLERK LOGIN: clerk pass
+ADMIN LOGIN: admin pass
+ */
+
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.*;
