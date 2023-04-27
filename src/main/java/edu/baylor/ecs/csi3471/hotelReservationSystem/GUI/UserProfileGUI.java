@@ -109,7 +109,7 @@ public class UserProfileGUI extends JDialog implements ActionListener {
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 int result = JOptionPane.showConfirmDialog(null,
-                        "Would you like to cancel account creation?");
+                        "Would you like to exit?", "Exit confirmation", JOptionPane.OK_CANCEL_OPTION);
                 if(result == JOptionPane.OK_OPTION) {
                     dispose();
                 }

@@ -38,6 +38,15 @@ public class CreditCard {
     public Integer getCvv(){return cvv;}
     public Date getExpiration(){return expiration;}
 
+
+    /*private boolean verifyInput(){
+        boolean flag = false;
+
+
+        if()
+        return flag;
+    }*/
+
     public CreditCard(){}
 
     public CreditCard(Date date, Long cardID, Integer threeFancyDigits) {
@@ -111,20 +120,3 @@ public class CreditCard {
         this.address = new Address(buildingNumber, zipCode, street, city, tx);
     }
 }
-
-/*
-@Test
- public void validCardNum(CreditCard){
-    do something with size if too large or too small then invalid
-}
-@Test
- public void Cvv(CreditCard){
-    do something with size and input specifics to make sure its a real Cvv
- }
-
- @Test
- public void UserName(CreditCard){
-    do something with size and input specifics to make sure it follows
-    username rules if there is a set max length or if the username already exists
- }
-*/

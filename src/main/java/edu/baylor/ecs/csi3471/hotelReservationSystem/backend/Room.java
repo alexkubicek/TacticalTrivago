@@ -6,14 +6,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
+
 
 import static edu.baylor.ecs.csi3471.hotelReservationSystem.backend.DateHelper.*;
 
-@XmlRootElement(name = "Room")
 
-@XmlType(propOrder = { "roomNumber", "numberOfBeds", "smoking", "qualityLevel, bedType" })
+
 public class Room {
   private Integer roomNumber, bedCount;
   private Boolean smoking;
