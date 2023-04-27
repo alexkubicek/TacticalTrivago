@@ -23,7 +23,7 @@ public class RoomTableModel extends JPanel implements LaunchEditor {
     protected JTable table;
     TableRowSorter<DefaultTableModel> sorter;
 
-    private static final int MAX_ROOMS = 40;
+    private static final int MAX_ROOMS = 100; // HAVE MORE COLS SO WE CAN ADD 
     private static final int NUM_COLUMNS = 6;
     final Class<?>[] columnClass = new Class[] {
             String.class, String.class, BedType.class, QualityLevel.class,

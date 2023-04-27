@@ -47,7 +47,7 @@ public class AddRoomGui {
         formPanel.add(bedSizeField);
 
         JLabel qualityLabel = new JLabel("Quality Level:");
-        qualityField = new JComboBox<String>(new String[]{"Economy", "Standard", "Luxury"});
+        qualityField = new JComboBox<String>(new String[]{"EXECUTIVE", "BUSINESS", "COMFORT","ECONOMY","ALL"});
         formPanel.add(qualityLabel);
         formPanel.add(qualityField);
 
