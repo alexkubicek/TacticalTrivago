@@ -2,8 +2,9 @@
  * file: EnterGuestInfoGUI.java
  * author: KayLynn Beard
  *
- * UI for clerks to enter guest information to make/edit
- * reservations on behalf of guest
+ * UI for clerks to get guest information (search for existing
+ * guest or create account using UserProfileGUI) so they can
+ * make/edit reservations on behalf of guest
  *
  * USAGE: EnterGuestInfoGUI g = new EnterGuestInfoGUI();
  *        Guest guest = g.getGuest();
@@ -22,11 +23,45 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class EnterGuestInfoGUI {
-    private JButton submit;
     private JDialog dialog;
-    JTextField firstNameField = new JTextField("", 20);
-    JTextField lastNameField = new JTextField("", 20);
     private Guest g;
+
+    private JPanel createNewGuestPanel(){
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        JButton submit = new JButton("   Create New Guest   ");
+        submit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UserProfileGUI u = new UserProfileGUI(new Guest());
+                g = (Guest) u.getMyUser();
+                if(u.isSuccessful()){
+                    createConfirmationDialog();
+                }
+            }
+        });
+        panel.add(new JLabel("Or create new guest account:  "));
+        panel.add(submit);
+        return panel;
+    }
+
+    private void createConfirmationDialog() {
+        JDialog foundDialog = new JDialog();
+        foundDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        foundDialog.setSize(200, 150);
+        foundDialog.setTitle("Guest Found!");
+        foundDialog.add(displayFoundGuest());
+        JButton confirm = new JButton("Confirm");
+        confirm.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                foundDialog.dispose();
+                dialog.dispose();
+            }
+        });
+        foundDialog.add(confirm, BorderLayout.SOUTH);
+        foundDialog.setVisible(true);
+    }
 
     private JPanel createSearchPanel(){
         JPanel panel = new JPanel();
@@ -41,14 +76,12 @@ public class EnterGuestInfoGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
-                    Guest g = (Guest)Hotel.searchForAccountByUsername(searchField.getText());
+                    g = (Guest)Hotel.searchForAccountByUsername(searchField.getText());
                     if(g == null){
                         JOptionPane.showMessageDialog(null, "Guest not found. Try again or " +
-                                "enter new guest information manually.");
+                                "create new guest.");
                     } else{
-                        firstNameField.setText(g.getNameFirst());
-                        lastNameField.setText(g.getNameLast());
-                        panel.add(new JLabel("Guest found!"));
+                        createConfirmationDialog();
                     }
                 } catch(ClassCastException ex){
                     JOptionPane.showMessageDialog(null, "Username matches clerk/admin " +
@@ -60,43 +93,34 @@ public class EnterGuestInfoGUI {
         panel.add(searchLabel);
         panel.add(searchField);
         panel.add(searchButton);
-        panel.add(new JLabel("Manually enter new guest information:"));
         return panel;
     }
 
-    private JPanel createFieldList(){
+    private JPanel displayFoundGuest(){
         JPanel panel = new JPanel();
-        JLabel firstNameLabel = new JLabel("First Name: ");
-        JLabel lastNameLabel = new JLabel("Last Name: ");
-        panel.add(firstNameLabel);
-        panel.add(firstNameField);
-        panel.add(lastNameLabel);
-        panel.add(lastNameField);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+        panel.add(new JLabel(" Confirm Guest Information:"));
+        panel.add(new JLabel(" ---------------------------------------------"));
+        panel.add(new JLabel(" First Name: " + g.getNameFirst()));
+        panel.add(new JLabel(" Last Name: " + g.getNameLast()));
+        panel.add(new JLabel(" Username: " + g.getAccountUsername()));
+        JLabel label = new JLabel();
+        if(g.corporate()){
+            label.setText("Corporate: YES");
+        } else{
+            label.setText("Corporate: NO");
+        }
         return panel;
     }
 
     public EnterGuestInfoGUI(){
         dialog = new JDialog(dialog, "Enter Guest Information", Dialog.ModalityType.DOCUMENT_MODAL);
         dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        dialog.setSize(360, 210);
+        dialog.setSize(360, 200);
         dialog.setLayout(new BorderLayout());
 
-        submit = new JButton("Create New Guest");
-        submit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(firstNameField.getText().equals("") || lastNameField.getText().equals("")){
-                    JOptionPane.showMessageDialog(null, "Please fill in both name fields.");
-                } else{
-                    g = new Guest(firstNameField.getText(), lastNameField.getText(), null);
-                    dialog.dispose();
-                }
-            }
-        });
-
         dialog.add(createSearchPanel(), BorderLayout.NORTH);
-        dialog.add(createFieldList(), BorderLayout.CENTER);
-        dialog.add(submit, BorderLayout.SOUTH);
+        dialog.add(createNewGuestPanel(), BorderLayout.CENTER);
 
         dialog.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
