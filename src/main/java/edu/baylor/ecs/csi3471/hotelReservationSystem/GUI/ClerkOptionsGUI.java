@@ -1,7 +1,6 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import javax.swing.*;
-
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.*;
 
 import java.awt.event.ActionEvent;
@@ -35,7 +34,7 @@ public class ClerkOptionsGUI  extends UserOptions {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(((JButton)e.getSource()).equals(viewRoomsButton)){
-            new ViewRoomReservationsGUI((LaunchEditor) new RoomTableModel());
+            new ViewRoomReservationsGUI(new RoomTableModel());
         } else if(((JButton)e.getSource()).equals(viewProfileButton)){
             new UserProfileGUI(myClerk);
         } else if(((JButton)e.getSource()).equals(viewReservationsButton)){
@@ -49,7 +48,7 @@ public class ClerkOptionsGUI  extends UserOptions {
             if(guest == null){
                 System.err.println("Error in ClerkOptionsGUI: guest to make reservation for is null");
             } else{
-                new ReservationEditorGUI(guest);
+                new MakeReservationGUI(guest);
             }
         }
     }

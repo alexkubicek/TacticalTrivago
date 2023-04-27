@@ -1,8 +1,6 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
-import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -10,7 +8,6 @@ import java.util.Objects;
 import javax.swing.*;
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Guest;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Reservation;
 
 public class GuestOptionsGUI extends UserOptions {
 	private static final JButton viewResButton = (new JButton("View Existing Reservations"));
@@ -41,7 +38,7 @@ public class GuestOptionsGUI extends UserOptions {
 		if(Objects.equals(b, viewResButton)) {
 			new ViewRoomReservationsGUI(new UpcomingResTableModel(myGuest));
 		} else if(Objects.equals(b, createResButton)) {
-			new ReservationEditorGUI(myGuest);
+			new MakeReservationGUI(myGuest);
 		} else if(Objects.equals(b, profileButton)){
 			new UserProfileGUI(myGuest);
 		}else if (Objects.equals(b, paymentButton)) {

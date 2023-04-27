@@ -11,7 +11,6 @@ public class Hotel {
   private static List<Payment> pastPayments = new ArrayList<>();
   public static List<User> accounts = new ArrayList<>();
 
-
     public void setUsers(List<Guest> guests) {this.accounts = accounts;}
 
   public static List<Room> getRooms() {return rooms;}

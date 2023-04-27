@@ -4,6 +4,7 @@
  *
  * Filterable, scrollable, selectable table object that
  * displays ALL rooms in the hotel (until filtered or updated)
+ * Can edit or delete rooms from hotel
  */
 
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
@@ -15,6 +16,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import net.coderazzi.filters.gui.*;
@@ -22,8 +26,9 @@ import net.coderazzi.filters.gui.*;
 public class RoomTableModel extends JPanel implements LaunchEditor {
     protected JTable table;
     TableRowSorter<DefaultTableModel> sorter;
+    private DefaultTableModel model;
 
-    private static final int MAX_ROOMS = 100; // HAVE MORE COLS SO WE CAN ADD 
+    private static int MAX_ROOMS = 40;
     private static final int NUM_COLUMNS = 6;
     final Class<?>[] columnClass = new Class[] {
             String.class, String.class, BedType.class, QualityLevel.class,
@@ -31,10 +36,12 @@ public class RoomTableModel extends JPanel implements LaunchEditor {
     private static final String[] columnNames = {
             "Room Number", "Bed Count", "Bed Size", "Quality Level",
             "Smoking", "Room Rate" };
-    private Object[][] rooms = new Object[MAX_ROOMS][NUM_COLUMNS];
+    private Object[][] rooms;
 
     public RoomTableModel(){
         super();
+        MAX_ROOMS = Hotel.getRooms().size();
+        rooms = new Object[MAX_ROOMS][NUM_COLUMNS];
         // get all rooms from hotel
         loadRoomsIntoTable(Hotel.getRooms());
         // create table of rooms
@@ -99,7 +106,23 @@ public class RoomTableModel extends JPanel implements LaunchEditor {
     }
 
     public void updateTable(Date startDate, Date endDate){
-        // reload table with any rooms that were removed
+        reloadRooms();
+        // remove unavailable rooms from table
+        int i = 0;
+        while(i < table.getRowCount()) {
+            // get each room in the hotel
+            int roomNum = (Integer)table.getModel().getValueAt(i, 0);
+            Room r = Hotel.getRoom(roomNum);
+            // if room is not available, remove from table
+            if(!r.isAvailable(startDate, endDate)) {
+                ((DefaultTableModel)table.getModel()).removeRow(i);
+            }
+            i++;
+        }
+    }
+
+    public void reloadRooms(){
+        // reload table with any rooms that were removed/reserved
         int i = 0;
         for(Room r : Hotel.getRooms()){
             if(!inTable(r)){
@@ -114,38 +137,77 @@ public class RoomTableModel extends JPanel implements LaunchEditor {
             }
             i++;
         }
-
-        // remove unavailable rooms from table
-        i = 0;
-        while(i < table.getRowCount()) {
-            // get each room in the hotel
-            int roomNum = (Integer)table.getModel().getValueAt(i, 0);
-            Room r = Hotel.getRoom(roomNum);
-            // if room is not available, remove from table
-            if(!r.isAvailable(startDate, endDate)) {
-                ((DefaultTableModel)table.getModel()).removeRow(i);
-            }
-            i++;
-        }
     }
+
 
     @Override
     public void launch() {
+        int[] index = table.getSelectedRows();
+        if (index.length == 0) {
+            JOptionPane.showMessageDialog(this, "No row selected.");
+        } else {
+            RoomEditorGUI roomEditorGUI = new RoomEditorGUI(Hotel.rooms.get(index[0]));
+            roomEditorGUI.setVisible(true);
 
+            // Wait for the RoomEditorGUI to close
+            roomEditorGUI.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    if (roomEditorGUI.isRoomUpdated()) {
+                        // Update the table model after editing a room
+                        Room updatedRoom = Hotel.rooms.get(index[0]);
+                        model.setValueAt(updatedRoom.getRoomNumber(), index[0], 0);
+                        model.setValueAt(updatedRoom.getBedCount(), index[0], 1);
+                        model.setValueAt(updatedRoom.getBedSize(), index[0], 2);
+                        model.setValueAt(updatedRoom.getQuality(), index[0], 3);
+                        model.setValueAt(updatedRoom.getSmoking(), index[0], 4);
+                        model.setValueAt(updatedRoom.getQuality().getRate(), index[0], 5);
+                        model.fireTableRowsUpdated(index[0], index[0]);
+                    }
+                }
+            });
+        }
     }
+
 
     @Override
     public JTable getTable() {
-        return null;
+        return table;
     }
 
     @Override
     public String getMessage() {
-        return null;
+        return "No room selected";
     }
 
-    @Override
     public void deleteSelected() {
+        int[] viewIndices = table.getSelectedRows();
+        if (viewIndices.length == 0) {
+            JOptionPane.showMessageDialog(this, "No row selected.");
+        } else {
+            // Convert view indices to model indices
+            int[] modelIndices = new int[viewIndices.length];
+            for (int i = 0; i < viewIndices.length; i++) {
+                modelIndices[i] = table.convertRowIndexToModel(viewIndices[i]);
+            }
 
+            // Show the confirmation dialog
+            String message = "Are you sure you want to delete the selected room(s)?";
+            int option = JOptionPane.showConfirmDialog(this, message, "Confirm Deletion", JOptionPane.YES_NO_OPTION);
+
+            if (option == JOptionPane.YES_OPTION) {
+                // Sort model indices in descending order
+                Arrays.sort(modelIndices);
+                for (int i = modelIndices.length - 1; i >= 0; i--) {
+                    int modelIndex = modelIndices[i];
+                    // Remove room from Hotel.rooms and update the table model
+                    Hotel.rooms.remove(modelIndex);
+                    reloadRooms();
+                }
+
+                // Show success message
+                JOptionPane.showMessageDialog(null, "Room(s) successfully deleted");
+            }
+        }
     }
 }
