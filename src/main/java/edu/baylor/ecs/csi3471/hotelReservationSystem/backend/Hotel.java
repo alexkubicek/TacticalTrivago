@@ -252,4 +252,13 @@ public class Hotel {
         });
         return myClerks;
     }
+
+    public static User searchForAccountByUsername(String username){
+        for(User u : accounts){
+            if(u.getAccountUsername().equalsIgnoreCase(username)){
+                return u;
+            }
+        }
+        return null;
+    }
 }
