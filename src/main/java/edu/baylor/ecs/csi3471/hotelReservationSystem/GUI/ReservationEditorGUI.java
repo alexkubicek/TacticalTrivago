@@ -1,189 +1,116 @@
-/**
- * file: ReservationEditorGUI
- * use case: MakeReservation - UC1
- * author: KayLynn Beard
- *
- * Uses RoomTableModel to display, filter/search, select any
- * (available?) rooms in the hotel. Reserve room button attempts to
- * reserve selected room for chosen dates.
- *
- * INSTRUCTIONS: how to open the reservation editor UI so that guest/clerk can reserve rooms for guest:
- * ReservationEditorGUI r = new ReservationEditorGUI(guest, hotel);
- * r.display();
- */
-
-// TODO: should the table only display available rooms? or all rooms and say "hey this isn't available for what you selected?"
-// TODO: add payment functionality
-// TODO: make it pretty (change dimensions, font, font size, alignment, button placements, etc...)
-
+/*
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
-import com.toedter.calendar.JDateChooser;
+
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.*;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 
-import static edu.baylor.ecs.csi3471.hotelReservationSystem.backend.DateHelper.getDateWithoutTime;
+public class ReservationEditorGUI extends JFrame implements ActionListener {
+    JCheckBox smokingCheckBox;
+    JFormattedTextField roomNumField, bedNumField;
+    JComboBox qualityLevelDropDown, bedTypeDropDown, comboBox;
+    private Reservation associatedRoom;
+    private boolean isUpdated = false;
 
-public class ReservationEditorGUI {
-    private RoomTableModel roomsTable;
-    private Reservation r;
-    private boolean clerk;
+    private static final JButton confirmButton = new JButton("Confirm");
+    public ReservationEditorGUI(Reservation r) {
+        associatedRoom = r;
+        confirmButton.addActionListener(this);
+        getContentPane().setLayout(null);
 
-    ReservationEditorGUI(Reservation r){
-        this.r = r;
-        this.roomsTable = new RoomTableModel();
-        clerk = false;
-        display();
+        JLabel roomNumLabel = new JLabel("Room Number: ");
+        roomNumLabel.setBounds(68, 52, 103, 16);
+        getContentPane().add(roomNumLabel);
+
+        JLabel qualityLevelLabel = new JLabel("Quality Level: ");
+        qualityLevelLabel.setBounds(68, 80, 103, 16);
+        getContentPane().add(qualityLevelLabel);
+
+        JLabel bedSizeLabel = new JLabel("Bed Size: ");
+        bedSizeLabel.setBounds(68, 108, 103, 16);
+        getContentPane().add(bedSizeLabel);
+
+        JLabel bedNumLabel = new JLabel("Bed Number: ");
+        bedNumLabel.setBounds(68, 136, 103, 16);
+        getContentPane().add(bedNumLabel);
+
+        smokingCheckBox = new JCheckBox("Smoking");
+        smokingCheckBox.setBounds(68, 192, 128, 23);
+        smokingCheckBox.setSelected(r.getSmoking());
+        getContentPane().add(smokingCheckBox);
+
+        roomNumField = new JFormattedTextField(NumberFormat.getIntegerInstance());
+        roomNumField.setText(String.valueOf(r.getRoomNumber()));
+        roomNumLabel.setLabelFor(roomNumField);
+        roomNumField.setBounds(168, 47, 28, 26);
+        getContentPane().add(roomNumField);
+
+        qualityLevelDropDown = new JComboBox();
+        qualityLevelLabel.setLabelFor(qualityLevelDropDown);
+        qualityLevelDropDown.setModel(new DefaultComboBoxModel(QualityLevel.values()));
+        qualityLevelDropDown.setBounds(168, 76, 123, 27);
+        qualityLevelDropDown.setSelectedItem(r.getQuality());
+        getContentPane().add(qualityLevelDropDown);
+
+        bedTypeDropDown = new JComboBox();
+        bedSizeLabel.setLabelFor(bedTypeDropDown);
+        bedTypeDropDown.setModel(new DefaultComboBoxModel(BedType.values()));
+        bedTypeDropDown.setBounds(168, 104, 123, 27);
+        bedTypeDropDown.setSelectedItem(r.getBedSize());
+        getContentPane().add(bedTypeDropDown);
+
+        bedNumField = new JFormattedTextField(NumberFormat.getIntegerInstance());
+        bedNumField.setText(String.valueOf(r.getBedCount()));
+        bedNumLabel.setLabelFor(bedNumField);
+        bedNumField.setBounds(168, 131, 28, 26);
+        getContentPane().add(bedNumField);
+
+        JLabel statusLabel = new JLabel("Clean Status: ");
+        statusLabel.setBounds(68, 164, 86, 16);
+        getContentPane().add(statusLabel);
+
+        comboBox = new JComboBox();
+        comboBox.setModel(new DefaultComboBoxModel(CleanStatus.values()));
+        comboBox.setSelectedItem(r.getStatus());
+        comboBox.setBounds(168, 160, 123, 27);
+        getContentPane().add(comboBox);
+
+        JButton confirmButton = new JButton("Confirm");
+        confirmButton.addActionListener(this);
+        confirmButton.setBounds(100, 250, 100, 30);
+        add(confirmButton);
+        setBounds(300, 150, 300, 400);
+        setVisible(true);
     }
-    ReservationEditorGUI(){
-        this.r = new Reservation();
-        this.roomsTable = new RoomTableModel();
-        clerk = true;
-        display();
-    }
-    private boolean datesAreValid(){
-        Date today = null, start = null, end = null;
-        try{
-            today = getDateWithoutTime(new Date());
-            start = getDateWithoutTime(roomsTable.startDate);
-            end = getDateWithoutTime(roomsTable.endDate);
-        } catch(ParseException ex){
-            System.err.println("Exception in ReservationEditorGUI validDates(): " + ex);
-            return false;
-        }
 
-        // startDate must be after today
-        if(!start.after(today)){
-            return false;
-        }
-        // endDate must be after startDate
-        return end.after(start);
-    }
-    private void createConfirmationDialog(DefaultTableModel model, int modelRow)  {
-        // TODO: get payment method, check that payment is valid, confirmation
 
-        // check for valid dates
-        if(!datesAreValid()){
-            JOptionPane.showMessageDialog(null, "Selected dates are invalid!");
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        //TODO What else am I checking for here?
+        if (roomNumField.getText().isEmpty() ||
+                bedNumField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(ReservationEditorGUI.this, "Please fill in all required fields.");
             return;
+            // This will return to prompting users to fill in textfields
         }
-
-        int roomNum = (Integer)model.getValueAt(modelRow, 0);
-        Room room = Hotel.getRoom(roomNum);
-        if(room == null){
-            System.err.println("Error in ReservationEditorGUI createConfirmationDialog(): " +
-                    "selected room was not found in hotel");
-            return;
-        }
-
-        // check that room is available for given dates
-        if(!room.isAvailable(roomsTable.startDate, roomsTable.endDate)){
-            JOptionPane.showMessageDialog(null, "Room is not available for these dates!");
-            return;
-        }
-
-        JDialog dialog = new JDialog();
-        dialog.setTitle("Confirm Reservation");
-        dialog.setSize(400, 300);
-        dialog.setVisible(true);
-
-        JPanel panel = new JPanel();
-        panel.add(new JLabel("Confirm room reservation information:"));
-        if(clerk){
-            panel.add(new JLabel("<html><br>Guest: " + users.getSelectedItem() + "</html>"));
-            r.setGuest((String)users.getSelectedItem());
-        }
-        panel.add(new JLabel(room.toStringForUI()));
-        SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd, yyyy");
-        panel.add(new JLabel("<html>Check-in date: " + formatter.format(roomsTable.startDate) +
-                "<br> Check-out date: " + formatter.format(roomsTable.endDate) + "</html>"));
-
-        JButton confirmButton = new JButton("Submit reservation");
-        panel.add(confirmButton);
-        confirmButton.addActionListener(e -> {
-            // reserve room (should never throw an error if you make it this far)
-            Hotel.reserveRoom(room, roomsTable.startDate, roomsTable.endDate, this.r.getGuest());
-            JOptionPane.showMessageDialog(null, "Reservation made successfully!");
-            // close dialog
-            dialog.dispose();
-        });
-        dialog.add(panel);
+        associatedRoom.setRoomNumber(Integer.parseInt(roomNumField.getText()));
+        associatedRoom.setBedCount(Integer.parseInt(bedNumField.getText()));
+        associatedRoom.setQuality((QualityLevel) qualityLevelDropDown.getSelectedItem());
+        associatedRoom.setBedSizes((BedType) bedTypeDropDown.getSelectedItem());
+        associatedRoom.setClean_status((CleanStatus) comboBox.getSelectedItem());
+        associatedRoom.setSmoking(smokingCheckBox.isSelected());
+        JOptionPane.showMessageDialog(ReservationEditorGUI.this, "Room successfully updated.");
+        this.isUpdated = true;
+        this.dispose();
     }
-    private JPanel createDateSelection(){
-        JPanel panel = new JPanel();
-        JLabel label1 = new JLabel("Select desired check-in date:");
-        label1.setAlignmentX(Component.LEFT_ALIGNMENT);
-        JLabel label2 = new JLabel("Select desired check-out date:");
-        label2.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        JDateChooser startDateChooser = new JDateChooser();
-        startDateChooser.setDateFormatString("MM/dd/yyyy");
-        JDateChooser endDateChooser = new JDateChooser();
-        endDateChooser.setDateFormatString("MM/dd/yyyy");
-
-        panel.add(label1);
-        panel.add(startDateChooser);
-        panel.add(label2);
-        panel.add(endDateChooser);
-
-        // update date variables when a date is selected
-        startDateChooser.getDateEditor().addPropertyChangeListener(e -> {
-            if ("date".equals(e.getPropertyName())) {
-                roomsTable.startDate = (Date) e.getNewValue();
-                // TODO: update table??
-                // maybe empty the table and then repopulate with filter applied?
-            }
-        });
-        endDateChooser.getDateEditor().addPropertyChangeListener(e -> {
-            if ("date".equals(e.getPropertyName())) {
-                roomsTable.endDate = (Date) e.getNewValue();
-                // TODO: update table??
-            }
-        });
-        return panel;
+    public boolean isRoomUpdated() {
+        return isUpdated;
     }
-
-    private JButton createReserveButton(){
-        JButton reserveButton = new JButton("Reserve selected room");
-        reserveButton.setVisible(true);
-        reserveButton.addActionListener(e -> {
-            int viewRow = roomsTable.table.getSelectedRow();
-            if (viewRow < 0) {
-                JOptionPane.showMessageDialog(null, "No room selected!");
-            }else if(roomsTable.startDate == null || roomsTable.endDate == null){
-                JOptionPane.showMessageDialog(null, "No dates selected!");
-            } else {
-                int modelRow = roomsTable.table.convertRowIndexToModel(viewRow);
-                DefaultTableModel model = (DefaultTableModel)roomsTable.table.getModel();
-                // open confirmation dialog based on selected row to reserve
-                SwingUtilities.invokeLater(() -> createConfirmationDialog(model, modelRow));
-            }
-        });
-        return reserveButton;
-    }
-    private static JComboBox<String> users;
-    public void display(){
-        roomsTable.setOpaque(true);
-
-        roomsTable.add(createDateSelection());
-        roomsTable.add(createReserveButton(), BorderLayout.SOUTH);
-        if(clerk){
-            roomsTable.add(new JLabel("Guest Username"));
-            users = new JComboBox<>(Hotel.getGuests());
-            roomsTable.add(users);
-        }
-        JFrame frame = new JFrame("Available Rooms in Hotel");
-        frame.setBounds(300, 150, 800, 400);
-        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        frame.setSize(600, 500);
-        frame.setContentPane(roomsTable);
-        frame.setVisible(true);
-    }
-
 }
+
+ */
+

@@ -9,12 +9,14 @@ import java.awt.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.NumberFormat;
 import java.util.Objects;
 
 import static java.lang.Thread.sleep;
 
-public class UserProfileGUI extends JFrame implements ActionListener {
+public class UserProfileGUI extends JDialog implements ActionListener {
     protected static final JLabel adminIDLabel = new JLabel("ID:");
     protected static final JLabel usernameLabel = new JLabel("Username:");
     protected static final JLabel passwordLabel = new JLabel("Password:");
@@ -34,6 +36,7 @@ public class UserProfileGUI extends JFrame implements ActionListener {
     protected final JPanel gridPanel = new JPanel();
     protected final JPanel bottomPanel = new JPanel();
     protected boolean create = false, returned;
+    private boolean successful = false;
     private void setUp(){
         gridPanel.setLayout(new GridLayout(6, 2, 10, 10));
         gridPanel.add(adminIDLabel);
@@ -100,10 +103,21 @@ public class UserProfileGUI extends JFrame implements ActionListener {
         // Add the panel and confirm button to the frame
         add(fullPanel);
 
+        // have to successfully create an account for the dialog to exit or confirm you want to quit
+        setModalityType(Dialog.ModalityType.DOCUMENT_MODAL);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                int result = JOptionPane.showConfirmDialog(null,
+                        "Would you like to exit?", "Exit confirmation", JOptionPane.OK_CANCEL_OPTION);
+                if(result == JOptionPane.OK_OPTION) {
+                    dispose();
+                }
+            }
+        });
         // Set the size of the frame and make it visible
         setSize(400, 300);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setVisible(true);
     }
 
@@ -240,6 +254,12 @@ public class UserProfileGUI extends JFrame implements ActionListener {
             message = message.replace("Updated", "Created");
         }
         JOptionPane.showMessageDialog(UserProfileGUI.this, message);
+        successful = true;
         this.dispose();
     }
+
+    public User getMyUser(){
+        return myUser;
+    }
+    public boolean isSuccessful() { return successful; }
 }

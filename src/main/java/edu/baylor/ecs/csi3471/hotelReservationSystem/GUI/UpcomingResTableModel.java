@@ -4,9 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -64,8 +62,35 @@ public class UpcomingResTableModel extends JPanel implements LaunchEditor{
 
     @Override
     public void launch() {
-        int[] index = table.getSelectedRows();
-        new ReservationEditorGUI(myGuest.getUpcomingReservations().get(index[0])); //launch with selected reservation
+        /*
+        int index = table.getSelectedRow();
+        if (index == 0) {
+            JOptionPane.showMessageDialog(this, "No row selected.");
+        } else {
+            ReservationEditorGUI reservationEditorGUI = new
+                    ReservationEditorGUI(myGuest.getUpcomingReservations().get(index));
+            reservationEditorGUI.setVisible(true);
+
+            // Wait for the ReservationEditorGUI to close
+            reservationEditorGUI.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    if (reservationEditorGUI.isReservationUpdated()) {
+                        // Update the table model after editing a room
+                        Reservation updatedRes = Hotel.rooms.get(index);
+                        model.setValueAt(updatedRes.getRoomNumber(), index, 0);
+                        model.setValueAt(updatedRes.getBedCount(), index, 1);
+                        model.setValueAt(updatedRes.getBedSize(), index, 2);
+                        model.setValueAt(updatedRes.getQuality(), index, 3);
+                        model.setValueAt(updatedRes.getSmoking(), index, 4);
+                        model.setValueAt(updatedRes.getQuality().getRate(), index, 5);
+                        model.fireTableRowsUpdated(index, index);
+                    }
+                }
+            });
+        }
+
+         */
     }
 
     @Override
@@ -84,6 +109,8 @@ public class UpcomingResTableModel extends JPanel implements LaunchEditor{
         dialog.setSize(400, 300);
         dialog.setVisible(true);
         JPanel myInfo = new JPanel();
+        // TODO: error check
+        //  Cancel any reservation they made when allowed (i.e., prior to the reservation start date) with proper cancellation penalties.
         String text = "Are you sure you want to cancel your reservation?";
         int index = table.getSelectedRow();
         JLabel myText = new JLabel(text);

@@ -1,23 +1,23 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
+
 
 import static edu.baylor.ecs.csi3471.hotelReservationSystem.backend.DateHelper.*;
 
-@XmlRootElement(name = "Room")
 
-@XmlType(propOrder = { "roomNumber", "numberOfBeds", "smoking", "qualityLevel, bedType" })
+
 public class Room {
   private Integer roomNumber, bedCount;
   private Boolean smoking;
   
   //associations
-  private List<Date> unavailable; //to track booked reservations
+  private List<Date> unavailable = null; //to track booked reservations
   protected QualityLevel quality;
   private BedType bedSizes;
   public CleanStatus clean_status;
@@ -33,7 +33,7 @@ public class Room {
 	}
 
   public Room(String[] line){
-    // header labels assumed: roomNumber,numberOfBeds,smoking,qualityLevel,bedType
+    // headers: roomNumber,numberOfBeds,smoking,qualityLevel,bedType,currentCleanStatus,datesBooked
     roomNumber = Integer.parseInt(line[0]);
     bedCount = Integer.parseInt(line[1]);
     smoking = Boolean.parseBoolean(line[2]);
@@ -48,6 +48,28 @@ public class Room {
       case "FULL": bedSizes = BedType.FULL; break;
       case "QUEEN": bedSizes = BedType.QUEEN; break;
       case "KING": bedSizes = BedType.KING; break;
+    }
+    switch(line[5]){
+      case "CLEAN": clean_status = CleanStatus.CLEAN; break;
+      case "DIRTY": clean_status = CleanStatus.DIRTY; break;
+      case "OCCUPIED": clean_status = CleanStatus.OCCUPIED; break;
+    }
+
+    // room is not booked at all
+    if(unavailable == null){
+      unavailable = new ArrayList<>();
+    }
+    // get any dates this room is booked for
+    for(int i = 6; i < line.length; i++) {
+      SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+      Date date;
+      try {
+        date = formatter.parse(line[i]);
+      } catch (ParseException e) {
+        System.err.println("Error in Room(String[]): invalid date format from csv");
+        throw new RuntimeException(e);
+      }
+      unavailable.add(date);
     }
   }
   @Override
@@ -70,7 +92,7 @@ public class Room {
     } else{
       s = s + "Smoking is NOT allowed";
     }
-    return "<html>" + s + "</html>";
+    return s;
   }
   public Integer getRoomNumber(){
     return roomNumber;
@@ -133,6 +155,7 @@ public class Room {
   public void setUnavailable(List<Date> unavailable) {
     this.unavailable = unavailable;
   }
+  public List<Date> getUnavailable(){ return this.unavailable; }
 
   public void setQuality(QualityLevel quality) {
     this.quality = quality;

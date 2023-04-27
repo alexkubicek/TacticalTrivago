@@ -184,7 +184,7 @@ public class PaymentGUI extends JFrame implements ActionListener {
         panel.add(cancelButton, c);
         
         this.add(panel, BorderLayout.CENTER);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);
     }
 

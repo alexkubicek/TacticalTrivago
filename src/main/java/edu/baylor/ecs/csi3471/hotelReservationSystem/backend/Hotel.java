@@ -3,31 +3,23 @@ package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 import java.util.*;
 import javax.swing.JTextArea;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.LoginFailurePopupGUI;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.LoginPageGUI;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlElementWrapper;
-import jakarta.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(namespace = "Hotel")
 public class Hotel {
   // associations
-  @XmlElementWrapper(name = "Rooms")
-  @XmlElement(name = "Room")
   public static List<Room> rooms = new ArrayList<>();
   public static List<Reservation> reservations = new ArrayList<>();
   private static List<Payment> pastPayments = new ArrayList<>();
-
-
-  public void setUsers(List<Guest> guests) {this.accounts = accounts;}
-
   public static List<User> accounts = new ArrayList<>();
+
+    public void setUsers(List<Guest> guests) {this.accounts = accounts;}
+
   public static List<Room> getRooms() {return rooms;}
   public void setRooms(List<Room> rooms) {this.rooms = rooms;}
-  public List<Reservation> getReservations() {return reservations;}
-  public void setReservations(List<Reservation> reservations) {this.reservations = reservations;}
+  public static List<Reservation> getReservations() {return reservations;}
+  public static void setReservations(List<Reservation> r) { reservations = r;}
   public List<Payment> getPastPayments() {return pastPayments;}
   public void setPastPayments(List<Payment> pastPayments) {this.pastPayments = pastPayments;}
-  public List<User> getAccounts() {return accounts;}
+  public static List<User> getAccounts() {return accounts;}
   public void setAccounts(List<User> accounts) {this.accounts = accounts;}
 
   public static void addAccounts(List<? extends User> accounts) {
@@ -121,32 +113,6 @@ public class Hotel {
     }
     return null;
   }
-
-//  public static void printRecords() {
-//    // print past reservations and payments sorted by date
-//    List<Reservation> sortedReservations = new ArrayList<>(reservations);
-//    List<Payment> sortedPayments = new ArrayList<>(pastPayments);
-//
-//    // Sort reservations and payments by date
-//    Comparator<Reservation> reservationComparator = Comparator.comparing(Reservation::getStartDate);
-//
-//    Comparator<Payment> paymentComparator = Comparator.comparing(Payment::getDate);
-//
-//    sortedReservations.sort(reservationComparator);
-//    sortedPayments.sort(paymentComparator);
-//
-//    // Print the sorted reservations
-//    System.out.println("Reservations:");
-//    for (Reservation reservation : sortedReservations) {
-//      System.out.println(reservation.toString());
-//    }
-//
-//    // Print the sorted payments
-//    System.out.println("\nPayments:");
-//    for (Payment payment : sortedPayments) {
-//      System.out.println(payment.toString());
-//    }
-//  }
   
   public static void printRecords(JTextArea textArea) {
 	    // print past reservations and payments sorted by date
@@ -236,6 +202,35 @@ public class Hotel {
       }
       return null;
   }
+
+    public static List<Guest> getGuestAccounts(){
+        List<Guest> list = new ArrayList<>();
+        for(User u : accounts){
+            if(u.getClass() == Guest.class){
+                list.add((Guest)u);
+            }
+        }
+        return list;
+    }
+    public static List<Clerk> getClerkAccounts(){
+        List<Clerk> list = new ArrayList<>();
+        for(User u : accounts){
+            if(u.getClass() == Clerk.class){
+                list.add((Clerk)u);
+            }
+        }
+        return list;
+    }
+    public static List<Admin> getAdminAccounts(){
+        List<Admin> list = new ArrayList<>();
+        for(User u : accounts){
+            if(u.getClass() == Admin.class){
+                list.add((Admin)u);
+            }
+        }
+        return list;
+    }
+
     public static Vector<String> getGuests(){
       Vector<String> myGuests = new Vector<>();
       accounts.stream().filter(u->u.getClass() == Guest.class).forEach(user->{
@@ -251,13 +246,13 @@ public class Hotel {
         });
         return myClerks;
     }
-  public static void main(String[] args) {
-      accounts.add(new Guest("Alex", "", new AccountInformation("user", "pass")));
-      accounts.add(new Clerk("Clerk", "", new AccountInformation("clerk", "pass")));
-      accounts.add(new Admin("Admin", "", new AccountInformation("admin", "pass")));
-      rooms.add(new Room(1, 1, true, QualityLevel.COMFORT, BedType.QUEEN));
-      rooms.add(new Room(2, 1, true, QualityLevel.EXECUTIVE, BedType.KING));
-      rooms.add(new Room(3, 1, true, QualityLevel.ECONOMY, BedType.TWIN));
-      LoginPageGUI lp = new LoginPageGUI();
-  }
+
+    public static User searchForAccountByUsername(String username){
+        for(User u : accounts){
+            if(u.getAccountUsername().equalsIgnoreCase(username)){
+                return u;
+            }
+        }
+        return null;
+    }
 }

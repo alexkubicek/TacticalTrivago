@@ -1,11 +1,7 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import javax.swing.*;
-
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Clerk;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Reservation;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Room;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.*;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -46,7 +42,14 @@ public class ClerkOptionsGUI  extends UserOptions {
         } else if(((JButton)e.getSource()).equals(createRoomButton)){
         	new AddRoomGui();
         } else if(((JButton)e.getSource()).equals(createReservationButton)){
-            new ReservationEditorGUI();
+            // prompt clerk to enter guest information to make a reservation for
+            EnterGuestInfoGUI g = new EnterGuestInfoGUI();
+            Guest guest = g.getGuest();
+            if(guest == null){
+                System.err.println("Error in ClerkOptionsGUI: guest to make reservation for is null");
+            } else{
+                new MakeReservationGUI(guest);
+            }
         }
     }
 }
