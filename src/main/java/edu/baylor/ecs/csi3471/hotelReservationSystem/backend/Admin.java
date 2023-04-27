@@ -12,6 +12,11 @@ public class Admin extends User {
         super(nameFirst, nameLast, account);
         this.AdminId = AdminId;
     }
+
+    public Admin(String[] line){
+        super(line[0], line[1], new AccountInformation(line[2], line[3]));
+        AdminId = Integer.parseInt(line[4]);
+    }
     public Admin(){
         super();
     }

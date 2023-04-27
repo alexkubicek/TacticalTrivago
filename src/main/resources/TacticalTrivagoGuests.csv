@@ -1,4 +1,6 @@
 nameFirst,nameLast,username,password,isCorporate
+firstname,lastname,user,pass,0
+firstname,lastname,userCorporate,pass,1
 Emma,Johnson,ejohnson,Pa$$w0rd1,1
 James,Davis,jdavis,SecurePassword2,0
 Olivia,Wilson,owilson,MyP@ssword3,0
