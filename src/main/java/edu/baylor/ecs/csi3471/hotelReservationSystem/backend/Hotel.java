@@ -5,15 +5,9 @@ import java.util.*;
 import javax.swing.JTextArea;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.LoginFailurePopupGUI;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.LoginPageGUI;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlElementWrapper;
-import jakarta.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(namespace = "Hotel")
 public class Hotel {
   // associations
-  @XmlElementWrapper(name = "Rooms")
-  @XmlElement(name = "Room")
   public static List<Room> rooms = new ArrayList<>();
   public static List<Reservation> reservations = new ArrayList<>();
   private static List<Payment> pastPayments = new ArrayList<>();
