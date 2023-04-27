@@ -1,7 +1,10 @@
 package hotelReadWriteUtils;
 
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.*;
@@ -113,43 +116,70 @@ public class CSVHotelUtils extends HotelReadWriteUtils {
 
 	@Override
 	protected void doSave(Hotel hotel) {
-		// TODO Save the room and guest info into csv files
         FileWriter file = null;
         BufferedWriter writer = null;
         try{
-            file = new FileWriter("testOutputRooms.csv");
+            file = new FileWriter("src/main/resources/TacticalTrivagoRooms.csv");
             writer = new BufferedWriter(file);
-
-            writer.write("roomNumber,numberOfBeds,smoking,qualityLevel,bedType\n");
-
-            //TODO check if it can output booleans, CSV SHOULD BE ABLE TO OUTPUT THE room.getSmoking() FUNCTION
-            String str = ""; //just in case set it to nothing
+            writer.write("roomNumber,numberOfBeds,smoking,qualityLevel,bedType,currentCleanStatus,datesBooked\n");
             for (Room room: Hotel.rooms) {
                 writer.write(room.getRoomNumber() + "," + room.getBedCount() + ","
-                        + room.getSmoking() + ",");
-
-                switch(room.getQuality()){
-                    case EXECUTIVE: str = "EXECUTIVE"; break;
-                    case BUSINESS: str = "BUSINESS"; break;
-                    case COMFORT: str = "COMFORT"; break;
-                    case ECONOMY: str = "ECONOMY"; break;
+                        + room.getSmoking() + "," + room.getQuality() + "," + room.getBedSize()
+                        + "," + room.getStatus());
+                List<Date> unavailable = room.getUnavailable();
+                if(unavailable.size() > 0){
+                    for(Date d : unavailable){
+                        SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+                        writer.write("," + formatter.format(d));
+                    }
                 }
-                //str should always become a string and must import the file for enum values
-                writer.write(str + "," + room.getBedSize() + "\n");
+                writer.write("\n");
             }
-            //flush for first file
             writer.flush();
 
-            file = new FileWriter("testOutputRooms.csv");
+            file = new FileWriter("src/main/resources/TacticalTrivagoGuests.csv");
             writer = new BufferedWriter(file);
-            writer.write("nameFirst,nameLast,username,password,isCorporate");
-            for (User guest: hotel.accounts){
-                writer.write(guest.getNameFirst() + "," + guest.getNameLast() + "," +
-                        guest.getAccountUsername() + "," + guest.getAccountPassword()); //should be true/false or 0/1
+            writer.write("nameFirst,nameLast,username,password,isCorporate,cardNum,cvv,expiration,addressSeparatedByPeriods,name\n");
+            for (Guest g: Hotel.getGuestAccounts()) {
+                writer.write(g.getNameFirst() + "," + g.getNameLast() + ","
+                        + g.getAccountUsername() + "," + g.getAccountPassword() + "," + g.corporate();
+                if(g.getPaymentMethods() != null) {
+                }
+                List<Date> unavailable = room.getUnavailable();
+                if(unavailable.size() > 0){
+                    for(Date d : unavailable){
+                        SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+                        writer.write("," + formatter.format(d));
+                    }
+                }
+                writer.write("\n");
             }
-
             writer.flush();
-            writer.close(); //btw we dont need this
+
+            /*
+            writer.write("nameFirst,nameLast,username,password,isCorporate," +
+                    "cardNum,cvv,expiration,addressSeparatedByPeriods,name\n");
+            for (Guest g : Hotel.getGuests()) {
+                writer.write(room.getRoomNumber() + "," + room.getBedCount() + ","
+                        + room.getSmoking() + "," + room.getQuality() + "," + room.getBedSize()
+                        + "," + room.getStatus());
+                List<Date> unavailable = room.getUnavailable();
+                if(unavailable.size() > 0){
+                    for(Date d : unavailable){
+                        SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+                        writer.write("," + formatter.format(d));
+                    }
+                }
+                writer.write("\n");
+                */
+
+            } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        //  writer.flush();
+
+
+
         }catch (IOException e) {
             e.printStackTrace();
         } finally {
