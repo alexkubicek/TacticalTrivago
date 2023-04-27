@@ -1,7 +1,11 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
-import java.sql.Date;
+import java.util.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
+import static java.lang.Integer.parseInt;
+import static java.lang.Long.parseLong;
 
 public class CreditCard {
     private Long cardNum;
@@ -34,6 +38,8 @@ public class CreditCard {
     public Integer getCvv(){return cvv;}
     public Date getExpiration(){return expiration;}
 
+    public CreditCard(){}
+
     public CreditCard(Date date, Long cardID, Integer threeFancyDigits) {
         this.cardNum = cardID;
         this.expiration = date;
@@ -52,6 +58,33 @@ public class CreditCard {
         System.out.println(f.format(c.getTime()));
     }
 
+    public void setCreditCard(CreditCard card){
+        this.cardNum = card.cardNum;
+        this.expiration = card.expiration;
+        this.cvv = card.cvv;
+        this.address = card.address;
+        this.name = card.name;
+    }
+
+    //create a credit card using a line
+    //cardnum,cvv,date,add,name
+    public CreditCard(String[] line){
+
+        SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+        try {
+             this.expiration = formatter.parse(line[2]);
+        } catch (ParseException e) {
+            System.err.println("Error in Reservation(String[]): invalid date format from csv");
+            throw new RuntimeException(e);
+        }
+
+        this.cardNum = parseLong(line[0]);
+        this.cvv = parseInt(line[1]);
+
+        this.address = new Address(line[3]);
+
+        this.name = line[4];
+    }
     public void displayCardInfo() {
         System.out.println("Card Owner: " + user.getFullName());
         System.out.print("Card Number: " + this.cardNum + "\nCVV: "

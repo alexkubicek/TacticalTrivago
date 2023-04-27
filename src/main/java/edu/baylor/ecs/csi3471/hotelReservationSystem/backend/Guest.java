@@ -7,10 +7,13 @@ import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.GuestOptionsGUI;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.UserProfileGUI;
 
 public class Guest extends User {
+
     private Boolean isCorporate = false;
     //associations
     private List<Reservation> upcomingReservations;
-    private List<CreditCard> paymentMethods; //index 0 being default to use
+
+    //updated the credit card list to be a single card payment method for each guest
+    private CreditCard paymentMethod = null;
 
     public Guest(String nameFirst, String nameLast, AccountInformation info) {
         super(nameFirst, nameLast, info);
@@ -30,7 +33,7 @@ public class Guest extends User {
         super();
         isCorporate = false;
         upcomingReservations = new ArrayList<>();
-        this.paymentMethods = new ArrayList<>();
+        this.paymentMethod = new CreditCard();
     }
 
     public void setCorporate(Boolean corporate) {isCorporate = corporate;}
@@ -44,19 +47,17 @@ public class Guest extends User {
         this.upcomingReservations.add(reservation);
     }
 
+    //takes in a card to set current guest payment to that card
     public void setPaymentInfo(CreditCard card){
-        if(this.paymentMethods == null){
-            paymentMethods = new ArrayList<>();
-        }
-        this.paymentMethods.add(card);
+        this.paymentMethod.setCreditCard(card);
     }
-    public void setPaymentMethods(List<CreditCard> paymentMethods) {this.paymentMethods = paymentMethods;}
+    public void setPaymentMethods(CreditCard paymentMethod) {this.paymentMethod = paymentMethod;}
 
     public Boolean corporate() {return isCorporate;}
 
     public List<Reservation> getUpcomingReservations() {return upcomingReservations;}
 
-    public List<CreditCard> getPaymentMethods() {return paymentMethods;}
+    public CreditCard getPaymentMethod() {return paymentMethod;}
 
     @Override
     public void launchOptions() {

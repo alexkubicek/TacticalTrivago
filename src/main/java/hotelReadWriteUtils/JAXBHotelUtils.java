@@ -1,3 +1,4 @@
+/*
 package hotelReadWriteUtils;
 
 import java.io.File;
@@ -46,3 +47,4 @@ public class JAXBHotelUtils extends HotelReadWriteUtils {
 		}
 	}
 }
+*/
