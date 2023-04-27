@@ -155,6 +155,7 @@ public class Room {
   public void setUnavailable(List<Date> unavailable) {
     this.unavailable = unavailable;
   }
+  public List<Date> getUnavailable(){ return this.unavailable; }
 
   public void setQuality(QualityLevel quality) {
     this.quality = quality;

@@ -75,24 +75,19 @@ public class CreditCard {
         this.name = card.name;
     }
 
-    //create a credit card using a line
-    //cardnum,cvv,date,add,name
+    //create a credit card using a line: cardnum,cvv,date,address,name
     public CreditCard(String[] line){
-
+        this.cardNum = parseLong(line[5]);
+        this.cvv = parseInt(line[6]);
         SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
         try {
-             this.expiration = formatter.parse(line[2]);
+            this.expiration = formatter.parse(line[7]);
         } catch (ParseException e) {
-            System.err.println("Error in Reservation(String[]): invalid date format from csv");
+            System.err.println("Error in CreditCard(String[]): invalid date format from csv");
             throw new RuntimeException(e);
         }
-
-        this.cardNum = parseLong(line[0]);
-        this.cvv = parseInt(line[1]);
-
-        this.address = new Address(line[3]);
-
-        this.name = line[4];
+        this.address = new Address(line[8]);
+        this.name = line[9];
     }
     public void displayCardInfo() {
         System.out.println("Card Owner: " + user.getFullName());

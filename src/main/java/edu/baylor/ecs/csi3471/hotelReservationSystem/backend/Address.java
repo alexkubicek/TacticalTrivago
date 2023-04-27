@@ -1,7 +1,5 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
-import java.util.Map;
-
 import static java.lang.Integer.parseInt;
 
 public class Address{
@@ -53,8 +51,7 @@ public class Address{
 	public Address(String line) {
 		super();
 		String[] addressLine;
-		addressLine = line.split(".");
-
+		addressLine = line.split("\\.");
 		this.buildingNumber = parseInt(addressLine[0]);
 		this.zipCode = parseInt(addressLine[1]);
 		this.street = addressLine[2];

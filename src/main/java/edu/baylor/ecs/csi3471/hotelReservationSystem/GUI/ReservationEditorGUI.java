@@ -64,8 +64,7 @@ public class ReservationEditorGUI implements LaunchEditor {
     }
 
     private void createConfirmationDialog(DefaultTableModel model, int modelRow)  {
-        // check that guest has at least one payment method
-        // I'm assuming that if they are in the list, they are valid
+        // check that guest has a payment method, I'm assuming it's valid
         CreditCard creditCard = g.getPaymentMethod();
         if(creditCard == null){
             JOptionPane.showMessageDialog(null,
