@@ -20,6 +20,17 @@ public class Driver {
             System.err.println(e.getLocalizedMessage());
             System.exit(1);
         }
+        
+        for(User u: tacticalTrivagoHotel.accounts) {
+        	if(u instanceof Guest) {
+        		Guest g = (Guest) u;
+        		System.out.println(g.toStringForUI());
+        	}
+        }
+        System.out.println(tacticalTrivagoHotel.reservations.size());
+        for(Reservation r: tacticalTrivagoHotel.reservations) {
+        	System.out.println(r.getGuest().getAccountUsername());
+        }
         LoginPageGUI lp = new LoginPageGUI();
         // TODO: call save anytime the application is exited (where should we allow this?)
         // should you have to log out to close the application?
@@ -29,5 +40,6 @@ public class Driver {
                 System.exit(0);
             }
         });
+        
     }
 }

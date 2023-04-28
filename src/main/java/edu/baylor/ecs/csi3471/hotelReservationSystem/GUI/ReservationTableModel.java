@@ -47,21 +47,23 @@ public class ReservationTableModel extends JPanel implements LaunchEditor{
         // add filters for each column
         TableFilterHeader filterHeader = new TableFilterHeader(table, AutoChoices.ENABLED);
     }
-    public void loadReservationsIntoTable(List<Reservation> reservationList){
+    public void loadReservationsIntoTable(List<Reservation> reservationList) {
         int i = 0;
-        for (Reservation r : reservationList){
-            if(i > MAX_RESERVATIONS){
+        for (Reservation r : reservationList) {
+            if (i > MAX_RESERVATIONS) {
                 return;
             }
             SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd");
             reservations[i] = new Object[NUM_COLUMNS];
             reservations[i][0] = r.getGuest().getAccountUsername();
-            reservations[i][1] = r.getRoomsString();
-            reservations[i][2] = formatter.format(r.getStartDate());
-            reservations[i][3] = formatter.format(r.getEndDate());
-            reservations[i][4] = String.format("$%.2f", r.calculateTotal());
+            reservations[i][1] = formatter.format(r.getStartDate());
+            reservations[i][2] = formatter.format(r.getEndDate());
+            reservations[i][3] = r.getRoomsString(); // Fix: Move this line here
+            reservations[i][4] = String.format("$%.2f", r.calculateTotal()); // Fix: Move this line here
+            i++; // Fix: Increment the counter
         }
     }
+
 
     @Override
     public void launch() {
@@ -103,5 +105,6 @@ public class ReservationTableModel extends JPanel implements LaunchEditor{
             }
         });
     }
+    
 }
 

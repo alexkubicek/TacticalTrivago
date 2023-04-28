@@ -54,25 +54,16 @@ public class MakeReservationGUI {
             return false;
         }
 
-        // startDate must be after today
-        if(!start.after(today)){
+        // startDate must be after today or equal to today
+        if(!start.after(today) && !start.equals(today)){
             return false;
         }
-        // endDate must be after startDate
-        return end.after(start);
+        // endDate must be after startDate or equal to startDate
+        return end.after(start) || end.equals(start);
     }
 
-    private void createConfirmationDialog(DefaultTableModel model, int modelRow)  {
-        // check that guest has a payment method, I'm assuming it's valid
-        CreditCard creditCard = g.getPaymentMethod();
-        if(creditCard == null){
-            JOptionPane.showMessageDialog(null,
-                    "Please enter payment method details before\n" +
-                            "making a reservation, then try again!");
-            PaymentGUI paymentGUI = new PaymentGUI(g);
-            return;
-        }
 
+    private void createConfirmationDialog(DefaultTableModel model, int modelRow)  {
 
         // check for valid dates
         if(!datesAreValid()){
@@ -148,10 +139,10 @@ public class MakeReservationGUI {
         panel.add(label2);
         panel.add(endDateChooser);
 
-        // update date variables when a date is selected
         startDateChooser.getDateEditor().addPropertyChangeListener(e -> {
             if ("date".equals(e.getPropertyName())) {
                 startDate = (Date) e.getNewValue();
+                System.out.println("Start Date changed: " + startDate); // Add this print statement
                 if(datesAreValid()){
                     roomsTable.updateTable(startDate, endDate);
                 }
@@ -160,11 +151,13 @@ public class MakeReservationGUI {
         endDateChooser.getDateEditor().addPropertyChangeListener(e -> {
             if ("date".equals(e.getPropertyName())) {
                 endDate = (Date) e.getNewValue();
+                System.out.println("End Date changed: " + endDate); // Add this print statement
                 if(datesAreValid()) {
                     roomsTable.updateTable(startDate, endDate);
                 }
             }
         });
+
         return panel;
     }
 

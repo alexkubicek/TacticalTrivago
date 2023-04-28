@@ -115,10 +115,11 @@ public class Hotel {
   }
   
   public static List<Reservation> getReservationsByGuestName(String name) {
+	  System.out.println(name);
 	    // Find and return reservations with the matching guest name
 	    List<Reservation> guestReservations = new ArrayList<>();
 	    for (Reservation reservation : reservations) {
-	        if (reservation.getGuest().getFullName().equalsIgnoreCase(name)) {
+	        if (reservation.getGuest().getAccountUsername().equalsIgnoreCase(name)) {
 	            guestReservations.add(reservation);
 	        }
 	    }

@@ -1,33 +1,53 @@
+
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Guest;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Reservation;
+import net.coderazzi.filters.gui.TableFilterHeader;
+import net.coderazzi.filters.gui.IFilterEditor;
+import net.coderazzi.filters.IFilter;
+import net.coderazzi.filters.gui.AutoChoices;
+import net.coderazzi.filters.gui.FilterSettings;
+import net.coderazzi.filters.gui.ParserModel;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class CheckInGUI extends JFrame {
     private JTextField guestNameField;
     private JButton findReservationsButton;
     private JTable reservationsTable;
-    private DefaultTableModel reservationsTableModel;
-    private JButton checkInButton;
-    
-    private ReservationTableModel reservationTableModel;
+    private DefaultTableModel tableModel;
 
     public CheckInGUI() {
         setTitle("Check-in");
         setLayout(new BorderLayout());
-        reservationTableModel = new ReservationTableModel();
 
-        // Initialize the reservationsTableModel and assign it to the reservationsTable
-        reservationsTableModel = new DefaultTableModel(new Object[][]{}, new String[]{"Guest", "Rooms", "Start Date", "End Date", "Cost"});
-        reservationsTable = new JTable(reservationsTableModel);
+        String[] columnNames = {"Guest", "Start Date", "End Date", "Rooms", "Cost"};
+        tableModel = new DefaultTableModel(columnNames, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) { return false; }
+        };
+        reservationsTable = new JTable(tableModel);
+        reservationsTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION); 
+
+        // Add a TableFilterHeader to the reservationsTable
+        TableFilterHeader filterHeader = new TableFilterHeader(reservationsTable, AutoChoices.ENABLED);
 
         JPanel searchPanel = new JPanel(new FlowLayout());
         guestNameField = new JTextField(15);
@@ -46,25 +66,45 @@ public class CheckInGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String guestName = guestNameField.getText();
-                List<Reservation> reservations = Hotel.getReservations();
-                updateReservationsTable(reservations);
+                List<Reservation> reservations = Hotel.getReservationsByGuestName(guestName);
+                loadReservationsIntoTable(reservations);
+
+                // Filter the table by guest name
+                IFilterEditor filterEditor = filterHeader.getFilterEditor(0);
+                filterHeader.getParserModel().setIgnoreCase(true);
+                RowFilter<Object, Object> filter = RowFilter.regexFilter("(?i)" + guestName, 0);
+                reservationsTable.setRowSorter(new TableRowSorter<>(tableModel));
+                ((DefaultRowSorter<?, ?>) reservationsTable.getRowSorter()).setRowFilter(filter);
+
+                // Clear the guest name field
+                guestNameField.setText("");
             }
         });
 
-        checkInButton = new JButton("Check In");
+
+
+
+        JButton checkInButton = new JButton("Check In");
 
         checkInButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int selectedRow = reservationsTable.getSelectedRow();
-                if (selectedRow >= 0) {
-                    Reservation reservation = getReservationFromSelectedRow(selectedRow);
-                    // Proceed with the payment process
-                } else {
-                    JOptionPane.showMessageDialog(null, "Please select a reservation to check in.");
-                }
-            }
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
+        	    int[] selectedRows = reservationsTable.getSelectedRows();
+        	    if (selectedRows.length > 0) {
+        	        Reservation reservation = Hotel.getReservations().get(0);
+        	        if (reservation.getGuest().getPaymentMethod() == null) {
+        	            new PaymentGUI(reservation.getGuest());
+        	            waitForPayment(reservation.getGuest(), () -> performCheckIn(reservation));
+        	        } else {
+        	            performCheckIn(reservation);
+        	        }
+        	    } else {
+        	        JOptionPane.showMessageDialog(null, "Please select a reservation to check in.");
+        	    }
+        	}
+
         });
+
 
         // Add the checkInButton to the bottom of the frame
         JPanel buttonPanel = new JPanel(new FlowLayout());
@@ -76,25 +116,78 @@ public class CheckInGUI extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
     }
+    
+    private void performCheckIn(Reservation reservation) {
+        double amount = getamount(reservation.getGuest().getPaymentMethod().getCardNum());
+        List<Reservation> reservations = Hotel.getReservations();
 
-    private void updateReservationsTable(List<Reservation> reservations) {
-        // Clear the table
-        reservationsTableModel.setRowCount(0);
-
-        // Populate the table with the reservations
-        for (Reservation reservation : reservations) {
-            Object[] rowData = { reservation.getGuest().getNameFirst(), reservation.getRooms(),
-                    reservation.getEndDate(), reservation.getStartDate()};
-            reservationsTableModel.addRow(rowData);
+        if (reservation.checkIn(amount, reservations)) {
+            JOptionPane.showMessageDialog(null, "You have checked in successfully");
+        } else {
+            JOptionPane.showMessageDialog(null, "Something happened while retrieving the amount from your card, try another payment method");
         }
     }
+    private void waitForPayment(Guest guest, Runnable onSuccess) {
+        new SwingWorker<Boolean, Void>() {
+            @Override
+            protected Boolean doInBackground() {
+                while (guest.getPaymentMethod() == null) {
+                    try {
+                        Thread.sleep(500); // Check every 500 milliseconds
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                return true;
+            }
 
-    private Reservation getReservationFromSelectedRow(int selectedRow) {
-        // Retrieve the reservation ID from the table
-        int reservationId = (Integer) reservationsTable.getValueAt(selectedRow, 0);
-		return null;
-
-        // Find and return the Reservation object using the reservation ID
-        // ... your code to find the reservation by ID
+            @Override
+            protected void done() {
+                onSuccess.run();
+            }
+        }.execute();
     }
+
+
+ // ...
+
+    public void loadReservationsIntoTable(List<Reservation> reservationList) {
+    	System.out.println("Loading reservations: " + reservationList);
+        tableModel.setRowCount(0);
+        for (Reservation r : reservationList) {
+            SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd");
+            Object[] rowData = new Object[5];
+            rowData[0] = r.getGuest().getAccountUsername();
+            rowData[1] = formatter.format(r.getStartDate());
+            rowData[2] = formatter.format(r.getEndDate());
+            rowData[3] = r.getRoomsString();
+            rowData[4] = String.format("$%.2f", r.calculateTotal());
+            tableModel.addRow(rowData); // Add the new row to the tableModel
+        }
+    }
+    
+    public double getamount(long number){
+    	String csvFile = "/cards.csv";
+        String line;
+        double amount = 0;
+        
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+        	line = br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] cardAmount = line.split(",");
+                long cardNumber = Long.parseLong(cardAmount[0]);
+                Double money = Double.parseDouble(cardAmount[1]);
+                System.out.println(money+cardNumber);
+                if(cardNumber == number) {
+                	amount= money;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		return amount;
+    }
+
+
+// ...
 }
