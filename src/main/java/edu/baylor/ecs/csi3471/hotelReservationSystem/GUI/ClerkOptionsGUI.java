@@ -1,7 +1,6 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import javax.swing.*;
-
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.*;
 
 import java.awt.event.ActionEvent;
@@ -15,6 +14,7 @@ public class ClerkOptionsGUI  extends UserOptions {
     private static final JButton viewReservationsButton = new JButton("View and Edit Reservation");
     private static final JButton createReservationButton = new JButton("Create Reservation");
     private static final JButton createRoomButton = new JButton("Create Room");
+    private static final JButton checkinRoom = new JButton("Check in");
     private static final List<JButton> myButtons = new ArrayList<>();
     static{
         myButtons.add(createReservationButton);
@@ -22,6 +22,8 @@ public class ClerkOptionsGUI  extends UserOptions {
         myButtons.add(createRoomButton);
         myButtons.add(viewRoomsButton);
         myButtons.add(viewProfileButton);
+        myButtons.add(checkinRoom);
+
     }
     private Clerk myClerk;
 
@@ -35,7 +37,7 @@ public class ClerkOptionsGUI  extends UserOptions {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(((JButton)e.getSource()).equals(viewRoomsButton)){
-            new ViewRoomReservationsGUI((LaunchEditor) new RoomTableModel());
+            new ViewRoomReservationsGUI(new RoomTableModel());
         } else if(((JButton)e.getSource()).equals(viewProfileButton)){
             new UserProfileGUI(myClerk);
         } else if(((JButton)e.getSource()).equals(viewReservationsButton)){
@@ -49,8 +51,10 @@ public class ClerkOptionsGUI  extends UserOptions {
             if(guest == null){
                 System.err.println("Error in ClerkOptionsGUI: guest to make reservation for is null");
             } else{
-                new ReservationEditorGUI(guest);
+                new MakeReservationGUI(guest);
             }
+        }else if(((JButton)e.getSource()).equals(checkinRoom)){
+        	new CheckInGUI();
         }
     }
 }

@@ -1,8 +1,6 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +9,7 @@ public class ViewRoomReservationsGUI extends JFrame implements ActionListener {
     JButton editButton, deleteButton;
     LaunchEditor myTableModel;
     public ViewRoomReservationsGUI(LaunchEditor tm){
-        setBounds(300, 150, 600, 300);
+        setBounds(300, 150, 600, 410);
         myTableModel = tm;
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         editButton = new JButton("Edit");
@@ -33,22 +31,21 @@ public class ViewRoomReservationsGUI extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-    	Object index = myTableModel.getTable().getValueAt(myTableModel.getTable().getSelectedRow(), 
-    			myTableModel.getTable().getSelectedColumn());
-        if((JButton)e.getSource() == editButton){
-        	if(index == null) {
-        		JOptionPane.showMessageDialog(null, "No reservation selected!");
-        	}
-        	else {
-        		myTableModel.launch();
-        	}
-        } else if((JButton)e.getSource() == deleteButton){
-        	if(index == null) {
-        		JOptionPane.showMessageDialog(null, "No reservation selected!");
-        	}
-        	else {
-        		myTableModel.deleteSelected();
-        	}
+        int selectedRow = myTableModel.getTable().getSelectedRow();
+        
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null, "No room/reservation selected!");
+            return;
+        }
+
+        Object index = myTableModel.getTable().getValueAt(selectedRow, myTableModel.getTable().getSelectedColumn());
+
+        if ((JButton) e.getSource() == editButton) {
+            myTableModel.launch();
+        } else if ((JButton) e.getSource() == deleteButton) {
+            myTableModel.deleteSelected();
         }
     }
+
 }
+
