@@ -182,10 +182,10 @@ public class CheckInGUI extends JFrame {
     public double getamount(long number){
     	System.out.println(number);
     	System.out.println("--------------");
-    	String csvFile = "C:\\Users\\smart msi\\Desktop\\TacticalTrivago\\src\\main\\resources\\cards.csv";
+    	String csvFile = "src/main/resources/cards.csv"; // could someone check why this is not loaded from the relative path 
+    	// eclipse sucks 
         String line;
         double amount = 0;
-        
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
         	line = br.readLine();
             while ((line = br.readLine()) != null) {
