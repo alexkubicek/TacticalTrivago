@@ -11,7 +11,7 @@ public class Hotel {
   private static List<Payment> pastPayments = new ArrayList<>();
   public static List<User> accounts = new ArrayList<>();
 
-    public void setUsers(List<Guest> guests) {this.accounts = accounts;}
+  public void setUsers(List<Guest> guests) {this.accounts = accounts;}
 
   public static List<Room> getRooms() {return rooms;}
   public void setRooms(List<Room> rooms) {this.rooms = rooms;}
@@ -267,4 +267,15 @@ public class Hotel {
         }
         return null;
     }
+    
+    public static void deleteClerk(String username) {
+    	accounts.removeIf(obj -> {
+            if (obj instanceof Clerk) {
+                User user = (Clerk) obj;
+                return user.getAccountUsername().equals(username);
+            }
+            return false;
+        });
+    }
+    
 }
