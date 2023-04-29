@@ -76,12 +76,15 @@ public class CheckInGUI extends JFrame {
                 reservationsTable.setRowSorter(new TableRowSorter<>(tableModel));
                 ((DefaultRowSorter<?, ?>) reservationsTable.getRowSorter()).setRowFilter(filter);
 
+                // Show a JOptionPane when no reservations are found
+                if (reservations.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "No reservations found for the provided guest name.");
+                }
+
                 // Clear the guest name field
                 guestNameField.setText("");
             }
         });
-
-
 
 
         JButton checkInButton = new JButton("Check In");
@@ -92,12 +95,7 @@ public class CheckInGUI extends JFrame {
         	    int[] selectedRows = reservationsTable.getSelectedRows();
         	    if (selectedRows.length > 0) {
         	        Reservation reservation = Hotel.getReservations().get(0);
-        	        if (reservation.getGuest().getPaymentMethod() == null) {
-        	            new PaymentGUI(reservation.getGuest());
-        	            waitForPayment(reservation.getGuest(), () -> performCheckIn(reservation));
-        	        } else {
-        	            performCheckIn(reservation);
-        	        }
+        	        performCheckIn(reservation);
         	    } else {
         	        JOptionPane.showMessageDialog(null, "Please select a reservation to check in.");
         	    }
@@ -118,15 +116,30 @@ public class CheckInGUI extends JFrame {
     }
     
     private void performCheckIn(Reservation reservation) {
-        double amount = getamount(reservation.getGuest().getPaymentMethod().getCardNum());
-        List<Reservation> reservations = Hotel.getReservations();
+        if (reservation.getGuest().getPaymentMethod() != null) {
+            double amount = getamount(reservation.getGuest().getPaymentMethod().getCardNum());
+            System.out.println(amount);
+            List<Reservation> reservations = Hotel.getReservations();
 
-        if (reservation.checkIn(amount, reservations)) {
-            JOptionPane.showMessageDialog(null, "You have checked in successfully");
-        } else {
-            JOptionPane.showMessageDialog(null, "Something happened while retrieving the amount from your card, try another payment method");
+            if (reservation.checkIn(amount, reservations)) {
+                JOptionPane.showMessageDialog(null, "You have checked in successfully");
+            } else {
+                int result = JOptionPane.showConfirmDialog(null, "Something happened while retrieving the amount from your card. Do you want to try another payment method?", "Payment Failed", JOptionPane.YES_NO_OPTION);
+
+                if (result == JOptionPane.YES_OPTION) {
+                    reservation.getGuest().setPaymentMethods(null);
+                    new PaymentGUI(reservation.getGuest());
+                    waitForPayment(reservation.getGuest(), () -> performCheckIn(reservation));
+                }
+            }
+        }else {
+        	new PaymentGUI(reservation.getGuest());
+            waitForPayment(reservation.getGuest(), () -> performCheckIn(reservation));
         }
     }
+
+
+
     private void waitForPayment(Guest guest, Runnable onSuccess) {
         new SwingWorker<Boolean, Void>() {
             @Override
@@ -167,7 +180,9 @@ public class CheckInGUI extends JFrame {
     }
     
     public double getamount(long number){
-    	String csvFile = "/cards.csv";
+    	System.out.println(number);
+    	System.out.println("--------------");
+    	String csvFile = "C:\\Users\\smart msi\\Desktop\\TacticalTrivago\\src\\main\\resources\\cards.csv";
         String line;
         double amount = 0;
         
@@ -175,9 +190,8 @@ public class CheckInGUI extends JFrame {
         	line = br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] cardAmount = line.split(",");
-                long cardNumber = Long.parseLong(cardAmount[0]);
+                long cardNumber = (long) Double.parseDouble(cardAmount[0]);
                 Double money = Double.parseDouble(cardAmount[1]);
-                System.out.println(money+cardNumber);
                 if(cardNumber == number) {
                 	amount= money;
                 }
@@ -189,5 +203,5 @@ public class CheckInGUI extends JFrame {
     }
 
 
-// ...
+
 }
