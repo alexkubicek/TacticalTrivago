@@ -126,11 +126,29 @@ public class Reservation {
 		endDate = end;
 	}
 
+	public boolean checkIn(double amount, List<Reservation> reservations) {
+		double total = 0.0;
+	    for (Reservation reservation : reservations) {
+	        total += reservation.calculateTotal();
+	    }
+	    if (amount - total >= 0) {
+	        amount -= total;
+	        // Do the check-in process here
+	        rooms.forEach(r->{
+				r.clean_status = CleanStatus.OCCUPIED;
+			});
+	        return true;
+	    } else {
+	        return false;
+	    }
+	}
+	
 	public void checkIn() {
-		rooms.forEach(r -> {
+		rooms.forEach(r->{
 			r.clean_status = CleanStatus.OCCUPIED;
 		});
 	}
+	
 	
 	public void checkOut() {
 		rooms.forEach(r->{

@@ -1,5 +1,6 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
+import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.AdminOptionsGUI;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.ClerkOptionsGUI;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.UserProfileGUI;
 
@@ -32,6 +33,7 @@ public class Clerk extends User {
 	}
 	public void login(){
 		//TODO launch ClerkOptionsGUI once created
+		gui = new ClerkOptionsGUI(this);
 	}
 
 	@Override

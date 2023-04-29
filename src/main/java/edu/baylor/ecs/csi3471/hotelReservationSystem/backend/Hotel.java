@@ -114,6 +114,18 @@ public class Hotel {
     return null;
   }
   
+  public static List<Reservation> getReservationsByGuestName(String name) {
+	  System.out.println(name);
+	    // Find and return reservations with the matching guest name
+	    List<Reservation> guestReservations = new ArrayList<>();
+	    for (Reservation reservation : reservations) {
+	        if (reservation.getGuest().getAccountUsername().equalsIgnoreCase(name)) {
+	            guestReservations.add(reservation);
+	        }
+	    }
+	    return guestReservations;
+	}
+
   public static void printRecords(JTextArea textArea) {
 	    // print past reservations and payments sorted by date
 	    List<Reservation> sortedReservations = new ArrayList<>(reservations);

@@ -78,6 +78,8 @@ public class LoginPageGUI extends JFrame implements ActionListener {
             if(me != null){
                 this.setVisible(false);
                 me.launchOptions();
+            } else {
+                new LoginFailurePopupGUI();
             }
 
         }
