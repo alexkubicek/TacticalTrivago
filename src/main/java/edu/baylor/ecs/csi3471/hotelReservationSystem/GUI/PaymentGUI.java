@@ -212,15 +212,24 @@ public class PaymentGUI extends JFrame implements ActionListener {
                     break;
                 }
             }
+            
             String zipCode = zipCodeField.getText();
 
             // Validate the input fields
+            if (name.isEmpty() || !name.matches("[a-zA-Z]*")) {
+                JOptionPane.showMessageDialog(this, "Please enter a valid name.");
+                return;
+            }
             if (cardNum.length() != 16 || !cardNum.matches("\\d+")) {
                 JOptionPane.showMessageDialog(this, "Please enter a 16-digit card number.");
                 return;
             }
             if (cvv.length() != 3 || !cvv.matches("\\d+")) {
                 JOptionPane.showMessageDialog(this, "Please enter a 3-digit CVV.");
+                return;
+            }
+            if (!buildingNum.matches("[0-9]*")) {
+            	JOptionPane.showMessageDialog(this, "Please enter a valid building number.");
                 return;
             }
             if (zipCode.length() != 5 || !zipCode.matches("\\d+")) {
