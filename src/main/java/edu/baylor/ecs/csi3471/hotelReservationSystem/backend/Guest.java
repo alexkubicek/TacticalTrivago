@@ -41,6 +41,7 @@ public class Guest extends User {
     public void setUpcomingReservations(List<Reservation> upcomingReservations) {this.upcomingReservations = upcomingReservations;}
 
     public void addUpcomingReservations(Reservation reservation) {
+    	System.out.println(reservation.getRoomsString());
         if(this.upcomingReservations == null) {
             this.upcomingReservations = new ArrayList<Reservation>();
         }

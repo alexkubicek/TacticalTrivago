@@ -24,8 +24,12 @@ public class UpcomingResTableModel extends JPanel implements LaunchEditor{
     public UpcomingResTableModel(Guest g){
         super();
         myGuest = g;
+        System.out.println(g.getAccountUsername());
+        for(Reservation r: Hotel.getReservationsByGuestName(g.getAccountUsername())) {
+        	System.out.println(r.getRoomsString());
+        }
         // get all reservations from hotel
-        loadReservationsIntoTable(g.getUpcomingReservations());
+        loadReservationsIntoTable(Hotel.getReservationsByGuestName(g.getAccountUsername()));
         // create table of reservations
         DefaultTableModel model = new DefaultTableModel(reservations, columnNames) {
             @Override
@@ -48,17 +52,18 @@ public class UpcomingResTableModel extends JPanel implements LaunchEditor{
     public void loadReservationsIntoTable(List<Reservation> reservationList){
         int i = 0;
         for (Reservation r : reservationList){
-            if(i > MAX_RESERVATIONS){
+            if(i >= MAX_RESERVATIONS){
                 return;
             }
             reservations[i] = new Object[NUM_COLUMNS];
-            reservations[i][0] = r.getRoomsString();
-            reservations[i][1] = r.getStartDate();
-            reservations[i][2] = r.getEndDate();
+            reservations[i][0] = r.getStartDate();
+            reservations[i][1] = r.getEndDate();
+            reservations[i][2] = r.getRoomsString();
             reservations[i][3] = r.getRate();
             i++;
         }
     }
+
 
     @Override
     public void launch() {
@@ -102,6 +107,8 @@ public class UpcomingResTableModel extends JPanel implements LaunchEditor{
     public String getMessage() {
         return "No reservation selected";
     }
+    
+   
     @Override
     public void deleteSelected() {
         JDialog dialog = new JDialog();
@@ -109,21 +116,28 @@ public class UpcomingResTableModel extends JPanel implements LaunchEditor{
         dialog.setSize(400, 300);
         dialog.setVisible(true);
         JPanel myInfo = new JPanel();
-        // TODO: error check
-        //  Cancel any reservation they made when allowed (i.e., prior to the reservation start date) with proper cancellation penalties.
         String text = "Are you sure you want to cancel your reservation?";
         int index = table.getSelectedRow();
         JLabel myText = new JLabel(text);
         JButton confirm = new JButton("Confirm cancellation");
         myInfo.add(myText);
         myInfo.add(confirm);
+        dialog.add(myInfo);
+
         confirm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Hotel.reservations.remove(index);
-                JOptionPane.showMessageDialog(null, "Reservation successfully deleted");
-                dialog.dispose();
+            	if (index >= 0 && index < Hotel.reservations.size()) {
+            	    Hotel.reservations.remove(index);
+            	    ((DefaultTableModel) table.getModel()).removeRow(index);
+            	    JOptionPane.showMessageDialog(null, "Reservation successfully deleted");
+            	    dialog.dispose();
+            	} else {
+            	    JOptionPane.showMessageDialog(null, "No reservation selected");
+            	}
+
             }
         });
     }
+
 }
