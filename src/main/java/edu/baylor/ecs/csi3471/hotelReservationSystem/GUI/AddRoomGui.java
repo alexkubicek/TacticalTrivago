@@ -1,3 +1,8 @@
+/**
+* This class provides a GUI for adding a new Room to the Hotel Reservation System.
+* It allows the user to input the room number, bed count, bed size, quality level, and smoking status
+* of the new Room, and then adds it to the Hotel object via the Room class.
+*/
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 
@@ -13,6 +18,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Initializes and creates display for adding a new room.
+ */
 public class AddRoomGui {
 
     private JFrame frame;
@@ -90,9 +98,5 @@ public class AddRoomGui {
         qualityField.setSelectedIndex(0);
         smokingField.setSelected(false);
     }
-
-    //public static void main(String[] args) {
-        //new AddRoomGui();
-    //}
 }
 

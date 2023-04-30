@@ -1,3 +1,10 @@
+/**
+* This class represents a GUI window for editing and viewing user profiles.
+* It allows guests, clerks, and admins to view and edit their profiles.
+* It contains several fields, including username, password, and first and last names.
+* This class extends JDialog and implements ActionListener to handle user actions.
+*/
+
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import javax.swing.*;

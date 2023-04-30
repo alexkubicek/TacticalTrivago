@@ -1,3 +1,6 @@
+/*
+ * A class that represents a user's credit card information.
+ */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
 import java.util.Date;

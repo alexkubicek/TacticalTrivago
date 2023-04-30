@@ -1,3 +1,7 @@
+/*
+ * A class representing an admin in the hotel.
+ * Extends the User class.
+ */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
 import java.util.Random;

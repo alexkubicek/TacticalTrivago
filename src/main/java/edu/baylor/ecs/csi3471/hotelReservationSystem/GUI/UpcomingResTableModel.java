@@ -1,3 +1,11 @@
+/*
+ * 
+/**
+* This class represents the table model for displaying the list of upcoming reservations in the hotel. 
+* It extends JPanel and implements the LaunchEditor interface. 
+* The table is sortable and filterable by column.
+*/
+
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import java.awt.*;

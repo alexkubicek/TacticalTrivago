@@ -1,3 +1,7 @@
+/*
+ * GUI that creates a pop-up to display an error when a user attempts to
+ * create an account with a taken username.
+ */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import javax.swing.JFrame;

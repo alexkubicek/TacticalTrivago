@@ -1,3 +1,7 @@
+/*
+ * A class representing a clerk.
+ * Extends the User class.
+ */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.AdminOptionsGUI;
