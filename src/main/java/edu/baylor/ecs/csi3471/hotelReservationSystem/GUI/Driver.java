@@ -12,7 +12,8 @@ import hotelReadWriteUtils.CSVHotelUtils;
 import java.io.*;
 
 public class Driver {
-    static Hotel tacticalTrivagoHotel = new Hotel();
+	static Hotel tacticalTrivagoHotel = new Hotel();
+	
     public static void main(String[] args) {
         try{
             tacticalTrivagoHotel = CSVHotelUtils.load();

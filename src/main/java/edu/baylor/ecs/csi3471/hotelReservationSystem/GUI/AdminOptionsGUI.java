@@ -16,12 +16,14 @@ public class AdminOptionsGUI extends UserOptions{
 	private static final JButton createClerkButton = new JButton("Create New Clerk Account");
 	private static final JButton viewEditClerkButton = new JButton("View Existing Clerk Accounts");
 	private static final JButton getAdminReport = new JButton("Get report");
+	private static final JButton Logout = new JButton("logout");
 	private static final List<JButton> myButtons = new ArrayList<>();
 	static {
 		myButtons.add(createClerkButton);
 		myButtons.add(viewEditClerkButton);
 		myButtons.add(getAdminReport);
 		myButtons.add(viewProfileButton);
+		myButtons.add(Logout);
 	}
 	private final Admin myAdmin;
 	
@@ -44,6 +46,9 @@ public class AdminOptionsGUI extends UserOptions{
             
 		} else if(((JButton)e.getSource()).equals(getAdminReport)){
 			 //TODO
-		}
+		}else if(((JButton)e.getSource()).equals(Logout)) {
+        	new LogOutGui();
+			LogOutGui.displayLogoutPopup(this);
+        }
 	}
 }
