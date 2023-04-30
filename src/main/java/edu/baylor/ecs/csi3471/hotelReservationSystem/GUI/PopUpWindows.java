@@ -1,3 +1,7 @@
+/*
+ * A class that generates a pop-up window. 
+ * It extends JFrame to be displayed on screen
+ */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import javax.swing.*;

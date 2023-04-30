@@ -1,3 +1,8 @@
+/**
+* This class represents the table model for displaying reservations in the hotel. It extends JPanel and implements
+* the LaunchEditor interface. It provides methods to load reservations into the table and delete a selected
+* reservation. The table is sortable and filterable by column.
+*/
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import java.awt.*;

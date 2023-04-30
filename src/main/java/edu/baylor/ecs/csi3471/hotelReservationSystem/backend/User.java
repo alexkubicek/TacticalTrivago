@@ -1,3 +1,7 @@
+/*
+ * An abstract class that represents any user in the hotel reservation system. 
+ * Used as the superclass of Guest, Clerk, and Admin
+ */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
 import java.util.Objects;

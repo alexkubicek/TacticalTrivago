@@ -1,3 +1,7 @@
+/*
+ * This class represents payment information.
+ * It is used to generate payment records.
+ */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
 import java.text.SimpleDateFormat;

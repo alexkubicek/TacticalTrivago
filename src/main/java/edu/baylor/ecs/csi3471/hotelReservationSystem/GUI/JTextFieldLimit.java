@@ -1,4 +1,7 @@
-package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
+/*
+ * This class sets input limits for a text field.
+ */
+package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;

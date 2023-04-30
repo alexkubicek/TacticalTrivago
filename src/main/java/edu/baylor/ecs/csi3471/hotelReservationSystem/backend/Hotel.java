@@ -1,3 +1,7 @@
+/*
+ * A class representing a Hotel. This class is the information expert as it's associated
+ * with various other domain objects.
+ */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
 import java.util.*;

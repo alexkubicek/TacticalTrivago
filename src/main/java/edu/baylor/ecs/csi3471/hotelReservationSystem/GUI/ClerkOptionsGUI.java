@@ -1,3 +1,8 @@
+/**
+* A class with the GUI for the Clerk options.
+* Extends UserOptions class.
+*/
+
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import javax.swing.*;

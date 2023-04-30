@@ -1,3 +1,10 @@
+/*
+ * Defines a payment form GUI where a user can input payment information
+ * including name on card, card number, expiration date, and CVV. 
+ * There are also fields for the user to input their billing address.
+ */
+
+
 //package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 //
 //import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Guest;

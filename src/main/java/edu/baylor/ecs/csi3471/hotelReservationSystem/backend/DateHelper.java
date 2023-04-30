@@ -1,3 +1,7 @@
+/*
+ * A class that calculates date information. 
+ * It assists with the reservation process. 
+ */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
 import java.text.ParseException;

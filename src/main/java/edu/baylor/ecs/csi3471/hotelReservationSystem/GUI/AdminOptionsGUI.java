@@ -1,3 +1,8 @@
+/**
+* A class with the GUI for the Admin options.
+* Extends UserOptions class.
+*/
+
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import java.awt.event.ActionEvent;
@@ -17,6 +22,10 @@ public class AdminOptionsGUI extends UserOptions{
 	private static final JButton viewEditClerkButton = new JButton("View Existing Clerk Accounts");
 	private static final JButton getAdminReport = new JButton("Get report");
 	private static final List<JButton> myButtons = new ArrayList<>();
+	
+	/**
+	 * Static block for initializing buttons and adding them to the button list.
+	*/
 	static {
 		myButtons.add(createClerkButton);
 		myButtons.add(viewEditClerkButton);
@@ -25,6 +34,9 @@ public class AdminOptionsGUI extends UserOptions{
 	}
 	private final Admin myAdmin;
 	
+	/**
+	 * Constructs a new AdminOptionsGUI instance.
+	 */
 	public AdminOptionsGUI(Admin a){
 		super(myButtons, a.getNameFirst());
 		myAdmin = a;
@@ -32,7 +44,10 @@ public class AdminOptionsGUI extends UserOptions{
 		setVisible(true);
 	}
 
-
+	/**
+	 * Implements the actionPerformed method inherited from ActionListener to 
+	 * make different option buttons work.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(((JButton)e.getSource()).equals(viewProfileButton)){
