@@ -1,3 +1,8 @@
+/**
+* An abstract class with the GUI for user options.
+* It extends the JFrame class and implements the ActionListener interface
+* to get button click information.
+*/
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import java.awt.*;

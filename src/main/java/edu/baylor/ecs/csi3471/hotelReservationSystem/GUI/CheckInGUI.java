@@ -1,4 +1,8 @@
-
+/*
+ * This is the GUI class for the check-in process of a hotel. 
+ * The class extends JFrame and contains a table to display reservations, 
+ * search through them, and check in guests for their reservations.
+ */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import java.awt.*;
@@ -162,8 +166,6 @@ public class CheckInGUI extends JFrame {
     }
 
 
- // ...
-
     public void loadReservationsIntoTable(List<Reservation> reservationList) {
     	System.out.println("Loading reservations: " + reservationList);
         tableModel.setRowCount(0);
@@ -182,8 +184,7 @@ public class CheckInGUI extends JFrame {
     public double getamount(long number){
     	System.out.println(number);
     	System.out.println("--------------");
-    	String csvFile = "src/main/resources/cards.csv"; // could someone check why this is not loaded from the relative path 
-    	// eclipse sucks 
+    	String csvFile = "src/main/resources/cards.csv";
         String line;
         double amount = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {

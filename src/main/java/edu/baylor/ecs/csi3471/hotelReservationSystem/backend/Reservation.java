@@ -1,3 +1,6 @@
+/*
+ * A class representing a hotel reservation in the hotel reservation system.
+ */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
 import java.text.ParseException;

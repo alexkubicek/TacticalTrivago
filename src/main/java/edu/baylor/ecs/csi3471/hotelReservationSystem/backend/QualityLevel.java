@@ -1,3 +1,6 @@
+/*
+ * An enum specifying the quality level and associated rate of a hotel room.
+ */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
 public enum QualityLevel {

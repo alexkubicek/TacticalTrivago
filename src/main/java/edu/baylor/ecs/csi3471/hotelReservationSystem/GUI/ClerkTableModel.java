@@ -1,3 +1,9 @@
+/**
+* This class represents the table model for displaying the list of clerks in the hotel. It extends JPanel and implements
+* the LaunchEditor interface. It provides methods to load clerks into the table, update the table, and delete a selected
+* clerk. The table is sortable and filterable by column.
+*/
+
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.BedType;

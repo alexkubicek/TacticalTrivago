@@ -1,3 +1,6 @@
+/*
+ * A class that displays a pop-up when login failure occurs.
+ */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import javax.swing.JFrame;

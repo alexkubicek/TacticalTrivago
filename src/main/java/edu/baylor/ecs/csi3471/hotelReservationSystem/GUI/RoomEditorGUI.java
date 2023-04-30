@@ -1,3 +1,7 @@
+/*
+ * A GUI to edit rooms already added in the hotel. 
+ * This is not accessible by a guest.
+ */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import javax.swing.*;

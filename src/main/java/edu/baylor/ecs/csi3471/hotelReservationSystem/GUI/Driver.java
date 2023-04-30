@@ -1,4 +1,9 @@
 /*
+ * This class contains the main method to run the Hotel Reservation System. 
+ * It represents the controller of the system.
+ */
+
+/*
 USER LOGIN: user pass
 CLERK LOGIN: clerk pass
 ADMIN LOGIN: admin pass
