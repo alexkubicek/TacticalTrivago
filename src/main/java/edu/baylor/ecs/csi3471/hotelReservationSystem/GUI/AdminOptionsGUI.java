@@ -64,6 +64,7 @@ public class AdminOptionsGUI extends UserOptions{
 		}else if(((JButton)e.getSource()).equals(Logout)) {
         	new LogOutGui();
 			LogOutGui.displayLogoutPopup(this);
+			
         }
 	}
 }

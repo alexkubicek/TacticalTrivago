@@ -37,6 +37,7 @@ public class GuestOptionsGUI extends UserOptions {
 		this.add(buttonPanel);
 		buttonPanel.setVisible(true);
 		setVisible(true);}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
