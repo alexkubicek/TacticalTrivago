@@ -37,6 +37,7 @@ public class LogOutGui {
             if (parentComponent instanceof JFrame) {
                 ((JFrame) parentComponent).dispose();
             }
+            
 
             // Show login page
             new LoginPageGUI();
