@@ -34,6 +34,7 @@ public class LoginPageGUI extends JFrame implements ActionListener {
         JLabel passwordLabel = new JLabel("Password: ");
         passwordLabel.setBounds(110, 132, 67, 16);
         panel.add(passwordLabel);
+        
 
         usernameField = new JTextField();
         usernameLabel.setLabelFor(usernameField);

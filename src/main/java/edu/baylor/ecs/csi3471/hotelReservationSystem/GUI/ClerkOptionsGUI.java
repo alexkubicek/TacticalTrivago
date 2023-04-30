@@ -20,6 +20,7 @@ public class ClerkOptionsGUI  extends UserOptions {
     private static final JButton createReservationButton = new JButton("Create Reservation");
     private static final JButton createRoomButton = new JButton("Create Room");
     private static final JButton checkinRoom = new JButton("Check in");
+    private static final JButton Logout = new JButton("logout");
     private static final List<JButton> myButtons = new ArrayList<>();
     static{
         myButtons.add(createReservationButton);
@@ -28,6 +29,7 @@ public class ClerkOptionsGUI  extends UserOptions {
         myButtons.add(viewRoomsButton);
         myButtons.add(viewProfileButton);
         myButtons.add(checkinRoom);
+        myButtons.add(Logout);
 
     }
     private Clerk myClerk;
@@ -60,6 +62,10 @@ public class ClerkOptionsGUI  extends UserOptions {
             }
         }else if(((JButton)e.getSource()).equals(checkinRoom)){
         	new CheckInGUI();
+        }else if(((JButton)e.getSource()).equals(Logout)) {
+        	new LogOutGui();
+			LogOutGui.displayLogoutPopup(this);
+			
         }
     }
 }

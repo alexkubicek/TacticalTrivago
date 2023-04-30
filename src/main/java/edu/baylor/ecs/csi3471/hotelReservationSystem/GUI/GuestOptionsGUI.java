@@ -18,6 +18,7 @@ public class GuestOptionsGUI extends UserOptions {
 	private static final JButton createResButton = (new JButton("Create New Reservation"));
 	private static final JButton profileButton = (new JButton("View or Edit Profile"));
 	private static final JButton paymentButton = new JButton("Payment Information");
+	private static final JButton Logout = new JButton("logout");
 	private static final List<JButton> myButtons = new ArrayList<>();
 
 	static {
@@ -25,6 +26,7 @@ public class GuestOptionsGUI extends UserOptions {
 		myButtons.add(viewResButton);
 		myButtons.add(profileButton);
 		myButtons.add(paymentButton);
+		myButtons.add(Logout);
 	}
 	private Guest myGuest;
 
@@ -35,6 +37,7 @@ public class GuestOptionsGUI extends UserOptions {
 		this.add(buttonPanel);
 		buttonPanel.setVisible(true);
 		setVisible(true);}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -47,6 +50,9 @@ public class GuestOptionsGUI extends UserOptions {
 			new UserProfileGUI(myGuest);
 		}else if (Objects.equals(b, paymentButton)) {
 			new PaymentGUI(myGuest);
-		}
+		}else if(((JButton)e.getSource()).equals(Logout)) {
+        	new LogOutGui();
+			LogOutGui.displayLogoutPopup(this);
+        }
 	}
 }
