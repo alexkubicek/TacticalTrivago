@@ -75,7 +75,7 @@ public class LoginPageGUI extends JFrame implements ActionListener {
             new UserProfileGUI(myNewGuest);
         } else if(Objects.equals(text, "Login")) {
             if (usernameField.getText().isEmpty() ||
-                    passwordField.getPassword().length == 0) {
+                passwordField.getPassword().length == 0) {
                 JOptionPane.showMessageDialog(LoginPageGUI.this, "Please fill in all required fields.");
                 return;
                 // This will return to prompting users to fill in textfields

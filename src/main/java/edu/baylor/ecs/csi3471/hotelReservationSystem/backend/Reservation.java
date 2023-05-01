@@ -5,10 +5,7 @@ package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Reservation {
   	private Date startDate;
@@ -191,6 +188,32 @@ public class Reservation {
 		} else {
 			System.err.println("Cannot cancel past reservation");
 		}
+	}
+	//Editing Dates only
+	public void updateReservation(Date startDate, Date endDate) {
+		// Compute the number of nights for the new reservation dates
+		int nights = (int) ((endDate.getTime() - startDate.getTime()) / (1000*60*60*24));
+
+		// Compute the new rate based on the selected room's rate and the new number of nights
+		// Set the updated reservation fields
+		setStartDate(startDate);
+		setEndDate(endDate);
+		setNights(nights);
+	}
+	//Editing Dates and Rooms
+	public void updateReservation(Date startDate, Date endDate, Room selectedRoom) {
+		// Compute the number of nights for the new reservation dates
+		int nights = (int) ((endDate.getTime() - startDate.getTime()) / (1000*60*60*24));
+
+		// Compute the new rate based on the selected room's rate and the new number of nights
+		double rate = selectedRoom.getQuality().getRate() * nights;
+
+		// Set the updated reservation fields
+		setStartDate(startDate);
+		setEndDate(endDate);
+		setNights(nights);
+		setRate(rate);
+		setRooms(Collections.singletonList(selectedRoom));
 	}
 	public boolean containsDate(Date date) {
 		return (date.compareTo(startDate) >= 0 && date.compareTo(endDate) < 0);
