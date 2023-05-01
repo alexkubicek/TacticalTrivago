@@ -16,7 +16,9 @@ public class ViewClerkAccountsGUI extends JFrame implements ActionListener {
     JButton editButton, deleteButton;
     LaunchEditor myTableModel;
     public ViewClerkAccountsGUI(LaunchEditor tm){
-        setBounds(300, 150, 600, 410);
+
+        setSize(600, 410);
+        setLocationRelativeTo(null);
         myTableModel = tm;
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         editButton = new JButton("Edit");

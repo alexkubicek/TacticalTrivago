@@ -15,7 +15,9 @@ public class UsernameTakenPopupGUI extends JFrame {
         JLabel textLabel = new JLabel("Username is already taken, please try a different username.");
         textLabel.setHorizontalAlignment(SwingConstants.CENTER);
         getContentPane().add(textLabel, BorderLayout.CENTER);
+
         setVisible(true);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
     }
 

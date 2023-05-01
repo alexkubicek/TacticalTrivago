@@ -4,7 +4,7 @@
  *
  * UI for clerks to get guest information (search for existing
  * guest or create account using UserProfileGUI) so they can
- * make/edit reservations on behalf of guest
+ * make reservations on behalf of guest
  *
  * USAGE: EnterGuestInfoGUI g = new EnterGuestInfoGUI();
  *        Guest guest = g.getGuest();
@@ -66,7 +66,7 @@ public class EnterGuestInfoGUI {
     private JPanel createSearchPanel(){
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        panel.setPreferredSize(new Dimension(360, 80));
+        panel.setPreferredSize(new Dimension(360, 90));
 
         JLabel searchLabel = new JLabel("Search for existing guest account by username: ");
         JTextField searchField = new JTextField("", 25);
@@ -118,7 +118,7 @@ public class EnterGuestInfoGUI {
         dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         dialog.setSize(360, 200);
         dialog.setLayout(new BorderLayout());
-
+        dialog.setLocationRelativeTo(null);
         dialog.add(createSearchPanel(), BorderLayout.NORTH);
         dialog.add(createNewGuestPanel(), BorderLayout.CENTER);
 

@@ -42,9 +42,15 @@
  */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
+import hotelReadWriteUtils.CSVHotelUtils;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowAdapter;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
@@ -72,11 +78,24 @@ public abstract class UserOptions extends JFrame implements ActionListener {
 		mainPanel.add(labelPanel, BorderLayout.NORTH);
 		mainPanel.add(buttonPanel, BorderLayout.CENTER);
 
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Welcome " + name);
 		setContentPane(mainPanel);
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				super.windowClosing(e);
+				new LogOutGui();
+				try {
+					LogOutGui.displayLogoutPopup(e.getWindow());
+				} catch (IOException | FontFormatException ex) {
+					throw new RuntimeException(ex);
+				}
+			}
+		});
 	}
 }

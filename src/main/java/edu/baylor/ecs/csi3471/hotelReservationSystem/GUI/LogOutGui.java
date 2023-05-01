@@ -5,10 +5,11 @@ import javax.swing.*;
 import hotelReadWriteUtils.CSVHotelUtils;
 
 import java.awt.*;
+import java.io.IOException;
 
 public class LogOutGui {
 
-    public static void displayLogoutPopup(Component parentComponent) {
+    public static void displayLogoutPopup(Component parentComponent) throws IOException, FontFormatException {
         int confirmLogout = JOptionPane.showConfirmDialog(
                 parentComponent,
                 "Are you sure you want to log out?",
