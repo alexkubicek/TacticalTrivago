@@ -20,8 +20,8 @@ public class AdminOptionsGUI extends UserOptions{
 	private static final JButton viewProfileButton = new JButton("View or Edit Profile");
 	private static final JButton createClerkButton = new JButton("Create New Clerk Account");
 	private static final JButton viewEditClerkButton = new JButton("View Existing Clerk Accounts");
-	private static final JButton getAdminReport = new JButton("Get report");
-	private static final JButton Logout = new JButton("logout");
+	private static final JButton getAdminReport = new JButton("Get Report");
+	private static final JButton Logout = new JButton("Logout");
 	private static final List<JButton> myButtons = new ArrayList<>();
 	
 	/**
