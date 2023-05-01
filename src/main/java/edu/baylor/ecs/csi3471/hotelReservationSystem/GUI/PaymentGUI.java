@@ -138,6 +138,10 @@ public class PaymentGUI extends JFrame implements ActionListener {
 
         // Street label and text field
         JLabel streetLabel = new JLabel("Street: ");
+        c.gridx = 0;
+        c.gridy = 6;
+        panel.add(streetLabel, c);
+
         streetField = new JTextField();
         c.gridx = 1;
         c.gridy = 6;

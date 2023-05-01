@@ -45,7 +45,6 @@ package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
 import java.util.List;
 
 import javax.swing.*;
@@ -78,5 +77,6 @@ public abstract class UserOptions extends JFrame implements ActionListener {
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
+
 	}
 }
