@@ -59,7 +59,9 @@ public class PaymentGUI extends JFrame implements ActionListener {
 
         this.setTitle("Payment Information");
         this.setLayout(new BorderLayout());
-        this.setSize(400, 400);
+
+        this.setSize(400, 450);
+        this.setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());

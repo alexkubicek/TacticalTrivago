@@ -5,6 +5,8 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,9 +35,11 @@ public class GuestOptionsGUI extends UserOptions {
 	public GuestOptionsGUI(Guest g) {
 		super(myButtons, g.getNameFirst());
 		myGuest = g;
-		setBounds(400, 200, 400, 300);
+
+		setSize(300, 200);
 		this.add(buttonPanel);
 		buttonPanel.setVisible(true);
+
 		setVisible(true);}
 	
 
@@ -50,7 +54,7 @@ public class GuestOptionsGUI extends UserOptions {
 			new UserProfileGUI(myGuest);
 		}else if (Objects.equals(b, paymentButton)) {
 			new PaymentGUI(myGuest);
-		}else if(((JButton)e.getSource()).equals(Logout)) {
+		}else {
         	new LogOutGui();
 			LogOutGui.displayLogoutPopup(this);
         }

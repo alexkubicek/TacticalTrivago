@@ -37,7 +37,7 @@ public class ClerkOptionsGUI  extends UserOptions {
     public ClerkOptionsGUI(Clerk a){
         super(myButtons, a.getNameFirst());
         myClerk = a;
-        setBounds(400, 200, 400, 300);
+        setSize(400, 300);
         setVisible(true);
     }
 

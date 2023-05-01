@@ -226,6 +226,7 @@ public class MakeReservationGUI {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(600, 550);
         frame.setContentPane(roomsTable);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 

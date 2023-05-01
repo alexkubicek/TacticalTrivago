@@ -7,11 +7,13 @@
 */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-import java.awt.BorderLayout;
+import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Guest;
@@ -21,11 +23,13 @@ import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.User;
 public class LoginPageGUI extends JFrame implements ActionListener {
     public LoginPageGUI() {
         setTitle("Tactical Trivago - Login");
-        setBounds(500,200,500,300);
+        setSize(500,300);
+        setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
         getContentPane().add(panel, BorderLayout.CENTER);
         panel.setLayout(null);
+
 
         JLabel usernameLabel = new JLabel("Username: ");
         usernameLabel.setBounds(107, 104, 70, 16);
@@ -34,7 +38,6 @@ public class LoginPageGUI extends JFrame implements ActionListener {
         JLabel passwordLabel = new JLabel("Password: ");
         passwordLabel.setBounds(110, 132, 67, 16);
         panel.add(passwordLabel);
-        
 
         usernameField = new JTextField();
         usernameLabel.setLabelFor(usernameField);
@@ -59,6 +62,7 @@ public class LoginPageGUI extends JFrame implements ActionListener {
         panel.add(createAccount);
         createAccount.addActionListener(this);
 
+        panel.setBackground(Color.WHITE);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
     }

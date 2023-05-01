@@ -42,7 +42,7 @@ public class AdminOptionsGUI extends UserOptions{
 	public AdminOptionsGUI(Admin a){
 		super(myButtons, a.getNameFirst());
 		myAdmin = a;
-		setBounds(400, 100, 400, 300);
+		setSize(400, 300);
 		setVisible(true);
 	}
 

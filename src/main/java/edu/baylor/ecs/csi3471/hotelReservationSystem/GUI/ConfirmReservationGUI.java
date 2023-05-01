@@ -25,7 +25,7 @@ public class ConfirmReservationGUI extends JFrame implements ActionListener {
         associatedReservation = r;
         setResizable(false);
         setTitle("Confirm Reservation");
-        setDefaultCloseOperation(HIDE_ON_CLOSE);
+
         getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
         JTextPane confirmResText = new JTextPane();

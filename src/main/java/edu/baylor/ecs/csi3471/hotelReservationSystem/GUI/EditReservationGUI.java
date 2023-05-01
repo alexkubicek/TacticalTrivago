@@ -22,8 +22,9 @@ public class EditReservationGUI extends JFrame {
         this.reservationUpdated = false;
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
+
         pack();
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
