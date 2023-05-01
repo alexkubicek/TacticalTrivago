@@ -7,58 +7,105 @@
 */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-import java.awt.BorderLayout;
+import javax.swing.border.Border;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Guest;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.User;
 
+import static java.lang.System.exit;
+//import aesthetics.fonts.Yaahowu.*;
+
 public class LoginPageGUI extends JFrame implements ActionListener {
-    public LoginPageGUI() {
+    public LoginPageGUI() throws IOException, FontFormatException {
         setTitle("Tactical Trivago - Login");
-        setBounds(500,200,500,300);
+
+        setSize(500,300);
+        setLocationRelativeTo(null);
+
+        Font font = Font.createFont(Font.TRUETYPE_FONT,
+                (Files.newInputStream(Paths.get("./src/main/java/aesthetics/fonts/B20Sans.ttf"))));
+        GraphicsEnvironment genv = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        genv.registerFont(font);
+        font = font.deriveFont(28f);
 
         JPanel panel = new JPanel();
+        getContentPane().setLayout(new BorderLayout(10, 10));
         getContentPane().add(panel, BorderLayout.CENTER);
-        panel.setLayout(null);
+        panel.setLayout(new BorderLayout());
+        add(Box.createVerticalStrut(10), BorderLayout.NORTH);
+        add(Box.createVerticalStrut(10), BorderLayout.SOUTH);
+        add(Box.createHorizontalStrut(20), BorderLayout.EAST);
+        add(Box.createHorizontalStrut(20), BorderLayout.WEST);
+        JLabel welcomeLabel = new JLabel("Welcome back");
+
+        JPanel userPassPanel = new JPanel(new GridLayout(2, 2));
+
+        // makesure to derive the size
+        welcomeLabel.setFont(font);
+        welcomeLabel.setBounds(100, 20, 200, 100);
+        panel.add(welcomeLabel, BorderLayout.NORTH);
 
         JLabel usernameLabel = new JLabel("Username: ");
-        usernameLabel.setBounds(107, 104, 70, 16);
-        panel.add(usernameLabel);
 
         JLabel passwordLabel = new JLabel("Password: ");
-        passwordLabel.setBounds(110, 132, 67, 16);
-        panel.add(passwordLabel);
-        
 
         usernameField = new JTextField();
         usernameLabel.setLabelFor(usernameField);
-        usernameField.setBounds(189, 99, 130, 26);
-        panel.add(usernameField);
+
         usernameField.setColumns(10);
 
         passwordField = new JPasswordField();
         passwordLabel.setLabelFor(passwordField);
         passwordField.setColumns(10);
-        passwordField.setBounds(189, 127, 130, 26);
-        panel.add(passwordField);
+        //panel.add(passwordField);
+
+        usernameLabel.setPreferredSize(new Dimension(70, 16));
+        usernameLabel.setHorizontalAlignment(JTextField.RIGHT);
+        passwordLabel.setPreferredSize(new Dimension(67, 16));
+        passwordLabel.setHorizontalAlignment(JTextField.RIGHT);
+        passwordField.setPreferredSize(new Dimension(130, 26));
+        usernameField.setPreferredSize(new Dimension(130, 26));
+        userPassPanel.setBackground(Color.WHITE);
+
+        userPassPanel.add(usernameLabel);
+        userPassPanel.add(usernameField);
+        userPassPanel.add(passwordLabel);
+        userPassPanel.add(passwordField);
+
+        panel.add(userPassPanel, BorderLayout.CENTER);
 
         JButton login = new JButton("Login");
         login.addActionListener(this);
-        login.setBounds(315, 127, 70, 29);
-        panel.add(login);
+
+        JPanel loginButtonPanel = new JPanel();
+        loginButtonPanel.add(login);
+        loginButtonPanel.setBackground(Color.WHITE);
+        panel.add(loginButtonPanel, BorderLayout.EAST);
 
         JButton createAccount = new JButton("Create Account");
         createAccount.setLocation(189, 155);
-        createAccount.setSize(130, 26);
-        panel.add(createAccount);
+        createAccount.setPreferredSize(new Dimension(130, 26));
+        JPanel createAccountButtonPanel = new JPanel();
+        createAccountButtonPanel.add(createAccount);
+        createAccountButtonPanel.setBackground(Color.WHITE);
+        panel.add(createAccountButtonPanel, BorderLayout.SOUTH);
         createAccount.addActionListener(this);
 
+        pack();
+        getContentPane().setBackground(Color.WHITE);
+        panel.setBackground(Color.WHITE);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
     }

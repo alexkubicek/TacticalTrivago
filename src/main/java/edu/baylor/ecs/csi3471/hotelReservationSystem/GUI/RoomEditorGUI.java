@@ -95,7 +95,9 @@ public class RoomEditorGUI extends JFrame implements ActionListener {
         confirmButton.addActionListener(this);
         confirmButton.setBounds(100, 250, 100, 30);
         add(confirmButton);
-        setBounds(300, 150, 300, 400);
+
+        setSize(300, 400);
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 

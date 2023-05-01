@@ -49,6 +49,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.event.WindowAdapter;
+import java.io.IOException;
+import java.util.*;
 import java.util.List;
 
 import javax.swing.*;
@@ -75,18 +78,24 @@ public abstract class UserOptions extends JFrame implements ActionListener {
 		mainPanel.add(labelPanel, BorderLayout.NORTH);
 		mainPanel.add(buttonPanel, BorderLayout.CENTER);
 
-		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setTitle("Welcome " + name);
 		setContentPane(mainPanel);
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
-
-		addWindowListener(new java.awt.event.WindowAdapter() {
-			public void windowClosing(java.awt.event.WindowEvent e) {
-				JOptionPane.showMessageDialog(null, "Must logout before closing the application!");
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				super.windowClosing(e);
+				new LogOutGui();
+				try {
+					LogOutGui.displayLogoutPopup(e.getWindow());
+				} catch (IOException | FontFormatException ex) {
+					throw new RuntimeException(ex);
+				}
 			}
 		});
-
 	}
 }

@@ -5,7 +5,9 @@
 
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +44,7 @@ public class AdminOptionsGUI extends UserOptions{
 	public AdminOptionsGUI(Admin a){
 		super(myButtons, a.getNameFirst());
 		myAdmin = a;
-		setBounds(400, 100, 400, 300);
+		setSize(400, 300);
 		setVisible(true);
 	}
 
@@ -62,8 +64,12 @@ public class AdminOptionsGUI extends UserOptions{
 			 new AdminReportGUI(myAdmin);
 		}else if(((JButton)e.getSource()).equals(Logout)) {
         	new LogOutGui();
-			LogOutGui.displayLogoutPopup(this);
-			
-        }
+			try {
+				LogOutGui.displayLogoutPopup(this);
+			} catch (IOException | FontFormatException ex) {
+				throw new RuntimeException(ex);
+			}
+
+		}
 	}
 }
