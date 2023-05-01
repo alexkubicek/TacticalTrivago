@@ -9,7 +9,6 @@ package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 import javax.swing.*;
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.BedType;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.CleanStatus;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.QualityLevel;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Room;
@@ -77,11 +76,16 @@ public class AddRoomGui {
                 BedType bedSize = BedType.valueOf(((String)bedSizeField.getSelectedItem()).toUpperCase());
                 QualityLevel quality = QualityLevel.valueOf(((String)qualityField.getSelectedItem()).toUpperCase());
                 boolean smoking = smokingField.isSelected();
-                Room newRoom = new Room(roomNumber, bedCount, smoking, quality, bedSize);
-                Hotel.addRoom(newRoom);
-                JOptionPane.showMessageDialog(frame, "Room " + roomNumber + " added successfully.");
-                clearFields();
-                frame.dispose();
+                // check that room number isn't a duplicate
+                if(Hotel.roomNumberExists(roomNumber)){
+                    JOptionPane.showMessageDialog(frame, "Room " + roomNumber + " already exists!");
+                } else{
+                    Room newRoom = new Room(roomNumber, bedCount, smoking, quality, bedSize);
+                    Hotel.addRoom(newRoom);
+                    JOptionPane.showMessageDialog(frame, "Room " + roomNumber + " added successfully.");
+                    clearFields();
+                    frame.dispose();
+                }
             }
         });
 

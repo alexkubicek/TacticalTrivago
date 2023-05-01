@@ -22,7 +22,7 @@ public class GuestOptionsGUI extends UserOptions {
 	private static final JButton createResButton = (new JButton("Create New Reservation"));
 	private static final JButton profileButton = (new JButton("View or Edit Profile"));
 	private static final JButton paymentButton = new JButton("Payment Information");
-	private static final JButton Logout = new JButton("logout");
+	private static final JButton Logout = new JButton("Logout");
 	private static final List<JButton> myButtons = new ArrayList<>();
 
 	static {

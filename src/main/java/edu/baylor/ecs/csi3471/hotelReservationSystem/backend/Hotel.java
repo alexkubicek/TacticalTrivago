@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.util.*;
 import java.util.List;
 import javax.swing.JTextArea;
-
-import aesthetics.fonts.fonts;
+import javax.swing.JLabel;
+import java.awt.Font;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.LoginFailurePopupGUI;
 
 public class Hotel {
@@ -137,9 +137,11 @@ public class Hotel {
 	}
 
   public static void printRecords(JTextArea textArea) {
+
 	    // print past reservations and payments sorted by date
 	    List<Reservation> sortedReservations = new ArrayList<>(reservations);
 	    List<Payment> sortedPayments = new ArrayList<>(pastPayments);
+	    int i = 1;
 
 	    // Sort reservations and payments by date
 	    Comparator<Reservation> reservationComparator = Comparator.comparing(Reservation::getStartDate);
@@ -150,13 +152,18 @@ public class Hotel {
 	    // Display the sorted reservations
 	    textArea.append("Reservations:\n");
 	    for (Reservation reservation : sortedReservations) {
+	    	textArea.append(i + ": ");
 	        textArea.append(reservation.toString() + "\n");
+	        i++;
 	    }
 
+	    i = 0;
 	    // Display the sorted payments
 	    textArea.append("\nPayments:\n");
 	    for (Payment payment : sortedPayments) {
+	    	textArea.append(i + ": ");
 	        textArea.append(payment.toString() + "\n");
+	        i++;
 	    }
 	}
 
@@ -286,6 +293,17 @@ public class Hotel {
             }
             return false;
         });
+    }
+
+
+    public static boolean roomNumberExists(int num){
+      // returns true if the given room number is already in the hotel
+      for(Room r : rooms){
+          if(r.getRoomNumber() == num){
+              return true;
+          }
+      }
+      return false;
     }
     
 }

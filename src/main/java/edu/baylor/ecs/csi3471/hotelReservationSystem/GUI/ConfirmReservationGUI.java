@@ -1,63 +1,73 @@
 /**
-* This class displays formatted reservation information and confirms that the user wants
-* to add it to the Hotel Reservation System.
-*/
+ * file: ConfirmationReservationGUI
+ * author: KayLynn Beard
+ *
+ * Displays reservation information for a guest
+ * about to make a reservation and makes the
+ * reservation if confirmed
+ */
 
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import javax.swing.*;
 
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Guest;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Reservation;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Room;
 
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public class ConfirmReservationGUI extends JFrame implements ActionListener {
-    JButton confirmResButton;
-    JButton cancelResButton;
-    Reservation associatedReservation;
-    JTable upcomingResForGuest;
-    public ConfirmReservationGUI(Reservation r, JTable toUpdate) {
-        setDefaultCloseOperation(HIDE_ON_CLOSE);
-        upcomingResForGuest = toUpdate;
-        associatedReservation = r;
-        setResizable(false);
-        setTitle("Confirm Reservation");
+public class ConfirmReservationGUI extends JDialog {
+    private final Guest guest;
+    private final Room room;
+    private final Date startDate, endDate;
+    private final RoomTableModel table;
 
-        getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+    public ConfirmReservationGUI(Guest g, Room r, Date s, Date e, RoomTableModel t){
+        guest = g;
+        room = r;
+        startDate = s;
+        endDate = e;
+        table = t;
 
-        JTextPane confirmResText = new JTextPane();
-        confirmResText.setEditable(false);
-        confirmResText.setText("Reservation for:\n"
-                + r.getGuest().getFullName() + "\n"
-                + r.getStartDate().toString() + " - " + r.getEndDate().toString() + "\n"
-                + "Number of rooms: " + r.getRooms().size() + "\n"
-                + "Rate: $" + r.getRate() + "\n"
-                + "Total: $" + (r.getRate() * r.getNights()));
-        getContentPane().add(confirmResText);
+        setTitle("Please Confirm Reservation Information");
+        setSize(380, 250);
 
-        confirmResButton = new JButton("Confirm");
-        confirmResButton.addActionListener(this);
-        getContentPane().add(confirmResButton);
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.add(new JLabel(getReservationInfo(), SwingConstants.CENTER), BorderLayout.CENTER);
 
-        cancelResButton = new JButton("Cancel");
-        cancelResButton.addActionListener(this);
-        getContentPane().add(cancelResButton);
+        JButton confirmButton = new JButton("Confirm reservation");
+        panel.add(confirmButton, BorderLayout.SOUTH);
+        confirmButton.addActionListener(event -> {
+            // reserve room and update table
+            Hotel.reserveRoom(r, s, e, g);
+            table.updateTable(s, e);
+            JOptionPane.showMessageDialog(null, "Reservation made successfully!");
+            // close dialog
+            dispose();
+        });
+        add(panel);
+        setVisible(true);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent arg0) {
-        if(arg0.getSource() == cancelResButton) {
-            setVisible(false);
-        } else if(arg0.getSource() == confirmResButton) {
-            setVisible(false);
-            Hotel.reservations.add(associatedReservation);
-            associatedReservation.getGuest().addUpcomingReservations(associatedReservation);
-            //((UpcomingResTableModel)(upcomingResForGuest.getModel())).populate(associatedReservation.getGuest());
+    private String getReservationInfo(){
+        SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd, yyyy");
+        String guestInfo = "Reservation for ";
+        if (guest.getAccountInformation() == null){
+            guestInfo += guest.getFullName() + ":</br>";
+        } else{
+            guestInfo += guest.toStringForUI() + ":</br>";
         }
-
+        String roomInfo = room.toStringForUI();
+        return "<html>" + guestInfo +
+                "<br/>-------------------------------------------------------------------<br/>" +
+                roomInfo +
+                "<br/>-------------------------------------------------------------------<br/>" +
+                "Check-in date: " + formatter.format(startDate) +
+                "<br> Check-out date: " + formatter.format(endDate) + "</html>";
     }
 
 }

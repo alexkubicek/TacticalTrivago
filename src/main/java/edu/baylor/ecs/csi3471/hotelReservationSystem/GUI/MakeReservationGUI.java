@@ -21,9 +21,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.List;
 
 import static edu.baylor.ecs.csi3471.hotelReservationSystem.backend.DateHelper.getDateWithoutTime;
 
@@ -55,17 +53,16 @@ public class MakeReservationGUI {
             return false;
         }
 
-        // startDate must be after today or equal to today
-        if(!start.after(today) && !start.equals(today)){
+        // startDate must be after or equal to today
+        if(start.before(today)){
             return false;
         }
-        // endDate must be after startDate or equal to startDate
-        return end.after(start) || end.equals(start);
+        // endDate must be after startDate
+        return end.after(start);
     }
 
 
     private void createConfirmationDialog(DefaultTableModel model, int modelRow)  {
-
         // check for valid dates
         if(!datesAreValid()){
             JOptionPane.showMessageDialog(null, "Selected dates are invalid!");
@@ -86,40 +83,7 @@ public class MakeReservationGUI {
             return;
         }
 
-        JDialog dialog = new JDialog();
-        dialog.setTitle("Please Confirm Reservation Information");
-        dialog.setSize(380, 250);
-        dialog.setVisible(true);
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-
-        SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd, yyyy");
-        String guestInfo = "Reservation for ";
-        if (g.getAccountInformation() == null){
-            guestInfo += g.getFullName() + ":</br>";
-        } else{
-            guestInfo += g.toStringForUI() + ":</br>";
-        }
-        String roomInfo = room.toStringForUI();
-        String reservationInfo = "<html>" + guestInfo +
-                "<br/>-------------------------------------------------------------------<br/>" +
-                roomInfo + "<br/>-------------------------------------------------------------------<br/>" +
-                "Check-in date: " + formatter.format(startDate) +
-                "<br> Check-out date: " + formatter.format(endDate) + "</html>";
-        panel.add(new JLabel(reservationInfo, SwingConstants.CENTER), BorderLayout.CENTER);
-
-        JButton confirmButton = new JButton("Confirm reservation");
-        panel.add(confirmButton, BorderLayout.SOUTH);
-        confirmButton.addActionListener(e -> {
-            // reserve room (should never throw an error if you make it this far)
-            Hotel.reserveRoom(room, startDate, endDate, this.g);
-            roomsTable.updateTable(startDate, endDate);
-            JOptionPane.showMessageDialog(null, "Reservation made successfully!");
-            // close dialog
-            dialog.dispose();
-        });
-        dialog.add(panel);
+        new ConfirmReservationGUI(g, room, startDate, endDate, roomsTable);
     }
 
     private JPanel createDateSelection(){

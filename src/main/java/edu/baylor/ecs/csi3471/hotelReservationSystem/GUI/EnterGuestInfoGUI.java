@@ -4,7 +4,7 @@
  *
  * UI for clerks to get guest information (search for existing
  * guest or create account using UserProfileGUI) so they can
- * make/edit reservations on behalf of guest
+ * make reservations on behalf of guest
  *
  * USAGE: EnterGuestInfoGUI g = new EnterGuestInfoGUI();
  *        Guest guest = g.getGuest();

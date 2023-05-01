@@ -39,8 +39,6 @@ public class Driver {
         	System.out.println(r.getGuest().getAccountUsername());
         }
         LoginPageGUI lp = new LoginPageGUI();
-        // TODO: call save anytime the application is exited (where should we allow this?)
-        // should you have to log out to close the application?
         lp.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent e) {
                 CSVHotelUtils.doSave(tacticalTrivagoHotel);
