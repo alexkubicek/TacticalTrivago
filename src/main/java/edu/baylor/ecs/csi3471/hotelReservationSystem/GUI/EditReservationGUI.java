@@ -132,6 +132,11 @@ public class EditReservationGUI extends JFrame {
     public boolean isReservationUpdated() {
         return reservationUpdated;
     }
+    
+    public Reservation getUpdatedReservation() {
+        return this.reservation;
+    }
+
 
 
     private boolean datesAreValid(Date startDate, Date endDate) {

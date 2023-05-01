@@ -88,7 +88,14 @@ public class UpcomingResTableModel extends JPanel implements LaunchEditor{
                 public void windowClosed(WindowEvent e) {
                     //If updated is true, update the reservation
                     if(editReservationGUI.isReservationUpdated()){
-
+                    	 Reservation updatedRes = editReservationGUI.getUpdatedReservation(); 
+                         int index = table.getSelectedRow();
+                         DefaultTableModel model = (DefaultTableModel) table.getModel();
+                         model.setValueAt(updatedRes.getStartDate(), index, 0);
+                         model.setValueAt(updatedRes.getEndDate(), index, 1);
+                         model.setValueAt(updatedRes.getRoomsString(), index, 2);
+                         model.setValueAt(updatedRes.getRate(), index, 3);
+                         model.fireTableRowsUpdated(index, index);
                     }
                 }
             });
