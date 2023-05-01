@@ -18,7 +18,7 @@ import java.text.NumberFormat;
 public class RoomEditorGUI extends JFrame implements ActionListener {
     //TODO: implement action listener and move variables from method to class as needed
     JCheckBox smokingCheckBox;
-    JFormattedTextField roomNumField, bedNumField;
+    JFormattedTextField bedNumField;
     JComboBox qualityLevelDropDown, bedTypeDropDown, comboBox;
     private Room associatedRoom;
     private boolean isUpdated = false;
@@ -50,8 +50,13 @@ public class RoomEditorGUI extends JFrame implements ActionListener {
         smokingCheckBox.setSelected(r.getSmoking());
         getContentPane().add(smokingCheckBox);
 
+        /* changed the field to a label...
+           Should not be able to change the room number (room number is how rooms are searched for,
+           changing a room number breaks things) -KayLynn
         roomNumField = new JFormattedTextField(NumberFormat.getIntegerInstance());
         roomNumField.setText(String.valueOf(r.getRoomNumber()));
+         */
+        JLabel roomNumField = new JLabel(String.valueOf(r.getRoomNumber()));
         roomNumLabel.setLabelFor(roomNumField);
         roomNumField.setBounds(168, 47, 28, 26);
         getContentPane().add(roomNumField);
@@ -97,14 +102,11 @@ public class RoomEditorGUI extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //TODO What else am I checking for here?
-        if (roomNumField.getText().isEmpty() ||
-                bedNumField.getText().isEmpty()) {
+        if (bedNumField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(RoomEditorGUI.this, "Please fill in all required fields.");
             return;
             // This will return to prompting users to fill in textfields
         }
-        associatedRoom.setRoomNumber(Integer.parseInt(roomNumField.getText()));
         associatedRoom.setBedCount(Integer.parseInt(bedNumField.getText()));
         associatedRoom.setQuality((QualityLevel) qualityLevelDropDown.getSelectedItem());
         associatedRoom.setBedSizes((BedType) bedTypeDropDown.getSelectedItem());
