@@ -290,5 +290,15 @@ public class Hotel {
             return false;
         });
     }
-    
+
+
+    public static boolean roomNumberExists(int num){
+      // returns true if the given room number is already in the hotel
+      for(Room r : rooms){
+          if(r.getRoomNumber() == num){
+              return true;
+          }
+      }
+      return false;
+    }
 }
