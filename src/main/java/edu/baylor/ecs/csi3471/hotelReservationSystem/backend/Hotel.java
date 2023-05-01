@@ -4,14 +4,18 @@
  */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
+import java.awt.*;
+import java.io.IOException;
 import java.util.*;
+import java.util.List;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import java.awt.Font;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.LoginFailurePopupGUI;
 
 public class Hotel {
-  // associations
+
+    // associations
   public static List<Room> rooms = new ArrayList<>();
   public static List<Reservation> reservations = new ArrayList<>();
   private static List<Payment> pastPayments = new ArrayList<>();
@@ -134,12 +138,12 @@ public class Hotel {
 	}
 
   public static void printRecords(JTextArea textArea) {
-	  	
+
 	    // print past reservations and payments sorted by date
 	    List<Reservation> sortedReservations = new ArrayList<>(reservations);
 	    List<Payment> sortedPayments = new ArrayList<>(pastPayments);
 	    int i = 1;
-	    
+
 	    // Sort reservations and payments by date
 	    Comparator<Reservation> reservationComparator = Comparator.comparing(Reservation::getStartDate);
 	    Comparator<Payment> paymentComparator = Comparator.comparing(Payment::getDate);
@@ -290,6 +294,17 @@ public class Hotel {
             }
             return false;
         });
+    }
+
+
+    public static boolean roomNumberExists(int num){
+      // returns true if the given room number is already in the hotel
+      for(Room r : rooms){
+          if(r.getRoomNumber() == num){
+              return true;
+          }
+      }
+      return false;
     }
     
 }

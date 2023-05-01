@@ -8,7 +8,9 @@ package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 import javax.swing.*;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.*;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +21,8 @@ public class ClerkOptionsGUI  extends UserOptions {
     private static final JButton viewReservationsButton = new JButton("View and Edit Reservation");
     private static final JButton createReservationButton = new JButton("Create Reservation");
     private static final JButton createRoomButton = new JButton("Create Room");
-    private static final JButton checkinRoom = new JButton("Check in");
-    private static final JButton Logout = new JButton("logout");
+    private static final JButton checkinRoom = new JButton("Check In");
+    private static final JButton Logout = new JButton("Logout");
     private static final List<JButton> myButtons = new ArrayList<>();
     static{
         myButtons.add(createReservationButton);
@@ -37,7 +39,7 @@ public class ClerkOptionsGUI  extends UserOptions {
     public ClerkOptionsGUI(Clerk a){
         super(myButtons, a.getNameFirst());
         myClerk = a;
-        setBounds(400, 200, 400, 300);
+        setSize(400, 300);
         setVisible(true);
     }
 
@@ -64,8 +66,12 @@ public class ClerkOptionsGUI  extends UserOptions {
         	new CheckInGUI();
         }else if(((JButton)e.getSource()).equals(Logout)) {
         	new LogOutGui();
-			LogOutGui.displayLogoutPopup(this);
-			
+            try {
+                LogOutGui.displayLogoutPopup(this);
+            } catch (IOException | FontFormatException ex) {
+                throw new RuntimeException(ex);
+            }
+
         }
     }
 }
