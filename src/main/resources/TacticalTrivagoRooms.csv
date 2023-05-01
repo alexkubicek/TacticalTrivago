@@ -2,7 +2,7 @@ roomNumber,numberOfBeds,smoking,qualityLevel,bedType,currentCleanStatus,datesBoo
 1,2,false,EXECUTIVE,TWIN,CLEAN,05-03-2023,05-04-2023
 7,1,true,BUSINESS,TWIN,CLEAN
 3,3,false,COMFORT,QUEEN,CLEAN
-4,1,false,ECONOMY,KING,CLEAN
+4,1,false,ECONOMY,KING,CLEAN,05-04-2023
 5,2,false,ECONOMY,FULL,CLEAN
 6,3,true,BUSINESS,TWIN,CLEAN
 7,1,true,COMFORT,QUEEN,CLEAN

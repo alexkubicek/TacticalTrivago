@@ -74,7 +74,7 @@ public class ReservationTableModel extends JPanel implements LaunchEditor{
     public void launch() {
         int[] index = table.getSelectedRows();
         
-        new RoomEditorGUI(Hotel.rooms.get(index[0]));
+        new EditReservationGUI(Hotel.reservations.get(index[0]));
     }
 
     @Override

@@ -50,6 +50,7 @@ public class ConfirmReservationGUI extends JDialog {
             dispose();
         });
         add(panel);
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
