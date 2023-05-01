@@ -27,7 +27,7 @@ public class Driver {
             System.err.println(e.getLocalizedMessage());
             System.exit(1);
         }
-        
+        /*
         for(User u: tacticalTrivagoHotel.accounts) {
         	if(u instanceof Guest) {
         		Guest g = (Guest) u;
@@ -38,6 +38,8 @@ public class Driver {
         for(Reservation r: tacticalTrivagoHotel.reservations) {
         	System.out.println(r.getGuest().getAccountUsername());
         }
+        
+         */
         LoginPageGUI lp = new LoginPageGUI();
         lp.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent e) {

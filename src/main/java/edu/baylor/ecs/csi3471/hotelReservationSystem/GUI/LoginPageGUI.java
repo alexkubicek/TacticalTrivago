@@ -34,11 +34,14 @@ public class LoginPageGUI extends JFrame implements ActionListener {
         setSize(500,300);
         setLocationRelativeTo(null);
 
+        /*
         Font font = Font.createFont(Font.TRUETYPE_FONT,
                 (Files.newInputStream(Paths.get("./src/main/java/aesthetics/fonts/B20Sans.ttf"))));
         GraphicsEnvironment genv = GraphicsEnvironment.getLocalGraphicsEnvironment();
         genv.registerFont(font);
         font = font.deriveFont(28f);
+
+         */
 
         JPanel panel = new JPanel();
         getContentPane().setLayout(new BorderLayout(10, 10));
@@ -53,7 +56,7 @@ public class LoginPageGUI extends JFrame implements ActionListener {
         JPanel userPassPanel = new JPanel(new GridLayout(2, 2));
 
         // makesure to derive the size
-        welcomeLabel.setFont(font);
+       // welcomeLabel.setFont(font);
         welcomeLabel.setBounds(100, 20, 200, 100);
         panel.add(welcomeLabel, BorderLayout.NORTH);
 
