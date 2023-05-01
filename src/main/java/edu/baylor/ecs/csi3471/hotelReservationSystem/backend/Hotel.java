@@ -72,6 +72,7 @@ public class Hotel {
           reservations = new ArrayList<>();
       }
       reservations.add(reservation);
+      g.addUpcomingReservations(reservation);
       // update room's unavailable dates
       r.bookRoom(start, end);
   }
