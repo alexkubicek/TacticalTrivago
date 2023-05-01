@@ -155,17 +155,17 @@ public class RoomTableModel extends JPanel implements LaunchEditor {
             roomEditorGUI.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
-                    if (roomEditorGUI.isRoomUpdated()) {
-                        // Update the table model after editing a room
-                        int modelIndex = Hotel.rooms.indexOf(roomToEdit);
-                        model.setValueAt(roomToEdit.getRoomNumber(), modelIndex, 0);
-                        model.setValueAt(roomToEdit.getBedCount(), modelIndex, 1);
-                        model.setValueAt(roomToEdit.getBedSize(), modelIndex, 2);
-                        model.setValueAt(roomToEdit.getQuality(), modelIndex, 3);
-                        model.setValueAt(roomToEdit.getSmoking(), modelIndex, 4);
-                        model.setValueAt("$" + roomToEdit.getQuality().getRate(), modelIndex, 5);
-                        model.fireTableRowsUpdated(modelIndex, modelIndex);
-                    }
+                if (roomEditorGUI.isRoomUpdated()) {
+                    // Update the table model after editing a room
+                    int modelIndex = Hotel.rooms.indexOf(roomToEdit);
+                    model.setValueAt(roomToEdit.getRoomNumber(), modelIndex, 0);
+                    model.setValueAt(roomToEdit.getBedCount(), modelIndex, 1);
+                    model.setValueAt(roomToEdit.getBedSize(), modelIndex, 2);
+                    model.setValueAt(roomToEdit.getQuality(), modelIndex, 3);
+                    model.setValueAt(roomToEdit.getSmoking(), modelIndex, 4);
+                    model.setValueAt("$" + roomToEdit.getQuality().getRate(), modelIndex, 5);
+                    model.fireTableRowsUpdated(modelIndex, modelIndex);
+                }
                 }
             });
         }
