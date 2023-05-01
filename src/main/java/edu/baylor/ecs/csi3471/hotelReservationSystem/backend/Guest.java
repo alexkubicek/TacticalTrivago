@@ -10,6 +10,8 @@ import java.util.List;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.GuestOptionsGUI;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.UserProfileGUI;
 
+import javax.naming.spi.ResolveResult;
+
 public class Guest extends User {
 
     private Boolean isCorporate = false;
@@ -29,7 +31,7 @@ public class Guest extends User {
         // header labels assumed: nameFirst, nameLast, username, password
         super(line[0], line[1], new AccountInformation(line[2], line[3]));
         isCorporate = Boolean.parseBoolean(line[4]);
-        upcomingReservations = new ArrayList<>();
+        upcomingReservations = new ArrayList<Reservation>();
         if(line.length == 10){
             paymentMethod = new CreditCard(line);
         }
@@ -37,7 +39,7 @@ public class Guest extends User {
     public Guest(){
         super();
         isCorporate = false;
-        upcomingReservations = new ArrayList<>();
+        upcomingReservations = new ArrayList<Reservation>();
     }
 
     public void setCorporate(Boolean corporate) {isCorporate = corporate;}

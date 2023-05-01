@@ -163,19 +163,19 @@ public class Hotel {
     }
     return found;
   }
-  public static void applyExtendedStayDiscount(Reservation reservation) {
-    Integer stayLength = reservation.getNights();
-    Double baseRate = reservation.getRate();
-    Double discountRate = 1.0;
-
-    // Apply a 10% discount for stays of 5 nights or more, and a 20% discount for stays of 7 nights or more
-    if (stayLength >= 5 && stayLength < 7) {
-      discountRate = 0.9;
-    } else if (stayLength >= 7) {
-      discountRate = 0.8;
-    }
-    reservation.setRate(baseRate * discountRate);
-  }
+//  public static void applyExtendedStayDiscount(Reservation reservation) {
+//    Integer stayLength = reservation.getNights();
+//    Double baseRate = reservation.getRate();
+//    Double discountRate = 1.0;
+//
+//    // Apply a 10% discount for stays of 5 nights or more, and a 20% discount for stays of 7 nights or more
+//    if (stayLength >= 5 && stayLength < 7) {
+//      discountRate = 0.9;
+//    } else if (stayLength >= 7) {
+//      discountRate = 0.8;
+//    }
+//    reservation.setRate(baseRate * discountRate);
+//  }
 
   public static void addRoom(Room room) {
     rooms.add(room);
