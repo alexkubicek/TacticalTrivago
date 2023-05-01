@@ -89,7 +89,7 @@ public class MakeReservationGUI {
         JDialog dialog = new JDialog();
         dialog.setTitle("Please Confirm Reservation Information");
         dialog.setSize(380, 250);
-        dialog.setVisible(true);
+        
 
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -120,6 +120,7 @@ public class MakeReservationGUI {
             dialog.dispose();
         });
         dialog.add(panel);
+        dialog.setVisible(true);
     }
 
     private JPanel createDateSelection(){
