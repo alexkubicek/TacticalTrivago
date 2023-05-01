@@ -5,7 +5,9 @@
 
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,8 +65,12 @@ public class AdminOptionsGUI extends UserOptions{
 			 //TODO
 		}else if(((JButton)e.getSource()).equals(Logout)) {
         	new LogOutGui();
-			LogOutGui.displayLogoutPopup(this);
-			
-        }
+			try {
+				LogOutGui.displayLogoutPopup(this);
+			} catch (IOException | FontFormatException ex) {
+				throw new RuntimeException(ex);
+			}
+
+		}
 	}
 }

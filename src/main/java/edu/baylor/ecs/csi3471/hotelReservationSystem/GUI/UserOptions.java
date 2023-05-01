@@ -47,6 +47,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
@@ -87,7 +88,11 @@ public abstract class UserOptions extends JFrame implements ActionListener {
 			public void windowClosing(WindowEvent e) {
 				super.windowClosing(e);
 				new LogOutGui();
-				LogOutGui.displayLogoutPopup(e.getWindow());
+				try {
+					LogOutGui.displayLogoutPopup(e.getWindow());
+				} catch (IOException | FontFormatException ex) {
+					throw new RuntimeException(ex);
+				}
 			}
 		});
 	}

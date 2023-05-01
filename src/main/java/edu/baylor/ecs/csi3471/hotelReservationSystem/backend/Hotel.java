@@ -4,12 +4,18 @@
  */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
+import java.awt.*;
+import java.io.IOException;
 import java.util.*;
+import java.util.List;
 import javax.swing.JTextArea;
+
+import aesthetics.fonts.fonts;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.LoginFailurePopupGUI;
 
 public class Hotel {
-  // associations
+
+    // associations
   public static List<Room> rooms = new ArrayList<>();
   public static List<Reservation> reservations = new ArrayList<>();
   private static List<Payment> pastPayments = new ArrayList<>();
