@@ -58,9 +58,8 @@ public class AdminOptionsGUI extends UserOptions{
 			new UserProfileGUI(new Clerk());
 		} else if(((JButton)e.getSource()).equals(viewEditClerkButton)){
 			new ViewClerkAccountsGUI(new ClerkTableModel());
-            
 		} else if(((JButton)e.getSource()).equals(getAdminReport)){
-			 //TODO
+			 new AdminReportGUI(myAdmin);
 		}else if(((JButton)e.getSource()).equals(Logout)) {
         	new LogOutGui();
 			LogOutGui.displayLogoutPopup(this);

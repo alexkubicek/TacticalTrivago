@@ -110,7 +110,7 @@ public class Reservation {
 		this.endDate = endDate;
 	}
 	public Integer getNights() {
-		return nights;
+		return (int)((endDate.getTime() - startDate.getTime()) / (1000*60*60*24));
 	}
 	public void setNights(Integer nights) {
 		this.nights = nights;
@@ -230,9 +230,13 @@ public class Reservation {
 
 	@Override
 	public String toString() {
-		return "Reservation [startDate=" + startDate + ", endDate=" + endDate + ", nights=" + nights + ", rate=" + rate
-				+ ", guest=" + guest.getFullName() + ", rooms=" + rooms + "]";
+		return "startDate: " + startDate + ", endDate: " + endDate + ",\n"
+		+ "nights: " + this.getNights()  + ",\n"
+		+ "guest: " + guest.getFullName() + ",\n" 
+		+ "rooms: " + rooms + ",\n"
+		+ "Total: " + this.calculateTotal() + "\n";
 	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(startDate, endDate, guest, rooms);
