@@ -1,3 +1,10 @@
+/**
+* This class represents the GUI for viewing and managing clerk accounts.
+* It extends the JFrame class and implements the ActionListener interface.
+* The GUI displays a table of clerk accounts, along with "Edit" and "Delete"
+* to modify the clerks in the hotel. 
+*/
+
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 import javax.swing.*;
 import java.awt.*;

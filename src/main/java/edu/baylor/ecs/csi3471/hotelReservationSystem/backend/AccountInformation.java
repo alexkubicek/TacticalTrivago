@@ -1,3 +1,6 @@
+/*
+ * Represents account information for a user.
+ */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
 import java.util.*;

@@ -1,3 +1,10 @@
+/**
+* The LoginPageGUI class represents the GUI for the login page of the hotel reservation system.
+* It extends the JFrame class and implements the ActionListener interface to listen for button events.
+* It allows the user to login with a previous username and password, or create a new account.
+* If the login is successful, the current window is closed and the user's options are launched through the User.launchOptions method.
+* If the login is unsuccessful, a LoginFailurePopupGUI is displayed.
+*/
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import java.awt.event.ActionEvent;
@@ -27,6 +34,7 @@ public class LoginPageGUI extends JFrame implements ActionListener {
         JLabel passwordLabel = new JLabel("Password: ");
         passwordLabel.setBounds(110, 132, 67, 16);
         panel.add(passwordLabel);
+        
 
         usernameField = new JTextField();
         usernameLabel.setLabelFor(usernameField);
@@ -67,7 +75,7 @@ public class LoginPageGUI extends JFrame implements ActionListener {
             new UserProfileGUI(myNewGuest);
         } else if(Objects.equals(text, "Login")) {
             if (usernameField.getText().isEmpty() ||
-                    passwordField.getPassword().length == 0) {
+                passwordField.getPassword().length == 0) {
                 JOptionPane.showMessageDialog(LoginPageGUI.this, "Please fill in all required fields.");
                 return;
                 // This will return to prompting users to fill in textfields

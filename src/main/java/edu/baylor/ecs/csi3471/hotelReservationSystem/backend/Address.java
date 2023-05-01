@@ -1,3 +1,6 @@
+/*
+ * Represents an Address of a guest. 
+ */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
 import static java.lang.Integer.parseInt;

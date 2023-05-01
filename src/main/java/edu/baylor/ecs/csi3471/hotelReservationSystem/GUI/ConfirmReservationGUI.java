@@ -1,3 +1,8 @@
+/**
+* This class displays formatted reservation information and confirms that the user wants
+* to add it to the Hotel Reservation System.
+*/
+
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import javax.swing.*;

@@ -1,4 +1,9 @@
 /*
+ * This class contains the main method to run the Hotel Reservation System. 
+ * It represents the controller of the system.
+ */
+
+/*
 USER LOGIN: user pass
 CLERK LOGIN: clerk pass
 ADMIN LOGIN: admin pass
@@ -12,7 +17,8 @@ import hotelReadWriteUtils.CSVHotelUtils;
 import java.io.*;
 
 public class Driver {
-    static Hotel tacticalTrivagoHotel = new Hotel();
+	static Hotel tacticalTrivagoHotel = new Hotel();
+	
     public static void main(String[] args) {
         try{
             tacticalTrivagoHotel = CSVHotelUtils.load();

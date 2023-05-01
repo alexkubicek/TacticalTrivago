@@ -1,3 +1,6 @@
+/*
+ * A class that represents a room in the hotel.
+ */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
 import java.text.ParseException;
@@ -74,14 +77,15 @@ public class Room {
   }
   @Override
   public String toString() {
-    return "Room{" +
-            "roomNumber=" + roomNumber +
-            ", bedCount=" + bedCount +
-            ", smoking=" + smoking +
-            ", quality=" + quality +
-            ", bedSizes=" + bedSizes +
-            '}';
-  }
+	  return "Room{" +
+	  "roomNumber: " + roomNumber +
+	  ", bedCount: " + bedCount +
+	  ", smoking: " + smoking +
+	  ", quality: " + quality +
+	  ", room rate: " + quality.getRate() +
+	  ", bedSizes: " + bedSizes +
+	  '}';
+	  }
   public String toStringForUI() {
     String s = "Room number " + roomNumber + "<br/>" +
             bedCount + " " + bedSizes + " size bed(s)<br/>" +

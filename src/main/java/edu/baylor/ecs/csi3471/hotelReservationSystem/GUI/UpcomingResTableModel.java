@@ -1,8 +1,18 @@
+/*
+ * 
+/**
+* This class represents the table model for displaying the list of upcoming reservations in the hotel. 
+* It extends JPanel and implements the LaunchEditor interface. 
+* The table is sortable and filterable by column.
+*/
+
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Date;
 import java.util.List;
 
@@ -67,6 +77,22 @@ public class UpcomingResTableModel extends JPanel implements LaunchEditor{
 
     @Override
     public void launch() {
+        int index = table.getSelectedRow();
+        if(index < 0){
+            JOptionPane.showMessageDialog(this, "No row selected.");
+        }else{
+            EditReservationGUI editReservationGUI = new EditReservationGUI(myGuest.getUpcomingReservations().get(index));
+            editReservationGUI.setVisible(true);
+            editReservationGUI.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    //If updated is true, update the reservation
+                    if(editReservationGUI.isReservationUpdated()){
+
+                    }
+                }
+            });
+        }
         /*
         int index = table.getSelectedRow();
         if (index == 0) {
@@ -96,6 +122,7 @@ public class UpcomingResTableModel extends JPanel implements LaunchEditor{
         }
 
          */
+
     }
 
     @Override

@@ -1,7 +1,13 @@
+/*
+ * A class representing a Hotel. This class is the information expert as it's associated
+ * with various other domain objects.
+ */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
 import java.util.*;
 import javax.swing.JTextArea;
+import javax.swing.JLabel;
+import java.awt.Font;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.LoginFailurePopupGUI;
 
 public class Hotel {
@@ -127,10 +133,12 @@ public class Hotel {
 	}
 
   public static void printRecords(JTextArea textArea) {
+	  	
 	    // print past reservations and payments sorted by date
 	    List<Reservation> sortedReservations = new ArrayList<>(reservations);
 	    List<Payment> sortedPayments = new ArrayList<>(pastPayments);
-
+	    int i = 1;
+	    
 	    // Sort reservations and payments by date
 	    Comparator<Reservation> reservationComparator = Comparator.comparing(Reservation::getStartDate);
 	    Comparator<Payment> paymentComparator = Comparator.comparing(Payment::getDate);
@@ -140,13 +148,18 @@ public class Hotel {
 	    // Display the sorted reservations
 	    textArea.append("Reservations:\n");
 	    for (Reservation reservation : sortedReservations) {
+	    	textArea.append(i + ": ");
 	        textArea.append(reservation.toString() + "\n");
+	        i++;
 	    }
 
+	    i = 0;
 	    // Display the sorted payments
 	    textArea.append("\nPayments:\n");
 	    for (Payment payment : sortedPayments) {
+	    	textArea.append(i + ": ");
 	        textArea.append(payment.toString() + "\n");
+	        i++;
 	    }
 	}
 
@@ -159,19 +172,19 @@ public class Hotel {
     }
     return found;
   }
-  public static void applyExtendedStayDiscount(Reservation reservation) {
-    Integer stayLength = reservation.getNights();
-    Double baseRate = reservation.getRate();
-    Double discountRate = 1.0;
-
-    // Apply a 10% discount for stays of 5 nights or more, and a 20% discount for stays of 7 nights or more
-    if (stayLength >= 5 && stayLength < 7) {
-      discountRate = 0.9;
-    } else if (stayLength >= 7) {
-      discountRate = 0.8;
-    }
-    reservation.setRate(baseRate * discountRate);
-  }
+//  public static void applyExtendedStayDiscount(Reservation reservation) {
+//    Integer stayLength = reservation.getNights();
+//    Double baseRate = reservation.getRate();
+//    Double discountRate = 1.0;
+//
+//    // Apply a 10% discount for stays of 5 nights or more, and a 20% discount for stays of 7 nights or more
+//    if (stayLength >= 5 && stayLength < 7) {
+//      discountRate = 0.9;
+//    } else if (stayLength >= 7) {
+//      discountRate = 0.8;
+//    }
+//    reservation.setRate(baseRate * discountRate);
+//  }
 
   public static void addRoom(Room room) {
     rooms.add(room);

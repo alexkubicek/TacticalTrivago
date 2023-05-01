@@ -1,3 +1,6 @@
+/*
+ * An enum of US states to be used when storing a user's address.
+ */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.backend;
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.PopUpWindows;

@@ -1,3 +1,9 @@
+/**
+* This class represents the GUI for viewing and managing room reservations.
+* It extends the JFrame class and implements the ActionListener interface.
+* The GUI displays a table of reservations, along with "Edit" and "Delete"
+* to modify the reservations in the hotel. 
+*/
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import javax.swing.*;
