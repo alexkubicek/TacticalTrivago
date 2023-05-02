@@ -14,11 +14,8 @@ import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.*;
 import static edu.baylor.ecs.csi3471.hotelReservationSystem.backend.DateHelper.getDateWithoutTime;
 
 public class EditReservationGUI extends JFrame {
-    private Reservation reservation;
-    private JLabel guestLabel, startLabel, endLabel, costLabel;
-    private JTextField guestField, costField;
+    private final Reservation reservation;
     private JDateChooser startDateChooser, endDateChooser;
-    private JButton saveButton, cancelButton;
     private boolean reservationUpdated;
 
     public EditReservationGUI(Reservation reservation) {
@@ -35,12 +32,12 @@ public class EditReservationGUI extends JFrame {
 
     private void initComponents() {
         // Create labels and text fields for editing reservation
-        guestLabel = new JLabel("Guest:");
-        startLabel = new JLabel("Start Date:");
-        endLabel = new JLabel("End Date:");
-        costLabel = new JLabel("Cost:");
+        JLabel guestLabel = new JLabel("Guest:");
+        JLabel startLabel = new JLabel("Start Date:");
+        JLabel endLabel = new JLabel("End Date:");
+        JLabel costLabel = new JLabel("Cost:");
 
-        guestField = new JTextField(reservation.getGuest().getAccountUsername());
+        JTextField guestField = new JTextField(reservation.getGuest().getAccountUsername());
         guestField.setEditable(false);
 
         // Create date choosers for start and end dates
@@ -51,7 +48,7 @@ public class EditReservationGUI extends JFrame {
         startDateChooser.setDateFormatString("MM/dd/yyyy");
         endDateChooser.setDateFormatString("MM/dd/yyyy");
 
-        costField = new JTextField(String.format("%.2f", reservation.calculateTotal()));
+        JTextField costField = new JTextField(String.format("%.2f", reservation.calculateTotal()));
         costField.setEditable(false);
 
         // Create a panel for the guest information
@@ -76,8 +73,8 @@ public class EditReservationGUI extends JFrame {
 
         // Create a panel for the buttons
         JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
-        saveButton = new JButton("Save");
-        cancelButton = new JButton("Cancel");
+        JButton saveButton = new JButton("Save");
+        JButton cancelButton = new JButton("Cancel");
         buttonPanel.add(saveButton);
         buttonPanel.add(cancelButton);
 
@@ -111,12 +108,9 @@ public class EditReservationGUI extends JFrame {
             }
         });
 
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Close the dialog without updating the reservation
-                dispose();
-            }
+        cancelButton.addActionListener(e -> {
+            // Close the dialog without updating the reservation
+            dispose();
         });
 
         // Add components to the content pane

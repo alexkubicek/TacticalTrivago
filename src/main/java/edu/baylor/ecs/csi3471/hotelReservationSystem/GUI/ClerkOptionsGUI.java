@@ -34,7 +34,7 @@ public class ClerkOptionsGUI  extends UserOptions {
         myButtons.add(Logout);
 
     }
-    private Clerk myClerk;
+    private final Clerk myClerk;
 
     public ClerkOptionsGUI(Clerk a){
         super(myButtons, a.getNameFirst());

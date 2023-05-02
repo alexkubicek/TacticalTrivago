@@ -8,7 +8,6 @@ package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Clerk;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Room;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.User;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
@@ -30,7 +29,7 @@ public class ClerkTableModel extends JPanel implements LaunchEditor{
     private static final int MAX_USERS = 50;
     private static final int NUM_COLUMNS = 5;
     private final Object[][] clerks = new Object[MAX_USERS][NUM_COLUMNS];
-    private DefaultTableModel model;
+    private final DefaultTableModel model;
     public ClerkTableModel() {
         super();
         // get all rooms from hotel
@@ -119,37 +118,6 @@ public class ClerkTableModel extends JPanel implements LaunchEditor{
         }
         return false;
     }
-
-    public void updateTable(Clerk c){
-        reloadClerks();
-        // remove unavailable rooms from table
-        int i = 0;
-        while(i < table.getRowCount()) {
-            // check if clerk still exists
-            String username = (String)table.getModel().getValueAt(i, 0);
-            List<Clerk> newClerks = Hotel.getClerkAccounts();
-            if(!newClerks.contains(c)) {
-            	((DefaultTableModel)table.getModel()).removeRow(i);
-            }
-            
-            i++;
-        }
-    }
-
-    public void reloadClerks(){
-        // reload table 
-    	int i = 0;
-        for (Clerk u : Hotel.getClerkAccounts()){
-            if(!inTable(u)){
-		        Object[] row = new Object[NUM_COLUMNS];
-		        clerks[i][0] = u.getAccountUsername();
-		        clerks[i][1] = u.getNameFirst();
-		        clerks[i][2] = u.getNameLast();
-		        ((DefaultTableModel)table.getModel()).insertRow(i, row);
-		        i++;
-            }
-        }
-    }
     
     @Override
     public void deleteSelected() {
@@ -175,7 +143,5 @@ public class ClerkTableModel extends JPanel implements LaunchEditor{
                 System.out.println("After Clerks: " + Hotel.getClerkAccounts());
             }
         }
-
-
     }
 }

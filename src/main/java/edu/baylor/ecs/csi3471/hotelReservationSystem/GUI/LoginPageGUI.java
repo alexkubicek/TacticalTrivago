@@ -12,36 +12,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Objects;
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Guest;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.User;
 
-import static java.lang.System.exit;
-//import aesthetics.fonts.Yaahowu.*;
-
 public class LoginPageGUI extends JFrame implements ActionListener {
-    public LoginPageGUI() throws IOException, FontFormatException {
+    public LoginPageGUI() {
         setTitle("Tactical Trivago - Login");
 
         setSize(500,300);
         setLocationRelativeTo(null);
-
-        /*
-        Font font = Font.createFont(Font.TRUETYPE_FONT,
-                (Files.newInputStream(Paths.get("./src/main/java/aesthetics/fonts/B20Sans.ttf"))));
-        GraphicsEnvironment genv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        genv.registerFont(font);
-        font = font.deriveFont(28f);
-
-         */
 
         JPanel panel = new JPanel();
         getContentPane().setLayout(new BorderLayout(10, 10));
@@ -55,8 +37,6 @@ public class LoginPageGUI extends JFrame implements ActionListener {
 
         JPanel userPassPanel = new JPanel(new GridLayout(2, 2));
 
-        // makesure to derive the size
-       // welcomeLabel.setFont(font);
         welcomeLabel.setBounds(100, 20, 200, 100);
         panel.add(welcomeLabel, BorderLayout.NORTH);
 
@@ -72,7 +52,6 @@ public class LoginPageGUI extends JFrame implements ActionListener {
         passwordField = new JPasswordField();
         passwordLabel.setLabelFor(passwordField);
         passwordField.setColumns(10);
-        //panel.add(passwordField);
 
         usernameLabel.setPreferredSize(new Dimension(70, 16));
         usernameLabel.setHorizontalAlignment(JTextField.RIGHT);
@@ -114,8 +93,8 @@ public class LoginPageGUI extends JFrame implements ActionListener {
     }
 
     private static final long serialVersionUID = 1L;
-    private JTextField usernameField;
-    private JPasswordField passwordField;
+    private final JTextField usernameField;
+    private final JPasswordField passwordField;
 
     @Override
     public void actionPerformed(ActionEvent e) {

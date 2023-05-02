@@ -12,9 +12,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -25,18 +23,12 @@ import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Reservation;
 import net.coderazzi.filters.gui.TableFilterHeader;
 import net.coderazzi.filters.gui.IFilterEditor;
-import net.coderazzi.filters.IFilter;
 import net.coderazzi.filters.gui.AutoChoices;
-import net.coderazzi.filters.gui.FilterSettings;
-import net.coderazzi.filters.gui.ParserModel;
-
-
 
 public class CheckInGUI extends JFrame {
-    private JTextField guestNameField;
-    private JButton findReservationsButton;
-    private JTable reservationsTable;
-    private DefaultTableModel tableModel;
+    private final JTextField guestNameField;
+    private final JTable reservationsTable;
+    private final DefaultTableModel tableModel;
 
     public CheckInGUI() {
         setTitle("Check-in");
@@ -55,7 +47,7 @@ public class CheckInGUI extends JFrame {
 
         JPanel searchPanel = new JPanel(new FlowLayout());
         guestNameField = new JTextField(15);
-        findReservationsButton = new JButton("Find Reservations");
+        JButton findReservationsButton = new JButton("Find Reservations");
 
         searchPanel.add(new JLabel("Enter Guest Name:"));
         searchPanel.add(guestNameField);

@@ -46,8 +46,6 @@ public class ViewRoomReservationsGUI extends JFrame implements ActionListener {
             return;
         }
 
-        Object index = myTableModel.getTable().getValueAt(selectedRow, myTableModel.getTable().getSelectedColumn());
-
         if ((JButton) e.getSource() == editButton) {
             System.out.println(myTableModel.getClass());
             myTableModel.launch();

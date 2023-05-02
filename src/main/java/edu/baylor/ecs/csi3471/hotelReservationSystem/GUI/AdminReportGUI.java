@@ -3,7 +3,6 @@ package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,8 +19,8 @@ import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
 
 public class AdminReportGUI extends JDialog implements ActionListener {
     protected static final JButton doneButton = new JButton("Close");
-    protected static final JTextArea text = new JTextArea();
-    protected static final JScrollPane scrollPane = new JScrollPane(text);
+    protected final JTextArea text = new JTextArea();
+    protected final JScrollPane scrollPane = new JScrollPane(text);
     protected static final JPanel gridPanel = new JPanel();
     protected static final JPanel smallPanel = new JPanel();
   	protected static final JLabel myLabel = new JLabel("Reservations & Payments");

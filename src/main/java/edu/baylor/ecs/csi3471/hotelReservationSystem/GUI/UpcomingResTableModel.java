@@ -36,13 +36,7 @@ public class UpcomingResTableModel extends JPanel implements LaunchEditor{
         myGuest = g;
         MAX_RESERVATIONS = Hotel.getReservationsByGuestName(myGuest.getAccountUsername()).size();
         reservations = new Object[MAX_RESERVATIONS][NUM_COLUMNS];
-        /*
-        System.out.println(g.getAccountUsername());
-        for(Reservation r: Hotel.getReservationsByGuestName(g.getAccountUsername())) {
-        	System.out.println(r.getRoomsString());
-        }
 
-         */
         // get all reservations from hotel
         loadReservationsIntoTable(Hotel.getReservationsByGuestName(g.getAccountUsername()));
         // create table of reservations
@@ -106,36 +100,6 @@ public class UpcomingResTableModel extends JPanel implements LaunchEditor{
                 }
             });
         }
-        /*
-        int index = table.getSelectedRow();
-        if (index == 0) {
-            JOptionPane.showMessageDialog(this, "No row selected.");
-        } else {
-            ReservationEditorGUI reservationEditorGUI = new
-                    ReservationEditorGUI(myGuest.getUpcomingReservations().get(index));
-            reservationEditorGUI.setVisible(true);
-
-            // Wait for the ReservationEditorGUI to close
-            reservationEditorGUI.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosed(WindowEvent e) {
-                    if (reservationEditorGUI.isReservationUpdated()) {
-                        // Update the table model after editing a room
-                        Reservation updatedRes = Hotel.rooms.get(index);
-                        model.setValueAt(updatedRes.getRoomNumber(), index, 0);
-                        model.setValueAt(updatedRes.getBedCount(), index, 1);
-                        model.setValueAt(updatedRes.getBedSize(), index, 2);
-                        model.setValueAt(updatedRes.getQuality(), index, 3);
-                        model.setValueAt(updatedRes.getSmoking(), index, 4);
-                        model.setValueAt(updatedRes.getQuality().getRate(), index, 5);
-                        model.fireTableRowsUpdated(index, index);
-                    }
-                }
-            });
-        }
-
-         */
-
     }
 
     @Override

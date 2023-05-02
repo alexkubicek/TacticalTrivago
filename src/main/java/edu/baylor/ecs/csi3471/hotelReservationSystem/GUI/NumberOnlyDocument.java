@@ -10,7 +10,7 @@ import javax.swing.text.PlainDocument;
 
 
 public class NumberOnlyDocument extends PlainDocument {
-    private int limit;
+    private final int limit;
 
     public NumberOnlyDocument(int limit) {
         super();
