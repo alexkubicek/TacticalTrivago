@@ -25,6 +25,7 @@ import java.awt.event.WindowEvent;
 public class EnterGuestInfoGUI {
     private JDialog dialog;
     private Guest g;
+    private boolean cancelled = false;
 
     private JPanel createNewGuestPanel(){
         JPanel panel = new JPanel();
@@ -50,6 +51,7 @@ public class EnterGuestInfoGUI {
         foundDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         foundDialog.setSize(200, 150);
         foundDialog.setTitle("Guest Found!");
+        foundDialog.setLocationRelativeTo(null);
         foundDialog.add(displayFoundGuest());
         JButton confirm = new JButton("Confirm");
         confirm.addActionListener(new ActionListener() {
@@ -127,6 +129,7 @@ public class EnterGuestInfoGUI {
                 int result = JOptionPane.showConfirmDialog(null,
                         "Would you like to cancel this session and return to main menu?");
                 if(result == JOptionPane.OK_OPTION) {
+                    cancelled = true;
                     dialog.dispose();
                 }
             }
@@ -138,5 +141,7 @@ public class EnterGuestInfoGUI {
     public Guest getGuest(){
         return g;
     }
+
+    public boolean wasCancelled(){ return cancelled; }
 
 }

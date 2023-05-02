@@ -59,7 +59,7 @@ public class ClerkOptionsGUI  extends UserOptions {
             Guest guest = g.getGuest();
             if(guest == null){
                 System.err.println("Error in ClerkOptionsGUI: guest to make reservation for is null");
-            } else{
+            } else if(!g.wasCancelled()){
                 new MakeReservationGUI(guest);
             }
         }else if(((JButton)e.getSource()).equals(checkinRoom)){
