@@ -28,16 +28,21 @@ public class UpcomingResTableModel extends JPanel implements LaunchEditor{
     public static final String[] columnNames = {"Start Date", "End Date", "Rooms", "Rate"};
     protected JTable table;
     private final Guest myGuest;
-    private static final int MAX_RESERVATIONS = 40;
+    private static int MAX_RESERVATIONS = 40;
     private static final int NUM_COLUMNS = 4;
-    private static final Object[][] reservations = new Object[MAX_RESERVATIONS][NUM_COLUMNS];
+    private static Object[][] reservations = null;
     public UpcomingResTableModel(Guest g){
         super();
         myGuest = g;
+        MAX_RESERVATIONS = Hotel.getReservationsByGuestName(myGuest.getAccountUsername()).size();
+        reservations = new Object[MAX_RESERVATIONS][NUM_COLUMNS];
+        /*
         System.out.println(g.getAccountUsername());
         for(Reservation r: Hotel.getReservationsByGuestName(g.getAccountUsername())) {
         	System.out.println(r.getRoomsString());
         }
+
+         */
         // get all reservations from hotel
         loadReservationsIntoTable(Hotel.getReservationsByGuestName(g.getAccountUsername()));
         // create table of reservations
@@ -62,6 +67,7 @@ public class UpcomingResTableModel extends JPanel implements LaunchEditor{
     public void loadReservationsIntoTable(List<Reservation> reservationList){
         int i = 0;
         for (Reservation r : reservationList){
+            System.out.println(r);
             if(i >= MAX_RESERVATIONS){
                 return;
             }
@@ -162,7 +168,9 @@ public class UpcomingResTableModel extends JPanel implements LaunchEditor{
             @Override
             public void actionPerformed(ActionEvent e) {
             	if (index >= 0 && index < Hotel.reservations.size()) {
-            	    Hotel.reservations.remove(index);
+                    Reservation toRemove = Hotel.getReservationsByGuestName(myGuest.getAccountUsername()).get(index);
+                    Hotel.removeReservation(toRemove);
+                    myGuest.removeReservation(toRemove);
             	    ((DefaultTableModel) table.getModel()).removeRow(index);
             	    JOptionPane.showMessageDialog(null, "Reservation successfully deleted");
             	    dialog.dispose();

@@ -19,7 +19,7 @@ public class ViewRoomReservationsGUI extends JFrame implements ActionListener {
         setSize(600, 410);
         setLocationRelativeTo(null);
         myTableModel = tm;
-        setDefaultCloseOperation(HIDE_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         editButton = new JButton("Edit");
         editButton.addActionListener(this);
         deleteButton = new JButton("Delete");
