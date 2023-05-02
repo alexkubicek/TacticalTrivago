@@ -67,6 +67,7 @@ public class UpcomingResTableModel extends JPanel implements LaunchEditor{
     public void loadReservationsIntoTable(List<Reservation> reservationList){
         int i = 0;
         for (Reservation r : reservationList){
+            System.out.println(r);
             if(i >= MAX_RESERVATIONS){
                 return;
             }
@@ -167,7 +168,7 @@ public class UpcomingResTableModel extends JPanel implements LaunchEditor{
             @Override
             public void actionPerformed(ActionEvent e) {
             	if (index >= 0 && index < Hotel.reservations.size()) {
-                    Reservation toRemove = Hotel.reservations.get(index);
+                    Reservation toRemove = Hotel.getReservationsByGuestName(myGuest.getAccountUsername()).get(index);
                     Hotel.removeReservation(toRemove);
                     myGuest.removeReservation(toRemove);
             	    ((DefaultTableModel) table.getModel()).removeRow(index);
