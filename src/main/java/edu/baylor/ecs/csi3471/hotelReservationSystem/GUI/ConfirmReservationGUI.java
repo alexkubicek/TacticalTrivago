@@ -13,6 +13,7 @@ import javax.swing.*;
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Guest;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
+import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Reservation;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Room;
 
 import java.awt.*;
@@ -44,6 +45,9 @@ public class ConfirmReservationGUI extends JDialog {
         confirmButton.addActionListener(event -> {
             // reserve room and update table
             Hotel.reserveRoom(r, s, e, g);
+            // add reservation under guest
+            Reservation newReservation = new Reservation(s, e, g, r);
+            g.addUpcomingReservations(newReservation);
             table.updateTable(s, e);
             JOptionPane.showMessageDialog(null, "Reservation made successfully!");
             // close dialog

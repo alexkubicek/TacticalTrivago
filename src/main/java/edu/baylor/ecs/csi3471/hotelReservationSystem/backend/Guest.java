@@ -42,6 +42,9 @@ public class Guest extends User {
         upcomingReservations = new ArrayList<Reservation>();
     }
 
+    public void removeReservation(Reservation r){
+        upcomingReservations.remove(r);
+    }
     public void setCorporate(Boolean corporate) {isCorporate = corporate;}
 
     public void setUpcomingReservations(List<Reservation> upcomingReservations) {this.upcomingReservations = upcomingReservations;}

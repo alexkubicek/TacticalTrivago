@@ -29,11 +29,13 @@ public class ReservationTableModel extends JPanel implements LaunchEditor{
     public static final String[] columnNames = {"Guest", "Start Date", "End Date", "Rooms", "Cost"};
     protected JTable table;
 
-    private static final int MAX_RESERVATIONS = 50;
+    private static int MAX_RESERVATIONS = 50;
     private static final int NUM_COLUMNS = 5;
-    private static final Object[][] reservations = new Object[MAX_RESERVATIONS][NUM_COLUMNS];
+    private static Object[][] reservations = null;
     public ReservationTableModel(){
         super();
+        MAX_RESERVATIONS = Hotel.reservations.size();
+        reservations = new Object[MAX_RESERVATIONS][NUM_COLUMNS];
         // get all rooms from hotel
         loadReservationsIntoTable(Hotel.reservations);
         // create table of rooms
@@ -57,6 +59,7 @@ public class ReservationTableModel extends JPanel implements LaunchEditor{
     public void loadReservationsIntoTable(List<Reservation> reservationList) {
         int i = 0;
         for (Reservation r : reservationList) {
+            System.out.println(r);
             if (i > MAX_RESERVATIONS) {
                 return;
             }
