@@ -6,29 +6,19 @@
 
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.BedType;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Clerk;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Hotel;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.QualityLevel;
-import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Reservation;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.Room;
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.User;
 import net.coderazzi.filters.gui.AutoChoices;
 import net.coderazzi.filters.gui.TableFilterHeader;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 public class ClerkTableModel extends JPanel implements LaunchEditor{
@@ -39,12 +29,13 @@ public class ClerkTableModel extends JPanel implements LaunchEditor{
 
     private static final int MAX_USERS = 50;
     private static final int NUM_COLUMNS = 5;
-    private static final Object[][] clerks = new Object[MAX_USERS][NUM_COLUMNS];
+    private final Object[][] clerks = new Object[MAX_USERS][NUM_COLUMNS];
     private DefaultTableModel model;
     public ClerkTableModel() {
         super();
         // get all rooms from hotel
         loadClerksIntoTable(Hotel.getClerks());
+        System.out.println(Hotel.getClerks());
         // create table of rooms
         model = new DefaultTableModel(clerks, columnNames) {
             @Override
@@ -100,7 +91,6 @@ public class ClerkTableModel extends JPanel implements LaunchEditor{
         for(User u: Hotel.accounts){
             if(u.getAccountUsername().equals(username)){
                 u.launchProfile();
-                return;
             }
         }
     }
@@ -119,10 +109,10 @@ public class ClerkTableModel extends JPanel implements LaunchEditor{
         int i = 0;
         while(i < table.getRowCount()) {
             // get each room in the table
-            int roomNum = (Integer)table.getModel().getValueAt(i, 0);
-            Room room = Hotel.getRoom(roomNum);
+            String username = (String)table.getModel().getValueAt(i, 0);
+
             // if this room is in table
-            if(room.equals(u)) {
+            if(username.equals(u.getAccountUsername())) {
                 return true;
             }
             i++;
@@ -131,7 +121,7 @@ public class ClerkTableModel extends JPanel implements LaunchEditor{
     }
 
     public void updateTable(Clerk c){
-        reloadRooms();
+        reloadClerks();
         // remove unavailable rooms from table
         int i = 0;
         while(i < table.getRowCount()) {
@@ -146,7 +136,7 @@ public class ClerkTableModel extends JPanel implements LaunchEditor{
         }
     }
 
-    public void reloadRooms(){
+    public void reloadClerks(){
         // reload table 
     	int i = 0;
         for (Clerk u : Hotel.getClerkAccounts()){
@@ -176,6 +166,8 @@ public class ClerkTableModel extends JPanel implements LaunchEditor{
                     int modelIndex = viewIndices[i];
                     Object username = model.getValueAt(modelIndex, 0);
                     Hotel.deleteClerk((String) username);
+                    Clerk c = (Clerk) Hotel.searchForAccountByUsername(String.valueOf(username));
+                    //updateTable(c);
                     model.removeRow(modelIndex);
                 }
 
@@ -183,5 +175,7 @@ public class ClerkTableModel extends JPanel implements LaunchEditor{
                 System.out.println("After Clerks: " + Hotel.getClerkAccounts());
             }
         }
+
+
     }
 }

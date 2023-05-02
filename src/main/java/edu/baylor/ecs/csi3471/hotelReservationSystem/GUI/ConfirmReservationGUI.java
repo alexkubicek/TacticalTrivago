@@ -25,8 +25,10 @@ public class ConfirmReservationGUI extends JDialog {
     private final Room room;
     private final Date startDate, endDate;
     private final RoomTableModel table;
+    public boolean success;
 
     public ConfirmReservationGUI(Guest g, Room r, Date s, Date e, RoomTableModel t){
+        success = false;
         guest = g;
         room = r;
         startDate = s;
@@ -49,7 +51,10 @@ public class ConfirmReservationGUI extends JDialog {
             Reservation newReservation = new Reservation(s, e, g, r);
             g.addUpcomingReservations(newReservation);
             table.updateTable(s, e);
-            JOptionPane.showMessageDialog(null, "Reservation made successfully!");
+            JDialog dialog = new JDialog();
+            dialog.setAlwaysOnTop(true);
+            JOptionPane.showMessageDialog(dialog, "Reservation made successfully!");
+            success = true;
             // close dialog
             dispose();
         });

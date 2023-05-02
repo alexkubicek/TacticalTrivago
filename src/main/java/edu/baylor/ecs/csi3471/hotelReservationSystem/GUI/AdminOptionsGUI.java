@@ -58,6 +58,7 @@ public class AdminOptionsGUI extends UserOptions{
 			new UserProfileGUI(myAdmin);
 		} else if(((JButton)e.getSource()).equals(createClerkButton)){
 			new UserProfileGUI(new Clerk());
+			System.out.println("creating clerk");
 		} else if(((JButton)e.getSource()).equals(viewEditClerkButton)){
 			new ViewClerkAccountsGUI(new ClerkTableModel());
 		} else if(((JButton)e.getSource()).equals(getAdminReport)){

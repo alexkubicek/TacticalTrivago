@@ -236,7 +236,7 @@ public class Reservation {
 		return "startDate: " + startDate + ", endDate: " + endDate + ",\n"
 		+ "nights: " + this.getNights()  + ",\n"
 		+ "guest: " + guest.getFullName() + ",\n" 
-		+ "rooms: " + rooms + ",\n"
+		+ "rooms: " + getRoomsString().strip() + ",\n"
 		+ "Total: " + this.calculateTotal() + "\n";
 	}
 	

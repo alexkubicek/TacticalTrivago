@@ -20,6 +20,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.ParseException;
 import java.util.*;
 
@@ -61,7 +63,7 @@ public class MakeReservationGUI {
         return end.after(start);
     }
 
-
+    private JDateChooser startDateChooser, endDateChooser;
     private void createConfirmationDialog(DefaultTableModel model, int modelRow)  {
         // check for valid dates
         if(!datesAreValid()){
@@ -83,7 +85,16 @@ public class MakeReservationGUI {
             return;
         }
 
-        new ConfirmReservationGUI(g, room, startDate, endDate, roomsTable);
+        ConfirmReservationGUI myGUI = new ConfirmReservationGUI(g, room, startDate, endDate, roomsTable);
+        myGUI.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                if(myGUI.success){
+                    startDateChooser.setDate(null);
+                    endDateChooser.setDate(null);
+                }
+            }
+        });
     }
 
     private JPanel createDateSelection(){
@@ -94,9 +105,9 @@ public class MakeReservationGUI {
         JLabel label2 = new JLabel("Select desired check-out date: ");
         label2.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        JDateChooser startDateChooser = new JDateChooser();
+        startDateChooser = new JDateChooser();
         startDateChooser.setDateFormatString("MM/dd/yyyy");
-        JDateChooser endDateChooser = new JDateChooser();
+        endDateChooser = new JDateChooser();
         endDateChooser.setDateFormatString("MM/dd/yyyy");
 
         panel.add(label1);

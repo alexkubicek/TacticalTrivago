@@ -49,7 +49,7 @@ public class AdminReportGUI extends JDialog implements ActionListener {
         gridPanel.add(doneButton, BorderLayout.SOUTH);
 
         add(gridPanel);
-        setSize(500, 600);
+        setSize(800, 600);
         setLocationRelativeTo(null);
         setVisible(true);
     }

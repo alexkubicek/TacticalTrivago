@@ -31,7 +31,7 @@ public class ReservationTableModel extends JPanel implements LaunchEditor{
 
     private static int MAX_RESERVATIONS = 50;
     private static final int NUM_COLUMNS = 5;
-    private static Object[][] reservations = null;
+    private Object[][] reservations = null;
     public ReservationTableModel(){
         super();
         MAX_RESERVATIONS = Hotel.reservations.size();

@@ -30,7 +30,7 @@ public class UpcomingResTableModel extends JPanel implements LaunchEditor{
     private final Guest myGuest;
     private static int MAX_RESERVATIONS = 40;
     private static final int NUM_COLUMNS = 4;
-    private static Object[][] reservations = null;
+    private Object[][] reservations = null;
     public UpcomingResTableModel(Guest g){
         super();
         myGuest = g;
@@ -153,7 +153,8 @@ public class UpcomingResTableModel extends JPanel implements LaunchEditor{
     public void deleteSelected() {
         JDialog dialog = new JDialog();
         dialog.setTitle("Confirm Deletion");
-        dialog.setSize(400, 300);
+        dialog.pack();
+        dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
         JPanel myInfo = new JPanel();
         String text = "Are you sure you want to cancel your reservation?";
