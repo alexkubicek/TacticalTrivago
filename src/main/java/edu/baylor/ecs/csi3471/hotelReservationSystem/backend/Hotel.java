@@ -260,15 +260,6 @@ public class Hotel {
         }
         return list;
     }
-
-    public static Vector<String> getGuests(){
-      Vector<String> myGuests = new Vector<>();
-      accounts.stream().filter(u->u.getClass() == Guest.class).forEach(user->{
-          System.out.println(user.getAccountUsername());
-          myGuests.add(user.getAccountUsername());
-      });
-      return myGuests;
-    }
     public static List<Clerk> getClerks(){
         List<Clerk> myClerks = new ArrayList<>();
         accounts.stream().filter(u->u.getClass() == Clerk.class).forEach(user->{

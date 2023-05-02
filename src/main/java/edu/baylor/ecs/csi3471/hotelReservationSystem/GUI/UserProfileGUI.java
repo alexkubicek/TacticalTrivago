@@ -48,6 +48,13 @@ public class UserProfileGUI extends JDialog implements ActionListener {
     private void setUp(){
         System.out.println("setUp()");
         gridPanel.setLayout(new GridLayout(6, 2, 10, 10));
+        adminIDField.setText(null);
+        usernameField.setText(null);
+        passwordField.setText(null);
+        confirmPasswordField.setText(null);
+        firstNameField.setText(null);
+        lastNameField.setText(null);
+        isCorporate.setSelected(false);
         gridPanel.add(adminIDLabel);
         gridPanel.add(adminIDField);
         gridPanel.add(usernameLabel);
