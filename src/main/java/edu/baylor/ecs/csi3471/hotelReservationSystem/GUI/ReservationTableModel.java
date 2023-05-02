@@ -8,6 +8,8 @@ package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -72,10 +74,32 @@ public class ReservationTableModel extends JPanel implements LaunchEditor{
 
     @Override
     public void launch() {
-        int[] index = table.getSelectedRows();
-        
-        new EditReservationGUI(Hotel.reservations.get(index[0]));
+        int index = table.getSelectedRow();
+        if (index < 0) {
+            JOptionPane.showMessageDialog(this, getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        EditReservationGUI editReservationGUI = new EditReservationGUI(Hotel.reservations.get(index));
+
+        // Listen for window close event and update table accordingly
+        editReservationGUI.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                // If updated is true, update the reservation
+                if (editReservationGUI.isReservationUpdated()) {
+                    Reservation updatedRes = editReservationGUI.getUpdatedReservation();
+                    DefaultTableModel model = (DefaultTableModel) table.getModel();
+                    model.setValueAt(updatedRes.getStartDate(), index, 1);
+                    model.setValueAt(updatedRes.getEndDate(), index, 2);
+                    model.setValueAt(updatedRes.getRoomsString(), index, 3);
+                    model.setValueAt(String.format("$%.2f", updatedRes.calculateTotal()), index, 4);
+                    model.fireTableRowsUpdated(index, index);
+                }
+            }
+        });
     }
+
 
     @Override
     public JTable getTable() {
@@ -89,27 +113,25 @@ public class ReservationTableModel extends JPanel implements LaunchEditor{
 
     @Override
     public void deleteSelected() {
-        JDialog dialog = new JDialog();
-        dialog.setTitle("Confirm Deletion");
-        dialog.setSize(400, 300);
-        dialog.setVisible(true);
-        JPanel myInfo = new JPanel();
-        String text = "Are you sure you want to cancel ";
         int index = table.getSelectedRow();
-        text += table.getValueAt(index, 0) + "'s reservation?";
-        JLabel myText = new JLabel(text);
-        JButton confirm = new JButton("Confirm cancellation");
-        myInfo.add(myText);
-        myInfo.add(confirm);
-        confirm.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Hotel.reservations.remove(index);
-                JOptionPane.showMessageDialog(null, "Reservation successfully deleted");
-                dialog.dispose();
-            }
-        });
+        if (index < 0) {
+            JOptionPane.showMessageDialog(this, getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(null,
+                "Are you sure you want to cancel " + table.getValueAt(index, 0) + "'s reservation?",
+                "Confirm Deletion",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            Hotel.reservations.remove(index);
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            model.removeRow(index);
+            JOptionPane.showMessageDialog(null, "Reservation successfully deleted");
+        }
     }
+
     
 }
 

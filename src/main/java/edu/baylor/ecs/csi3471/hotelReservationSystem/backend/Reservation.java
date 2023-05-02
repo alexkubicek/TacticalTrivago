@@ -177,6 +177,9 @@ public class Reservation {
 		}
 		if(nights == null){
 			nights = (int)((endDate.getTime() - startDate.getTime()) / (1000*60*60*24));
+			if (nights == 0){
+				nights++;
+			}
 		}
 		return rate * nights;
 	}
