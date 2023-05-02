@@ -306,5 +306,9 @@ public class Hotel {
       }
       return false;
     }
+
+    public static void removeReservation(Reservation r){
+      reservations.remove(r);
+    }
     
 }
