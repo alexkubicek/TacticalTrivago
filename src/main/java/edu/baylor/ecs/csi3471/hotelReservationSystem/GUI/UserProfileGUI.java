@@ -223,7 +223,7 @@ public class UserProfileGUI extends JDialog implements ActionListener {
                 return;
             }
             String newUsername = usernameField.getText();
-            if(!Hotel.isUsernameUnique(newUsername)){
+            if(!Objects.equals(newUsername, myUser.getAccountUsername()) && !Hotel.isUsernameUnique(newUsername)){
                 JOptionPane.showMessageDialog(UserProfileGUI.this, "Username is not unique.");
                 fieldError = true;
                 return;
@@ -250,6 +250,7 @@ public class UserProfileGUI extends JDialog implements ActionListener {
         System.out.println(Hotel.accounts);
         myUser.updateFromProfileGUI(this);
         if(fieldError){
+            this.dispose();
             return;
         }
         System.out.println(Hotel.accounts);
@@ -258,6 +259,7 @@ public class UserProfileGUI extends JDialog implements ActionListener {
             message = message.replace("Updated", "Created");
         }
         JOptionPane.showMessageDialog(UserProfileGUI.this, message);
+        System.out.println("dialog shown");
         successful = true;
         this.dispose();
     }

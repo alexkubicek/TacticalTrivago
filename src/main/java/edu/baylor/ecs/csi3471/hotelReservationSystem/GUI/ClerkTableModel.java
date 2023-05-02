@@ -100,7 +100,6 @@ public class ClerkTableModel extends JPanel implements LaunchEditor{
         for(User u: Hotel.accounts){
             if(u.getAccountUsername().equals(username)){
                 u.launchProfile();
-                return;
             }
         }
     }
