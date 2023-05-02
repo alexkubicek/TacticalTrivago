@@ -31,6 +31,7 @@ public class Hotel {
   public void setPastPayments(List<Payment> pastPayments) {this.pastPayments = pastPayments;}
   public static List<User> getAccounts() {return accounts;}
   public void setAccounts(List<User> accounts) {this.accounts = accounts;}
+  private static List<Integer> adminIDs = new ArrayList<>();
 
   public static void addAccounts(List<? extends User> accounts) {
     if(Hotel.accounts == null) {
@@ -210,7 +211,6 @@ public class Hotel {
       return false;
     }
     return true;
-
   }
 
   public static User login(final String user, final String pass) {

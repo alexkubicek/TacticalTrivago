@@ -36,7 +36,6 @@ public class Clerk extends User {
 		new UserProfileGUI(this);
 	}
 	public void login(){
-		//TODO launch ClerkOptionsGUI once created
 		gui = new ClerkOptionsGUI(this);
 	}
 
