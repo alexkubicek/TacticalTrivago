@@ -30,7 +30,7 @@ public class GuestOptionsGUI extends UserOptions {
 		myButtons.add(paymentButton);
 		myButtons.add(Logout);
 	}
-	private Guest myGuest;
+	private final Guest myGuest;
 
 	public GuestOptionsGUI(Guest g) {
 		super(myButtons, g.getNameFirst());
