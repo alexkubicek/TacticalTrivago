@@ -50,6 +50,7 @@ public class EnterGuestInfoGUI {
         foundDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         foundDialog.setSize(200, 150);
         foundDialog.setTitle("Guest Found!");
+        foundDialog.setLocationRelativeTo(null);
         foundDialog.add(displayFoundGuest());
         JButton confirm = new JButton("Confirm");
         confirm.addActionListener(new ActionListener() {
