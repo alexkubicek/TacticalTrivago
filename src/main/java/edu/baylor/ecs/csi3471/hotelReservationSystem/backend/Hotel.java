@@ -218,18 +218,15 @@ public class Hotel {
           new LoginFailurePopupGUI();
       }
 
-      for(User u: accounts){
-          System.out.println(u);
+      for (User u : accounts) {
           AccountInformation cur_account = u.getAccountInformation();
-          if(Objects.equals(cur_account.getUsername(), user)) {
-              if(Objects.equals(cur_account.getPassword(), pass)) {
-                  return u;
-          } else {
-              new LoginFailurePopupGUI();
-              return null;
+          if (Objects.equals(cur_account.getUsername(), user) &&
+                  Objects.equals(cur_account.getPassword(), pass)) {
+              return u;
           }
-        }
       }
+
+      new LoginFailurePopupGUI();
       return null;
   }
 

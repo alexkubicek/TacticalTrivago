@@ -212,6 +212,7 @@ public class UserProfileGUI extends JDialog implements ActionListener {
         System.out.println("guest update");
         fillFromStandardFields();
         if(fieldError){
+            dispose();
             return;
         }
         g.setCorporate(isCorporate.isSelected());
@@ -255,6 +256,7 @@ public class UserProfileGUI extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         fieldError = false;
         System.out.println(Hotel.accounts);
+
         myUser.updateFromProfileGUI(this);
         if(fieldError){
             this.dispose();

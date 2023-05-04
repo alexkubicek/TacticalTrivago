@@ -101,7 +101,7 @@ public class LoginPageGUI extends JFrame implements ActionListener {
         String text = ((JButton) e.getSource()).getText();
         if(Objects.equals(text, "Create Account")) {
             Guest myNewGuest = new Guest();
-            new UserProfileGUI(myNewGuest);
+            new CreateNewGuestGUI(myNewGuest);
         } else if(Objects.equals(text, "Login")) {
             if (usernameField.getText().isEmpty() ||
                 passwordField.getPassword().length == 0) {
@@ -115,6 +115,7 @@ public class LoginPageGUI extends JFrame implements ActionListener {
             if(me != null){
                 this.setVisible(false);
                 me.launchOptions();
+                this.dispose();
             } else {
                 new LoginFailurePopupGUI();
             }
