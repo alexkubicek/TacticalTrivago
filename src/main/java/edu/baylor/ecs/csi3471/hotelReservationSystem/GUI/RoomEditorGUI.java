@@ -20,7 +20,7 @@ public class RoomEditorGUI extends JFrame implements ActionListener {
     JCheckBox smokingCheckBox;
     JFormattedTextField bedNumField;
     JComboBox qualityLevelDropDown, bedTypeDropDown, comboBox;
-    private Room associatedRoom;
+    private final Room associatedRoom;
     private boolean isUpdated = false;
 
     private static final JButton confirmButton = new JButton("Confirm");

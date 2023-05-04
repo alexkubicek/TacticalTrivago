@@ -31,12 +31,12 @@ public class UserProfileGUI extends JDialog implements ActionListener {
     protected static final JLabel firstNameLabel = new JLabel("First Name:");
     protected static final JLabel lastNameLabel = new JLabel("Last Name:");
     protected static final JFormattedTextField adminIDField = new JFormattedTextField(NumberFormat.getIntegerInstance());
-    protected static final JTextField usernameField = new JTextField();
-    protected static final JTextField firstNameField = new JTextField();
-    protected static final JTextField lastNameField = new JTextField();
-    protected static final JPasswordField passwordField = new JPasswordField();
-    protected static final JPasswordField confirmPasswordField = new JPasswordField();
-    protected static final JCheckBox isCorporate = new JCheckBox("Corporate");
+    protected final JTextField usernameField = new JTextField();
+    protected final JTextField firstNameField = new JTextField();
+    protected final JTextField lastNameField = new JTextField();
+    protected final JPasswordField passwordField = new JPasswordField();
+    protected final JPasswordField confirmPasswordField = new JPasswordField();
+    protected final JCheckBox isCorporate = new JCheckBox("Corporate");
     protected static final JButton confirmButton = new JButton("Confirm");
     protected User myUser;
     protected final JPanel fullPanel = new JPanel();
@@ -212,6 +212,7 @@ public class UserProfileGUI extends JDialog implements ActionListener {
         System.out.println("guest update");
         fillFromStandardFields();
         if(fieldError){
+            dispose();
             return;
         }
         g.setCorporate(isCorporate.isSelected());
@@ -255,6 +256,7 @@ public class UserProfileGUI extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         fieldError = false;
         System.out.println(Hotel.accounts);
+
         myUser.updateFromProfileGUI(this);
         if(fieldError){
             this.dispose();

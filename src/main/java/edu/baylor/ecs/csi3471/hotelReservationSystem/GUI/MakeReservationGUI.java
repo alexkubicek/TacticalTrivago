@@ -28,9 +28,9 @@ import java.util.*;
 import static edu.baylor.ecs.csi3471.hotelReservationSystem.backend.DateHelper.getDateWithoutTime;
 
 public class MakeReservationGUI {
-    private RoomTableModel roomsTable;
+    private final RoomTableModel roomsTable;
     private Date startDate = null, endDate = null;
-    private Guest g;
+    private final Guest g;
 
     /**
      * @param g - guest you want to make reservations for
@@ -42,7 +42,7 @@ public class MakeReservationGUI {
     }
 
     private boolean datesAreValid(){
-        Date today = null, start = null, end = null;
+        Date today, start, end;
         if(startDate == null || endDate == null){
             return false;
         }

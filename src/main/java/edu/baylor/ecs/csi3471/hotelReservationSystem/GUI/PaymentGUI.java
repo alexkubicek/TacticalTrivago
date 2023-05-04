@@ -36,23 +36,21 @@ import java.awt.event.ActionListener;
 import java.sql.Date;
 
 public class PaymentGUI extends JFrame implements ActionListener {
-    private static final JLabel nameLabel = new JLabel("Name on card:");
-    private static final JTextField nameField = new JTextField();
-    private static final JLabel cardNumLabel = new JLabel("Card Number:");
-    private static final JTextField cardNumField = new JTextField();
-    private static final JLabel expirationLabel = new JLabel("expiration");
-    //private static final JFormattedTextField expirationField = new JFormattedTextField();
+    private final JTextField nameField = new JTextField();
+    private final JTextField cardNumField = new JTextField();
     private static JComboBox<String> monthComboBox;
     private static JComboBox<String> yearComboBox;
-    private static final JLabel cvvLabel = new JLabel("CVV:");
     private static final JTextField cvvField = new JTextField(3);
 
-    private JTextField buildingNumField, zipCodeField, streetField, cityField;
+    private final JTextField buildingNumField;
+    private final JTextField zipCodeField;
+    private final JTextField streetField;
+    private final JTextField cityField;
 
-    private JTextField cardNumberField1, cardNumberField2, cardNumberField3, cardNumberField4;
-    private JComboBox<String> stateComboBox;
-    private JButton saveButton, cancelButton;
-    private Guest guest;
+    private final JComboBox<String> stateComboBox;
+    private final JButton saveButton;
+    private final JButton cancelButton;
+    private final Guest guest;
 
     public PaymentGUI(Guest guest) {
         this.guest = guest;

@@ -24,12 +24,7 @@ public class LoginFailurePopupGUI extends JFrame {
         setTitle("Login Failed");
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         
-        Timer timer = new Timer(5000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+        Timer timer = new Timer(5000, e -> dispose());
         timer.setRepeats(false);
         timer.start();
         

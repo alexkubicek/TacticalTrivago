@@ -70,7 +70,7 @@ public class RoomTableModel extends JPanel implements LaunchEditor {
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane);
         // add filters for each column
-        TableFilterHeader filterHeader = new TableFilterHeader(table, AutoChoices.ENABLED);
+        new TableFilterHeader(table, AutoChoices.ENABLED);
     }
 
     private void loadRoomsIntoTable(List<Room> roomList){

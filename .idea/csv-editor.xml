@@ -3,6 +3,20 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+        <entry key="/src/main/resources/TacticalTrivagoAdmins.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/TacticalTrivagoClerks.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/src/main/resources/TacticalTrivagoGuests.csv">
           <value>
             <Attribute>
@@ -10,7 +24,42 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/src/main/resources/TacticalTrivagoReservations.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/TacticalTrivagoRooms.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/src/main/resources/cards.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/src/main/resources/empty.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/target/classes/TacticalTrivagoGuests.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/target/classes/TacticalTrivagoReservations.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

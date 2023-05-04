@@ -6,15 +6,10 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -54,7 +49,7 @@ public class ReservationTableModel extends JPanel implements LaunchEditor{
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane);
         // add filters for each column
-        TableFilterHeader filterHeader = new TableFilterHeader(table, AutoChoices.ENABLED);
+        new TableFilterHeader(table, AutoChoices.ENABLED);
     }
     public void loadReservationsIntoTable(List<Reservation> reservationList) {
         int i = 0;

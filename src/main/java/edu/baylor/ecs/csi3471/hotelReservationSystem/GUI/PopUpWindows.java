@@ -5,12 +5,11 @@
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
 import javax.swing.*;
-import javax.swing.plaf.ButtonUI;
 import java.awt.*;
 
 public class PopUpWindows extends JFrame {
 
-    private String text;
+    private final String text;
 
     public PopUpWindows(String text) throws HeadlessException {
         this.text = text;

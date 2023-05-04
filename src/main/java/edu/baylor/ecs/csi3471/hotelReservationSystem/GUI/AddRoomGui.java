@@ -5,7 +5,6 @@
 */
 package edu.baylor.ecs.csi3471.hotelReservationSystem.GUI;
 
-
 import javax.swing.*;
 
 import edu.baylor.ecs.csi3471.hotelReservationSystem.backend.BedType;
@@ -22,13 +21,12 @@ import java.awt.event.ActionListener;
  */
 public class AddRoomGui {
 
-    private JFrame frame;
-    private JTextField roomNumberField;
-    private JComboBox<String> bedCountField;
-    private JComboBox<String> bedSizeField;
-    private JComboBox<String> qualityField;
-    private JCheckBox smokingField;
-    private JTextField rateField;
+    private final JFrame frame;
+    private final JTextField roomNumberField;
+    private final JComboBox<String> bedCountField;
+    private final JComboBox<String> bedSizeField;
+    private final JComboBox<String> qualityField;
+    private final JCheckBox smokingField;
 
     public AddRoomGui() {
         frame = new JFrame("Room Management");
