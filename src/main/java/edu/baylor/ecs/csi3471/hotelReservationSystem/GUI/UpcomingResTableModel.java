@@ -15,6 +15,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -88,7 +89,7 @@ public class UpcomingResTableModel extends JPanel implements LaunchEditor{
                 public void windowClosed(WindowEvent e) {
                     //If updated is true, update the reservation
                     if(editReservationGUI.isReservationUpdated()){
-                    	 Reservation updatedRes = editReservationGUI.getUpdatedReservation(); 
+                    	 Reservation updatedRes = editReservationGUI.getUpdatedReservation();
                          int index = table.getSelectedRow();
                          DefaultTableModel model = (DefaultTableModel) table.getModel();
                          model.setValueAt(updatedRes.getStartDate(), index, 0);
@@ -111,40 +112,81 @@ public class UpcomingResTableModel extends JPanel implements LaunchEditor{
     public String getMessage() {
         return "No reservation selected";
     }
-    
-   
+
     @Override
     public void deleteSelected() {
-        JDialog dialog = new JDialog();
-        dialog.setTitle("Confirm Deletion");
-        dialog.pack();
-        dialog.setLocationRelativeTo(null);
-        dialog.setVisible(true);
-        JPanel myInfo = new JPanel();
-        String text = "Are you sure you want to cancel your reservation?";
         int index = table.getSelectedRow();
-        JLabel myText = new JLabel(text);
-        JButton confirm = new JButton("Confirm cancellation");
-        myInfo.add(myText);
-        myInfo.add(confirm);
-        dialog.add(myInfo);
+        if (index < 0 || index >= Hotel.reservations.size()) {
+            JOptionPane.showMessageDialog(null, "No reservation selected");
+            return;
+        }
 
-        confirm.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	if (index >= 0 && index < Hotel.reservations.size()) {
-                    Reservation toRemove = Hotel.getReservationsByGuestName(myGuest.getAccountUsername()).get(index);
-                    Hotel.removeReservation(toRemove);
-                    myGuest.removeReservation(toRemove);
-            	    ((DefaultTableModel) table.getModel()).removeRow(index);
-            	    JOptionPane.showMessageDialog(null, "Reservation successfully deleted");
-            	    dialog.dispose();
-            	} else {
-            	    JOptionPane.showMessageDialog(null, "No reservation selected");
-            	}
+        Reservation reservation = Hotel.getReservationsByGuestName(myGuest.getAccountUsername()).get(index);
+        Date checkInDate = reservation.getStartDate();
+        Date cancellationDate = new Date(); // or replace with actual cancellation date
 
-            }
-        });
+        long timeDifference = checkInDate.getTime() - cancellationDate.getTime();
+        long daysDifference = TimeUnit.MILLISECONDS.toDays(timeDifference);
+
+        double cancellationCharge = 0;
+        if (daysDifference < 7) {
+            cancellationCharge = reservation.getRate() * reservation.getNights() / 2;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(null,
+                "Are you sure you want to cancel your reservation?\nCancellation charge: $" + cancellationCharge,
+                "Confirm Deletion", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            Hotel.removeReservation(reservation);
+            myGuest.removeReservation(reservation);
+            ((DefaultTableModel) table.getModel()).removeRow(index);
+            JOptionPane.showMessageDialog(null, "Reservation successfully cancelled");
+        }
     }
+//    @Override
+//    public void deleteSelected() {
+//        JDialog dialog = new JDialog();
+//        dialog.setTitle("Confirm Deletion");
+//        dialog.pack();
+//        dialog.setLocationRelativeTo(null);
+//        dialog.setVisible(true);
+//        JPanel myInfo = new JPanel();
+//        String text = "Are you sure you want to cancel your reservation?";
+//        int index = table.getSelectedRow();
+//        JLabel myText = new JLabel(text);
+//        JButton confirm = new JButton("Confirm cancellation");
+//        myInfo.add(myText);
+//        myInfo.add(confirm);
+//        dialog.add(myInfo);
+//
+//        confirm.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//            	if (index >= 0 && index < Hotel.reservations.size()) {
+//                    Reservation toRemove = Hotel.getReservationsByGuestName(myGuest.getAccountUsername()).get(index);
+//                    Date checkInDate = toRemove.getStartDate();
+//                    Date cancellationDate = new Date();
+//
+//                    long timeDifference = checkInDate.getTime() - cancellationDate.getTime();
+//                    long daysDifference = TimeUnit.MILLISECONDS.toDays(timeDifference);
+//
+//                    if (daysDifference < 7) {
+//                        double cancellationCharge = 0;
+//                        cancellationCharge = toRemove.getRate() * toRemove.getNights() / 2;
+//
+//                    }
+//
+//                    Hotel.removeReservation(toRemove);
+//                    myGuest.removeReservation(toRemove);
+//            	    ((DefaultTableModel) table.getModel()).removeRow(index);
+//            	    JOptionPane.showMessageDialog(null, "Reservation successfully deleted");
+//            	    dialog.dispose();
+//            	} else {
+//            	    JOptionPane.showMessageDialog(null, "No reservation selected");
+//            	}
+//
+//            }
+//        });
+//    }
 
 }

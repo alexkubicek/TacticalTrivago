@@ -81,20 +81,6 @@ public class Reservation {
 		Hotel.rooms.stream().filter((room)->roomNums.contains(room.getRoomNumber())).forEach(rooms::add);
 		return new Reservation(start, end, g, rooms);
 	}
-
-	public void applyExtendedStayDiscount() {
-		int stayLength = getNights();
-		double baseRate = getRate();
-		double discountRate = 1.0;
-
-		// Apply a 10% discount for stays of 5 nights or more, and a 20% discount for stays of 7 nights or more
-		if (stayLength >= 5 && stayLength < 7) {
-			discountRate = 0.9;
-		} else if (stayLength >= 7) {
-			discountRate = 0.8;
-		}
-		setRate(baseRate * discountRate);
-	}
 	
 	//getters and setters
 	public Date getStartDate() {
