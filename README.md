@@ -16,7 +16,8 @@ Team Members:
 2. Navigate to the root directory of the source code using `cd ./TacticalTrivago`
 3. Install Maven on your system. You can download Maven from the [official website](https://maven.apache.org/download.cgi "Maven Website")
 4. Verify that Maven is installed correctly by running the following command in your terminal:`mvn -version`
-  - This command should display the version of Maven you have installed.
+    - This command should display the version of Maven you have installed.
 5. Install the required dependencies using Maven by running the following command:`mvn install`
 6. Build the project using the following command:`mvn package`
-7. Run application using `java -cp target/hotelReservationSystem-0.0.1-SNAPSHOT.jar edu.baylor.ecs.csi3471.hotelReservationSystem`
+7. Run application using the following command:
+    `java -cp target/hotelReservationSystem-0.0.1-SNAPSHOT.jar edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.Driver`
