@@ -19,5 +19,5 @@ Team Members:
     - This command should display the version of Maven you have installed.
 5. Install the required dependencies using Maven by running the following command:`mvn install`
 6. Build the project using the following command:`mvn package`
-7. Run application using the following command:
-```java -cp target/hotelReservationSystem-0.0.1-SNAPSHOT.jar edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.Driver```
+7. Run application using the following command:```
+java -cp target/hotelReservationSystem-0.0.1-SNAPSHOT.jar edu.baylor.ecs.csi3471.hotelReservationSystem.GUI.Driver```
