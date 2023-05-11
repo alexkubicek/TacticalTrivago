@@ -22,7 +22,7 @@ cd ./TacticalTrivago
 ```
 mvn -version
 ```
-    - This command should display the version of Maven you have installed.
+- This command should display the version of Maven you have installed.
 6. Install the required dependencies using Maven by running the following command:
 ```
 mvn install
