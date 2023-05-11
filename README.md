@@ -9,3 +9,7 @@ Team Members:
 - Tristan Brown
 
 ## Hotel Reservation System
+
+### How to Run the Application
+
+1. Navigate to root directory using `cd TacticalTrivago`
