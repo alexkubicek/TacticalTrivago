@@ -14,7 +14,7 @@ Team Members:
 
 1. Download the source code from the repository on GitHub.
 2. Navigate to the root directory of the source code called `TacticalTrivago`.
-> `cd ./TacticalTrivago`
+`cd ./TacticalTrivago`
 3. Install Maven on your system. You can download Maven from the [official website](https://maven.apache.org/download.cgi)
 4. Verify that Maven is installed correctly by running the following command in your terminal:
 > `mvn -version`
